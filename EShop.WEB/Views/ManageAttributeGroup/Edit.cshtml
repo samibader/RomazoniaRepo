@@ -1,0 +1,110 @@
+﻿@using EShop.WEB.Models;
+@model AttributeGroupVM
+@{
+    ViewBag.Title = "تعديل مجموعة واصفات";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                <a id="btn-edit" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Save"><i class="fa fa-save"></i></a>
+                <a href="@Url.Action("Index","ManageAttributeGroup")" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a>
+            </div>
+            <h1>تعديل مجموعة واصفات</h1>
+            <ul class="breadcrumb">
+                <li><a href="#">Home</a></li>
+                <li><a href="@Url.Action("Index","ManageAttributeGroup")">مجموعات الواصفات</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> تعديل مجموعة واصفات</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" id="form-attribute-group" class="form-horizontal">
+                    <div class="form-group required">
+                        @Html.HiddenFor(c => c.Id, new {Id="hid-id" })
+                        <label class="col-sm-2 control-label">اسم مجموعة الواصفات</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><img src="~/Assets/images/flag-arabic.jpg" title="العربية"></span>
+                                @*<input type="text" name="attribute_group_description[1][name]" value="" placeholder="Attribute Group Name" class="form-control">*@
+                                @Html.TextBoxFor(c => c.ArabicName, new { @class = "form-control", placeholder = "اسم مجموعة الواصفات" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label">Attribute Group Name</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><img src="~/Assets/images/flag-english.jpg" title="English"></span>
+                                @*<input type="text" name="attribute_group_description[1][name]" value="" placeholder="Attribute Group Name" class="form-control">*@
+                                @Html.TextBoxFor(c => c.EnglishName, new { @class = "form-control", placeholder = "Attribute Group Name" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-sort-order">ترتيب الفرز</label>
+                        <div class="col-sm-10">
+                            @*<input type="text" name="sort_order" value="" placeholder="Sort Order" id="input-sort-order" class="form-control">*@
+                            @Html.TextBoxFor(c => c.SortOrder, new { @class = "form-control", placeholder = "ترتيب الفرز" })
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+
+        function refreshPage() {
+            $.ajax({
+                url: '@Url.Action("Edit", "ManageAttributeGroup")',
+                method: 'Get',
+                data:{Id :$('#hid-id').val()},
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+        $('#btn-edit').on('click', function (e) {
+            e.preventDefault();
+            var form = $("#form-attribute-group");
+            //form.validate({
+            //    ignore: ":hidden"
+            //});
+            if (form.valid() == false) {
+                generateFlash('error', "يرجى التحقق من القيم المدخلة أو ادخال الحقول المطلوبة");
+                return;
+            }
+            // $('#form-category').submit();
+            $.ajax({
+                url: '@Url.Action("Edit","ManageAttributeGroup")',
+                method: 'POST',
+                data: $('#form-attribute-group').serialize(),
+                success: function (data) {
+                    if (data.Succedeed != null) {
+                        refreshPage();
+                        if (data.Succedeed == true) {
+
+                            generateFlash('success', data.message);
+                        }
+                        else {
+                            generateFlash('error', data.message);
+                        }
+                    } else {
+
+                        $('#content').html($(data).find('#content').html());
+                        console.log('');
+                        generateFlash('error', 'الرجاء تعبئة جميع الحقول المطلوبة');
+                    }
+                }
+            });
+        });
+
+    </script>
+</div>
+

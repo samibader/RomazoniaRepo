@@ -1,0 +1,127 @@
+﻿@model InstagramApp.Web.Models.GeolocationViewModel
+@{
+    ViewBag.Title = "الموقع الجغرافي";
+    Layout = "~/Views/Shared/_DashLayout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">الرئيسية</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>تحديد الموقع الجغرافي على الخريطة</h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("PinLocation", "Manage", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.CountryId, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(m => m.CountryId, StaticHelper.CountrySelectList(Model.CountryId), new { @class = "form-control", @style = "font-family: 'Droid Arabic Naskh', 'Montserrat', sans-serif;" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.City, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                            </div>
+                        </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-9">
+            @Html.TextAreaFor(m => m.Address, new { @class = "form-control",@style="height:100px" })
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-sm-3 control-label">الموقع على الخريطة
+        <br />
+            <small class="text-navy">قم بتحريك الأيقونة <img src="~/galleria/img/store.png" /> ووضعها في المكان المناسب</small>
+        </label> 
+        
+        <div class="col-sm-9">
+            <div id="map_canvas" style="width: auto; height: 480px;">
+            </div>
+            @Html.HiddenFor(m => m.Lat)
+            @Html.HiddenFor(m=>m.Lng)
+        </div>
+    </div>
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit">حفظ التعديلات</button>
+                            </div>
+                        </div>
+                    }
+                   @*<div class="google-map" id="map1"></div>*@
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <!--
+     You need to include this script on any page that has a Google Map.
+     When using Google Maps on your own site you MUST signup for your own API key at:
+     https://developers.google.com/maps/documentation/javascript/tutorial#api_key
+     After your sign up replace the key in the URL below..
+    -->
+    @Scripts.Render("https://maps.googleapis.com/maps/api/js?key=AIzaSyDQTpXj82d8UpCi97wzo_nKXL7nYrd4G70")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            initialize();
+        });
+        var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+        var icons = {
+            parking: {
+                icon: iconBase + 'parking_lot_maps.png'
+            },
+            library: {
+                icon: iconBase + 'library_maps.png'
+            },
+            info: {
+                icon: iconBase + 'info-i_maps.png'
+            }
+        };
+        function initialize() {
+            var mapOptions = {
+                center: new google.maps.LatLng(document.getElementById('Lat').value, document.getElementById('Lng').value),
+                zoom: 5,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"),
+              mapOptions);
+            // create a marker
+            var latlng = new google.maps.LatLng(document.getElementById('Lat').value, document.getElementById('Lng').value);
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map,
+                title: 'Store Location',
+                draggable: true,
+                icon: '@Url.Content("~/galleria/img/store.png")'
+            });
+            google.maps.event.addListener(
+            marker,
+            'drag',
+            function () {
+                document.getElementById('Lat').value = marker.position.lat();
+                document.getElementById('Lng').value = marker.position.lng();
+            }
+        );
+        }
+    </script>
+}

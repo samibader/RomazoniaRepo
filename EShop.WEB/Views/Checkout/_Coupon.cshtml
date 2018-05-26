@@ -1,0 +1,33 @@
+﻿@model EShop.BLL.DTO.CouponDTO
+@{
+    ViewBag.Title = "الكوبون";
+}
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading ">
+                    <label>الكوبون</label>
+                </div>
+
+                <div class="panel-body" style="min-height: 50px;">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label>رمز تفعيل الكوبون</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" value="@Model.Code" name="copun-text" id="coupon-text" style="width:100%" />
+                        </div>
+                        <div class="col-md-2"> <button class="btn btn-success" id="applyCoupon">تفعيل</button></div>
+                        <div class="col-md-2" id="coupon-amount">@(Model.Value>0?(Model.IsPercentage?Model.Value+"%":"- "+Model.ValueDisplay):"") </div>
+                    </div>
+                </div>
+                <div class="panel-footer" style="text-align:center">
+                    <button class="btn btn-success" id="continue-to-address">المتابعة</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@*<script>
+    bindCoupon();
+</script>*@

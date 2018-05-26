@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "Test";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Test</h2>
+<link href="~/Content/basic.css" rel="stylesheet" />
+<link href="~/Content/dropzone.css" rel="stylesheet" />
+<script src="~/Content/dropzone.js"></script>
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <fieldset>
+                <h4>تحميل صور للمنتج</h4>
+                <div class="row">
+                    <div class="col-md-8">
+                        <form action="@Url.Action("UploadFiles", "Base")" method="post" enctype="multipart/form-data">
+                            <table style="border: 1px solid black; ">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td></td>
+                                    <td style="width:20%">
+                                        <div id="my-awesome-dropzone" class="dropzone">
+                                            <div class="dropzone-previews"></div>
+                                            <div class="text-center">
+                                                <div style="margin-bottom: 10px">
+                                                    <button type="submit" class="btn btn-primary btn-block" form="my-awesome-dropzone">
+                                                        <i class="fa fa-upload"></i> &nbsp;
+                                                        رفع الصور المختارة
+                                                        &nbsp;<i class="fa fa-upload"></i>
+                                                    </button>
+                                                    @*<span>الرجاء النقر على اي مكان في المربع لاختيار الصور</span>*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                  
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+
+                </div>
+
+            </fieldset>
+            <script>
+                Dropzone.options.myAwesomeDropzone = {
+                    url: '@Url.Action("UploadFiles","Base")',
+                    autoProcessQueue: false,
+                    parallelUploads: 100,
+                    maxFiles: 5,
+                    maxFilesize: 2,
+                    paramName: "files",
+                    addRemoveLinks: true,
+                    acceptedFiles: "image/*",
+                    dictRemoveFile: "إلغاء",
+                    dictFileTooBig: "حجم الملف أكبر من الحد المطلوب",
+                    dictMaxFilesExceeded: "لا يمكنك تحميل أكثر من 5 ملفات إضافية",
+                    // Dropzone settings
+                    success: function (file, response) {
+                        file.previewElement.classList.add("dz-success");
+                        file.serverId = response;
+                        console.log(response);
+                       // alert(file.name);
+                        //AddImage(response);
+                    },
+                    removedfile: function (file) {
+                        var image = file.serverId;
+                        $.ajax({
+                            type: 'POST',
+                            url: '@Url.Action("DeleteUploadedImage", "Base")',
+                            data: { name: image.name },
+                            dataType: 'html',
+                            success: function (data) {
+
+                            }
+
+                        });
+                        //RemoveImage(name);
+                        var _ref;
+                        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+                    },
+                    init: function () {
+                        var myDropzone = this;
+
+                        this.element.querySelector("button[type=submit]").addEventListener("click", function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            myDropzone.processQueue();
+                        });
+                        this.on("sendingmultiple", function () {
+                        });
+                        this.on("successmultiple", function (files, response) {
+                           // alert(response);
+                        });
+                        this.on("errormultiple", function (files, response) {
+                        });
+
+                    }
+
+                };
+
+            </script>
+        </div>
+    </div>
+</div>

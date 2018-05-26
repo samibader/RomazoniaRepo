@@ -1,0 +1,398 @@
+﻿@model EShop.WEB.Models.AddCategoryVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "إضافة فئة";
+}
+
+<div id="content">
+
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                <button id="save-cat" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="حفظ"><i class="fa fa-save"></i></button>
+                <a id="cancel" href="@Url.Action("Index","ManageCategory")" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="إالغاء"><i class="fa fa-reply"></i></a>
+            </div>
+
+            <h1>الفئات</h1>
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index","DashBoard")">الرئيسية</a></li>
+                <li><a href="@Url.Action("Index","ManageCategory")">الفئات</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> إضافة فئة</h3>
+                @Html.ValidationSummary("", new { @class = "val-error" })
+            </div>
+            <div class="panel-body">
+                <form method="post" id="form-category" class="form-horizontal">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab-general" data-toggle="tab">عام</a></li>
+                        <li class=""><a href="#tab-data" data-toggle="tab">البيانات</a></li>
+                        @*<li class=""><a href="#tab-design" data-toggle="tab">التصميم</a></li>*@
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-general">
+                            <ul class="nav nav-tabs" id="language">
+                                <li class="active"><a href="#language2" data-toggle="tab"><img src="~/Assets/images/flag-arabic.jpg" title="English"> العربية</a></li>
+                                <li class=""><a href="#language1" data-toggle="tab"><img src="~/Assets/images/flag-english.jpg" title="English"> English</a></li>
+                                
+                            </ul>
+                            <div class="tab-content ">
+                                <div style="direction:ltr" class="tab-pane " id="language1">
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-cat-en">Category Name</label>
+                                        <div class="col-sm-10 ">
+                                            @*<input type="text" name="EnglishName" value="@Model.Category.EnglishName" placeholder="Category Name" id="input-cat-en" class="form-control">*@
+                                            @Html.TextBoxFor(c => c.Category.EnglishName, new { @class = "form-control", placeholder = "Category Name", id = "input-cat-en" })
+
+                                            @Html.ValidationMessageFor(c => c.Category.EnglishName, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-description-en">Description</label>
+                                        <div class="col-sm-10">
+
+                                            @Html.TextAreaFor(c => c.Category.EnglishDescription, new { @class = "form-control summer-en", placeholder = "Category Description", id = "input-description-en" })
+                                            @Html.ValidationMessageFor(c => c.Category.EnglishDescription, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-meta-title1">Meta Description</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextAreaFor(c => c.Category.EnglishMetaDescription, new { @class = "form-control summer-meta-en", placeholder = "Category Meta Description", id = "input-meta-description-en" })
+                                            @Html.ValidationMessageFor(c => c.Category.EnglishMetaDescription, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-description1">Meta Tag Description</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="category_description[1][meta_description]" rows="5" placeholder="Meta Tag Description" id="input-meta-description1" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-keyword1">Meta Tag Keywords</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="category_description[1][meta_keyword]" rows="5" placeholder="Meta Tag Keywords" id="input-meta-keyword1" class="form-control"></textarea>
+                                        </div>
+                                    </div>*@
+                                </div>
+                                <div id="language2" class="tab-pane active">
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-name-ar">أسم الفئة</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(c => c.Category.ArabicName, new { @class = "form-control", placeholder = "اسم الفئة", id = "input-cat-ar" })
+                                            @Html.ValidationMessageFor(c => c.Category.ArabicName, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-description-ar">الوصف</label>
+                                        <div class="col-sm-10">
+
+                                            @Html.TextAreaFor(c => c.Category.ArabicDescription, new { @class = "form-control summer-ar", placeholder = "وصف الفئة", id = "input-description-ar" })
+
+                                            @Html.ValidationMessageFor(c => c.Category.ArabicDescription, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-meta-title2">وصف معلومات الفئة</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextAreaFor(c => c.Category.ArabicMetaDescription, new { @class = "form-control summer-meta-ar", placeholder = "وصف معلومات الفئة", id = "input-meta-description-ar" })
+
+                                            @Html.ValidationMessageFor(c => c.Category.ArabicMetaDescription, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    @*<div class="form-group">
+                <label class="col-sm-2 control-label" for="input-meta-description2">وصف الوسم</label>
+                <div class="col-sm-10">
+                    <textarea name="category_description[1][meta_description]" rows="5" placeholder="وصف الوسم" id="input-meta-description2" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="input-meta-keyword2">كلمات مفتاحية للوسم</label>
+                <div class="col-sm-10">
+                    <textarea name="category_description[1][meta_keyword]" rows="5" placeholder="كلمات مفتاحية للوسم" id="input-meta-keyword2" class="form-control"></textarea>
+                </div>
+            </div>*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-data">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-parent">الأب</label>
+                                <div class="col-sm-4">
+                                    @*<select name="ParentId" class="form-control">
+                                            @foreach (var parent in Model.ParentCategories)
+                                            {
+                                                <option value="@parent.CategoryId" @(@Model.Category.ParentId == @parent.CategoryId?"selected":"")>@parent.PathStr</option>
+                                            }
+                                        </select>*@
+                                    @Html.DropDownListFor(c => c.Category.ParentId, new SelectList(Model.ParentCategories, "CategoryId", "PathStr"), new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Category.ParentId, "", new { @class = "val-error" })
+                                </div>
+                            </div>
+                          
+                      
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">الصورة</label>
+                                <div class="col-sm-10">
+                                    <img id="catImg" src="@(Model.Category.ImageUrl+".ashx?width=200&height=200")" alt="Alternate Text" class="img" />
+                                    <label style="margin: 7px; margin-left: 26px;" title="Upload image file" for="fileToUpload" class="btn btn-primary">
+                                        <input id="fileToUpload" type="file" accept="image/*" name="ImageUrl" class="hide">
+                                        اضف صورة
+                                    </label>
+                                    
+                                    @*<input id="img-hid" type="hidden" name="ImageUrl" value="@Model.Category.ImageUrl" />*@
+                                    @Html.HiddenFor(c => c.Category.ImageUrl, new { id = "img-hid" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">صورة لافتة</label>
+                                <div class="col-sm-10">
+                                    <img id="cat-banner-Img" src="@(Model.Category.BannerImage+".ashx?width=400&height=200")" alt="Alternate Text" class="img" />
+                                    <label style="margin: 7px; margin-left: 26px;" title="Upload image file" for="BannerfileToUpload" class="btn btn-primary">
+                                        <input id="BannerfileToUpload" type="file" accept="image/*" name="BannerImage" class="hide">
+                                        اضف صورة
+                                    </label>
+                                    
+                                    @*<input id="img-hid" type="hidden" name="ImageUrl" value="@Model.Category.ImageUrl" />*@
+                                    @Html.HiddenFor(c => c.Category.BannerImage, new { id = "banner-img-hid" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-sort-order">ترتيب الفرز</label>
+                                <div class="col-sm-10">
+                                    @*<input type="text" name="SortOrder" value="@Model.Category.SortOrder" placeholder="Sort Order" id="input-sort-order" class="form-control">*@
+                                    @Html.TextBoxFor(c => c.Category.SortOrder, new { id = "input-sort-order", placeholder = "Sort Order", @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Category.SortOrder, "", new { @class = "val-error" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-status">الحالة</label>
+                                <div class="col-sm-10">
+                                    <select name="Category[Status]" id="input-status" class="form-control">
+                                        <option value="True" selected >فعالة</option>
+                                        <option value="False" >غير فعالة</option>
+                                    </select>
+
+
+                                    @Html.ValidationMessageFor(c => c.Category.Status, "", new { @class = "val-error" })
+                                    @*@Html.HiddenFor(c => c.Category.Id, new {id ="id-hid" })*@
+
+                                </div>
+                            </div>
+                        </div>
+                     
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        //$('#input-description-en,#input-description-ar').summernote({
+        //    height: 300
+        //});
+    </script>
+    <script>
+        function refreshPage() {
+            $.ajax({
+                url: '@Url.Action("Add","ManageCategory")',
+                method: 'Get',
+                data: { Id: $('#id-hid').val() },
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+        $(document).ready(function () {
+            $('.summer-en').summernote({
+                focus: true,
+                direction: 'ltr',
+                fontNames: ['DroidArabicNaskh','Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+                fontNamesIgnoreCheck: ['DroidArabicNaskh']
+            });
+            //$('.summer-meta-en').summernote({
+               
+            //    direction: 'ltr',
+            //    fontNames: ['DroidArabicNaskh', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+            //    fontNamesIgnoreCheck: ['DroidArabicNaskh']
+            //});
+            $('.summer-ar').summernote({
+                focus: true,
+                direction: 'rtl',
+                fontNames: ['DroidArabicNaskh', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+                fontNamesIgnoreCheck: ['DroidArabicNaskh']
+            });
+            //$('.summer-meta-ar').summernote({
+               
+            //    direction: 'rtl',
+            //    fontNames: ['DroidArabicNaskh', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+            //    fontNamesIgnoreCheck: ['DroidArabicNaskh']
+            //});
+            
+            ////////////////////////////////////
+            $('#save-cat').on('click', function (e) {
+                e.preventDefault();
+
+                var englishHtml = $('.summer-en').summernote('code'); //save HTML If you need(aHTML: array).
+                $('#input-description-en').text(englishHtml);
+
+                //var englishMetaHtml = $('.summer-meta-en').summernote('code'); //save HTML If you need(aHTML: array).
+                //$('#input-meta-description-en').text(englishMetaHtml);
+
+                //var arabicMetaHtml = $('.summer-meta-ar').summernote('code'); //save HTML If you need(aHTML: array).
+                //$('#input-meta-description-ar').text(arabicMetaHtml);
+
+
+                var arabicHtml = $('.summer-ar').summernote('code'); //save HTML If you need(aHTML: array).
+
+                $('#input-description-ar').text(arabicHtml);
+               // $('#form-category').submit();
+                $.ajax({
+                    url: '@Url.Action("Add","ManageCategory")',
+                    method: 'POST',
+                    data: $('#form-category').serialize(),
+                    success: function (data) {
+                        if (data.Succedeed != null) {
+                            refreshPage();
+                            jQuery('body,html').fadeOut(0).fadeIn(1500);
+                            if (data.Succedeed == true) {
+
+                                generateFlash('success', data.message);
+
+                            }
+                            else {
+                                generateFlash('error', data.message);
+                            }
+                        } else {
+
+                            $('#content').html($(data).find('#content').html());
+                            jQuery('body,html').fadeOut(0).fadeIn(1000);
+                            generateFlash('error', 'الرجاء تعبئة جميع الحقول المطلوبة');
+                        }
+                    }
+                });
+            });
+
+            $("#fileToUpload").on('change', function (e) {
+
+                //e.preventDefault();
+                // Checking whether FormData is available in browser
+                if (window.FormData !== undefined) {
+
+                    var fileUpload = $("#fileToUpload").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    // Adding one more key to FormData object
+                    fileData.append('username', 'Manas');
+
+                    $.ajax({
+                        url: '@Url.Action("UploadFiles","Base")',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+                           
+                            $('#img-hid').val("/uploads/" + result.name);
+                            $('#catImg').attr('src', '/uploads/' + result.name + '.ashx?width=200&height=200');
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
+
+
+            });
+            $("#BannerfileToUpload").on('change', function (e) {
+
+                //e.preventDefault();
+                // Checking whether FormData is available in browser
+                if (window.FormData !== undefined) {
+
+                    var fileUpload = $("#BannerfileToUpload").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    // Adding one more key to FormData object
+                    fileData.append('username', 'Manas');
+
+                    $.ajax({
+                        url: '@Url.Action("UploadFiles","Base")',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+
+                            $('#banner-img-hid').val("/uploads/" + result.name);
+                            $('#cat-banner-Img').attr('src', '/uploads/' + result.name + '.ashx?width=400&height=200');
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
+
+
+            });
+        });
+    </script>
+    <script type="text/javascript">
+
+        /*$('input[name=\'path\']').autocomplete({
+            'source': function(request, response) {
+                $.ajax({
+                    url: 'index.php?route=catalog/category/autocomplete&token=531583aef8dcf76a5065703e36e89d23&filter_name=' +  encodeURIComponent(request),
+                    dataType: 'json',
+                    success: function(json) {
+                        json.unshift({
+                            category_id: 0,
+                            name: ' --- None --- '
+                        });
+
+                        response($.map(json, function(item) {
+                            return {
+                                label: item['name'],
+                                value: item['category_id']
+                            }
+                        }));
+                    }
+                });
+            },
+            'select': function(item) {
+                $('input[name=\'path\']').val(item['label']);
+                $('input[name=\'parent_id\']').val(item['value']);
+            }
+        });*/
+    </script>
+
+    <script type="text/javascript">
+
+        $('#language a:first').tab('show');
+    </script>
+</div>

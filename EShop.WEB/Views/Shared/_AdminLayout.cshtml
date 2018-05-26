@@ -1,0 +1,348 @@
+﻿
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>@ViewBag.Title</title>
+    <!--<base href="http://demo.xtensions.in/best/admin/">-->
+    <base href=".">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/Content/bootstrap.min.js"></script>
+    <script src="~/Content/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/less-1.7.4.min.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700' rel='stylesheet' type='text/css'>
+    @*<link href="~/Content/font-awesome.min.css" rel="stylesheet" />*@
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+
+    <script src="~/Content/moment.js"></script>
+    @*<script src="~/Content/eModal.js"></script>*@
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="~/Assets/css/bootstrap-rtl.css" rel="stylesheet" />
+
+
+
+    <script src="~/Content/jquery-2.1.1.min.js"></script>
+    <script src="~/Content/common.js"></script>
+
+    <script src="~/Content/bootstrap.min.js"></script>
+    <link href="~/Content/stylesheet.css" rel="stylesheet" />
+    <script src="~/Assets/Scripts/jquery.noty.packaged.js"></script>
+    <link href="~/Assets/css/animate.css" rel="stylesheet" />
+    <link href="~/Assets/css/flash-messages.css" rel="stylesheet" />
+    <link href="http://demo.xtensions.in/best/admin/view/javascript/bootstrap/less/bootstrap.less" rel="stylesheet/less" />
+    @*<link href="~/Content/summernote-bs3.css" rel="stylesheet" />*@
+    <link href="~/Content/summernote.css" rel="stylesheet" />
+    <script src="~/Content/summernote.js"></script>
+    <link href="~/Assets/css/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    @*<script src="http://rawgit.com/saribe/eModal/master/dist/eModal.min.js"></script>*@
+    <!-- summernote requirments=-->
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <link href="~/Assets/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.css" rel="stylesheet">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.2/summernote.js"></script>
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+    @if (IsSectionDefined("scripts"))
+    {@RenderSection("scripts", required: false)}
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/droid-arabic-naskh" type="text/css" />
+    <link href="~/Content/tagsinput.css" rel="stylesheet" />
+    <script src="~/Content/tagsinput.js"></script>
+    <script src="~/Content/jquery-ui.js"></script>
+    <link href="~/Content/jquery-ui.structure.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.theme.css" rel="stylesheet" />
+    <link href="~/Content/magicsuggest.css" rel="stylesheet" />
+    <script src="~/Content/magicsuggest.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Content/validatr.js"></script>
+    <link href="~/Content/evol-colorpicker.css" rel="stylesheet" />
+    <script src="~/Content/evol-colorpicker.js"></script>
+
+    <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap-datepicker.js"></script>
+
+    <script src="~/Content/bootstrap-datepicker.en-GB.min.js"></script>
+    <link href="~/Content/basic.css" rel="stylesheet" />
+    <link href="~/Content/dropzone.css" rel="stylesheet" />
+    <script src="~/Content/dropzone.js"></script>
+    <script type="text/javascript">
+
+        //$(document).ready(function () {
+        //    $(".dropdown").on('click', function () {
+        //        $(this).toggleClass('open');
+        //    });
+        //});
+
+
+        function generateFlash(type, text) {
+
+            var n = noty({
+                text: text,
+                type: type,
+                timeout: 2000,
+                dismissQueue: true,
+                layout: 'top',
+                closeWith: ['click'],
+                theme: 'relax',
+                maxVisible: 10,
+                animation: {
+                    open: 'animated bounceInLeft',
+                    close: 'animated flipOutX',
+                    easing: 'swing',
+                    speed: 500
+                }
+            });
+
+        }
+    </script>
+    <style>
+        .tab-content > .active {
+            padding-top: 6px;
+        }
+        .validation-summary-valid {
+            display:none;
+        }
+         .validation-summary-errors {
+            color: red;
+            background-color: #f3f3f3;
+            padding: 4px;
+            border-radius: 7px;
+            margin: 7px auto;
+        }
+         .field-validation-error {
+            color: red;
+        }
+        .field-validation-valid{
+            display:none;
+        }
+         .input-validation-error {
+            border: solid 2px red;
+            border-color: red;
+        }
+         .separator {
+            border-right: 1px solid #dfdfe0;
+        }
+
+        .icon-btn-save {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+
+        .btn-save-label {
+            position: relative;
+            left: 13px;
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(0,0,0,0.15);
+            border-radius: 3px 0 0 3px;
+        }
+        .img:hover{
+           cursor:pointer; 
+        }
+        .btn-primary {
+            margin-left: 5px;
+        }
+
+        .headerlinkmenu div.links div a:hover {
+            color: #1fc0a0;
+            text-decoration: none;
+        }
+
+        .headerlinkmenu div.links div a {
+            display: inline-block;
+            padding: 0px;
+            padding: 16px 0px 6px 5px;
+            text-decoration: none;
+            letter-spacing: 0.5px;
+            color: #000000;
+        }
+
+        a:hover {
+            text-decoration: none;
+            color: #13b091;
+        }
+
+        .form-control {
+            height: 38px;
+        }
+
+        .modal1 {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 255, 255, 255, .8 ) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+
+        .ms-ctn .ms-sel-ctn {
+            margin-left: 0;
+        }
+
+        .ms-sel-ctn {
+            overflow: hidden;
+        }
+
+        .form-horizontal .form-group {
+            margin-right: 0;
+            margin-left: 0;
+        }
+
+        body.loading {
+            overflow: hidden;
+        }
+
+            body.loading .modal1 {
+                display: block;
+            }
+
+        .val-error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .pager li > a, .pager li > span {
+            border-radius: 0;
+        }
+
+        .label {
+            font-size: 90%;
+        }
+
+        html, body {
+            font-family: 'DroidArabicNaskh','Droid Arabic Naskh', "Roboto",'Open Sans', sans-serif;
+        }
+
+        .table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+            vertical-align: middle;
+        }
+
+        input[type="radio"]:checked::after, .radio input[type="radio"]:checked::after, .radio-inline input[type="radio"]:checked::after {
+            height: 13px;
+            width: 13px;
+            top: 0;
+            left: 0;
+        }
+
+        .dropdown-menu {
+            right: auto;
+        }
+
+        .old-price {
+            color: #777777 !important;
+            font-size: 15px;
+            font-weight: normal;
+            text-decoration: line-through;
+            margin-left: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        @Html.Partial("_AdminHeader")
+
+        @RenderBody()
+
+
+    </div>
+    <div class="modal1"></div>
+    <div class="modal fade" id="imgModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content" style="padding: 5px;">
+                @*<div class="modal-header" style="background-color:rgba(255, 0, 0,0.3)">
+                        <h4>تنبيه</h4>
+                    </div>*@
+                <div class="modal-body">
+                    <img style="width:100%" id="img-full-size" class="" src="" alt="Alternate Text" />
+                </div>
+                @*<div class="modal-footer">
+                        <button id="confirm" data-dismiss="modal" class="btn btn-danger">حذف</button>
+                        <button id="cancel" data-dismiss="modal" class="btn btn-continue">إلغاء</button>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jqueryval")
+        <script>
+        $('.img').each(function (index, el) {
+            $(this).on('click', function () {
+                var src = $(this).attr('src');
+                var index = src.indexOf('ashx');
+                var modalImageSrc = "";
+                if (index != -1)
+                    modalImageSrc = src.substring(0, src.indexOf('ashx') - 1);
+                else
+                    modalImageSrc = src;
+                $('#img-full-size').attr('src', modalImageSrc);
+                $('#imgModal').modal('show');
+            });
+        })
+    </script>
+    <script>
+
+        $(".dropdown").on('click', function () {
+            $(this).toggleClass('open');
+        });
+    </script>
+
+    <script>
+
+        $body = $("body");
+        $(document).on({
+            ajaxStart: function () { $body.addClass("loading"); },
+            ajaxStop: function () { $body.removeClass("loading"); }
+        });
+        //$.ajaxPrefilter(function (options, original_Options, jqXHR) {
+        //    options.async = true;
+        //});
+        //$(function () {
+        //    $(document).ajaxError(function (e, xhr) {
+        //        if (xhr.status == 403) {
+        //            var response = $.parseJSON(xhr.responseText);
+        //            // window.location = response.LogOnUrl;
+        //            $('#login-modal').modal('show');
+        //        }
+        //    });
+        //});
+    </script>
+    <script>
+        $("#btn-logout").on('click', function (e) {
+            e.preventDefault();
+            $('#logout').submit();
+        });
+    </script>
+    <script>
+
+        $(".dropdown").on('click', function () {
+            $(this).toggleClass('open');
+        });
+    </script>
+</body>
+</html>

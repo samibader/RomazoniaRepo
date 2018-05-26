@@ -1,0 +1,70 @@
+﻿@model List<EShop.WEB.Models.AddressVM>
+@{
+    ViewBag.Title = "دفتر العناوين";
+    if (!Request.IsAjaxRequest())
+    {
+       
+        Layout = "~/Views/Shared/_Manage.cshtml";
+    }
+}
+<div id="t">
+    <table class="table table-bordered table-hover">
+        <tbody>
+            @foreach (var address in Model)
+            {
+                <tr>
+                    <td>
+                        <p class="text-justified">
+                            @address.FirstName<br />
+                            @address.LastName<br />
+                            @address.Address1<br />
+                            @address.Phone<br />
+                            @address.City<br />
+                            @address.Country<br />
+                            @address.PostCode<br />
+                        </p>
+                    </td>
+                    <td class="text-left"><a href="@Url.Action("EditAddress","MManage",new{id=address.Id})" class="btn btn-info editAddress" id="e-@address.Id">تعديل</a> &nbsp;@if (!address.IsDefault)
+                                                                                                                                                                                {
+                                                                                                                                                                                    <a href="#" onclick="return confirm('تأكيد الحذف ؟');" class="btn btn-danger delete-address" id="d-@address.Id">حذف</a>
+                                                                                                                                                                                }</td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+<div class="buttons clearfix">
+
+    <div class="pull-right"><a href="#" class="btn btn-primary" onclick="location.href = '@Url.Action("AddAddress")';" id="aaa">عنوان جديد</a></div>
+</div>
+<script>
+    $(document).on('click', "a[id*=d-]", function () {
+        var iid = $(this).attr('id').substring(2);
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("DeleteAddress","MManage")',
+            data: { id: iid },
+            success: function (data) {
+                if (data.Succedeed) {
+
+                    alert(data.Message);
+                    refresh();
+                }
+            }
+        });
+    });
+    
+</script>
+<script>
+    function refresh() {
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("AddressBook","MManage")',
+            success: function (data) {
+                $('#t').html($(data).find('#t').html());
+            }
+        });
+
+    }
+</script>

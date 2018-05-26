@@ -1,0 +1,208 @@
+﻿<!-- nivo-slider css -->
+
+<link rel="stylesheet" type="text/css" href="~/Assets/css/nivo-slider.css">
+
+<script type="text/javascript" src="~/Assets/Scripts/jquery.nivo.slider.js"></script>
+
+
+<!-- our clients Slider -->
+
+<div class="our-clients">
+
+    @{Html.RenderAction("Slider", "Designer");}
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">تواصل معنا</h4>
+            </div>
+            <div class="modal-body">
+                <h1><i class="fa fa-whatsapp"></i> 0541505529</h1>
+                <h4>لأي إستفسار أو طلب راسلنا على رقم الواتس اب المذكور بالأعلى</h4>
+                <h4>أو عبر البريد الإلكتروني</h4>
+                <h1><i class="fa fa-envelope"></i> SUPPORT@ROMAZONIA.COM</h1>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">إغلاق</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottom-service">
+    <div class="container">
+        <div class="row">
+
+            <div class="bottom-service-box">
+                <div class="box-outer">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                        <div class="service-box-center">
+                            <span class="bottom-service-title">توصيل سريع</span>
+                            <div class="description">
+                                <div class="heading">نوصل لك طلبك بسرعة أينما كنت</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 column">
+                        <div class="service-box-center">
+                            <span class="bottom-service-title">دعم فني</span>
+                            <div class="description">
+                                <div class="heading">دعم فني حقيقي طيلة أيام الأسبوع</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 column">
+                        <div class="service-box-center">
+                            <span class="bottom-service-title">سلع أصلية</span>
+                            <div class="description">
+                                <div class="heading">تمتع بالإستمتاع بما ترغب دون قلق من جودة المنتج</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6 column">
+                        <div class="service-box-center">
+                            <span class="bottom-service-title">خصم 50 ريال</span>
+                            <div class="description">
+                                <div class="heading">لأول عملية شراء تقوم بها</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<footer>
+    <div class="footer-newsletter">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 col-sm-3">
+                    <div class="footer-logo">
+                        <a href="@Url.Action("Index", "Home")">
+                            @if ((EShop.Common.WebSites)ViewBag.CurrentWebsite == EShop.Common.WebSites.Fashion)
+                            {
+                                <img alt="e-commerce" src="~/Assets/images/clothes.png">
+                            }
+                            else if ((EShop.Common.WebSites)ViewBag.CurrentWebsite == EShop.Common.WebSites.Gym)
+                            {
+                                <img alt="e-commerce" src="~/Assets/images/gym.png">
+                            }
+                            else
+                            {
+                                <img alt="e-commerce" src="~/Assets/images/telecom.png">
+                            }
+                        </a>
+                        <p>نتمنى أن تقضو وقتا ممتعا في متجرنا</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3">
+                    <h3 class="">إشترك كي تصلك أخر الأخبار</h3>
+                    <span>أحصل على أحدث العروض والمنتجات</span>
+                </div>
+                <div class="col-md-5 col-sm-6">
+                    <form id="newsletter-validate-detail" method="post" action="#">
+                        <div class="newsletter-inner">
+                            <input class="newsletter-email" name='Email' placeholder='أدخل بريدك الالكتروني' />
+                            <button class="button subscribe" type="submit" title="Subscribe">إشترك</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-3 col-xs-12 col-lg-3 collapsed-block">
+                <div class="footer-links">
+                    <h3 class="links-title">المعلومات<a class="expander visible-xs" href="#TabBlock-1">+</a></h3>
+                    <div class="tabBlock" id="TabBlock-1">
+                        <ul class="list-links list-unstyled">
+                            <li><a href="sitemap.html">خريطة الموقع</a></li>
+                            <li><a href="@Url.Action("Index", "Privacy")">سياسة الخصوصية</a></li>
+                            <li><a href="@Url.Action("FAQ", "Privacy")">الأسئلة الأكثر شيوعاً</a></li>
+                            <li><a href="@Url.Action("Conditions", "Privacy")">الشروط &amp; القوانين</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3 col-xs-12 col-lg-3 collapsed-block">
+                <div class="footer-links">
+                    <h3 class="links-title">المحتوى<a class="expander visible-xs" href="#TabBlock-3">+</a></h3>
+                    <div class="tabBlock" id="TabBlock-3">
+                        <ul class="list-links list-unstyled">
+                            <li> <a href="#">أحدث الجوالات مثلا</a> </li>
+                            <li> <a href="@Url.Action("About", "Home")">من نحن</a> </li>
+                            <li> <a href="#" data-toggle="modal" data-target="#myyModal">تواصل معنا</a> </li>
+                            <li> <a href="@Url.Action("Order", "MManage", new {state="Active" })">طلباتي</a> </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-2 col-xs-12 col-lg-3 collapsed-block">
+                <div class="footer-links">
+                    <h3 class="links-title">الخدمات<a class="expander visible-xs" href="#TabBlock-4">+</a></h3>
+                    <div class="tabBlock" id="TabBlock-4">
+                        <ul class="list-links list-unstyled">
+                            <li> <a href="@Url.Action("Index", "MManage")">الحساب</a> </li>
+                            <li> <a href="@Url.Action("Browse", "Cart")">سلة التسوق</a> </li>
+                            <li> <a href="@Url.Action("Test", "Home")">سياسة الإعادة</a> </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-4 col-xs-12 col-lg-3">
+                <h3 class="links-title">تواصل معنا</h3>
+                <div class="footer-content">
+                    <div class="email">
+                        <i class="fa fa-envelope"></i>
+                        <p>SUPPORT@ROMAZONIA.COM</p>
+                    </div>
+                    <div class="email">
+                        <i class="fa fa-whatsapp"></i>
+                        <p>0541505529</p>
+                    </div>
+                    <div class="address">
+                        <i class="fa fa-map-marker"></i>
+                        <p> الرياض ، مجمع إتصالات التخصصي</p>
+                    </div>
+                </div>
+                @*<div class="social">
+                    <ul class="inline-mode">
+                        <li class="social-network fb"><a title="Connect us on Facebook" target="_blank" href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a></li>
+                        <li class="social-network googleplus"><a title="Connect us on Google+" target="_blank" href="https://plus.google.com/"><i class="fa fa-google-plus"></i></a></li>
+                        <li class="social-network tw"><a title="Connect us on Twitter" target="_blank" href="https://twitter.com/"><i class="fa fa-twitter"></i></a></li>
+                        <li class="social-network linkedin"><a title="Connect us on Linkedin" target="_blank" href="https://www.pinterest.com/"><i class="fa fa-linkedin"></i></a></li>
+                        <li class="social-network rss"><a title="Connect us on Instagram" target="_blank" href="https://instagram.com/"><i class="fa fa-rss"></i></a></li>
+                        <li class="social-network instagram"><a title="Connect us on Instagram" target="_blank" href="https://instagram.com/"><i class="fa fa-instagram"></i></a></li>
+                    </ul>
+                </div>*@
+            </div>
+        </div>
+    </div>
+    <div class="footer-coppyright">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-xs-12 coppyright"> حقوق النشر © 2016 <a href="#"> متجر رومازونيا </a>. جميع الحقوق محفوظة. </div>
+                <div class="col-sm-6 col-xs-12">
+                    <div class="payment">
+                        <ul>
+                            @*<li><a href="#"><img title="Visa" alt="Visa" src="~/Assets/images/visa.png"></a></li>*@
+                            <li><a href="#"><img title="Paypal" alt="Paypal" src="~/Assets/images/paypal.png"></a></li>
+                            <li><a href="#"><img title="مدى" alt="مدى" src="~/Assets/images/mada.png"></a></li>
+                            @*<li><a href="#"><img title="Discover" alt="Discover" src="~/Assets/images/discover.png"></a></li>
+                            <li><a href="#"><img title="Master Card" alt="Master Card" src="~/Assets/images/master-card.png"></a></li>*@
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- owl.carousel.min js -->
+
+<script type="text/javascript" src="~/Assets/Scripts/owl.carousel.min.js"></script>
+<script type="text/javascript" src="~/Assets/Scripts/owl.carousel.rtl.js"></script> 

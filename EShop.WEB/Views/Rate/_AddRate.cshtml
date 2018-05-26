@@ -1,0 +1,54 @@
+﻿
+<div class="reviews-content-right">
+    <h2>أكتب تقييمك الخاص</h2>
+       @using (@Html.BeginForm("AddRate", "Rate", FormMethod.Post, new { @id = "add-rate" }))
+    {
+        <input type="hidden" name="productId" value="@ViewBag.Id"/>
+       @* <h4>كيف تقوم بتقييم هذا المنتج?<em>*</em></h4>*@
+       <div class="table-responsive reviews-table">
+           <table>
+               <tbody>
+               <tr>
+                   <th></th>
+                   <th>نجمة</th>
+                   <th>نجمتان</th>
+                   <th>ثلاث نجوم</th>
+                   <th>أربع نجوم</th>
+                   <th>خمس نجوم</th>
+               </tr>
+               <tr>
+                   <td>الجودة</td>
+                   @for (int i = 1; i <= 5; i++)
+                   {
+                       <td><input name="Rate1" type="radio" value="@i" @(i == 3 ? "checked" : "")></td>
+                   }
+
+               </tr>
+               <tr>
+                   <td>السعر</td>
+                   @for (int i = 1; i <= 5; i++)
+                   {
+                       <td><input name="Rate2" type="radio" value="@i" @(i == 3 ? "checked" : "")></td>
+                   }
+               </tr>
+               <tr>
+                   <td>القيمة النوعية</td>
+                   @for (int i = 1; i <= 5; i++)
+                   {
+                       <td><input name="Rate3" type="radio" value="@i" @(i == 3 ? "checked" : "")></td>
+                   }
+               </tr>
+               </tbody>
+           </table>
+       </div>
+       <div class="form-area">
+           <div class="form-element">
+               <label>التقييم <em>*</em></label>
+               <textarea name="Note"></textarea>
+           </div>
+           <div class="buttons-set">
+               <button class="button " title="Submit Review" id="fuck-rate" type="button"><span><i class="fa fa-thumbs-up"></i> &nbsp;التقييم</span></button>
+           </div>
+       </div>
+   }
+</div>

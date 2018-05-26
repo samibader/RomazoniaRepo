@@ -1,0 +1,48 @@
+﻿@using EShop.Common
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+  
+}
+<div class="row" style="margin-top: 10px;">
+    <aside class="right sidebar  col-sm-3 col-xs-12">
+        <div class="sidebar-account block">
+            <div class="sidebar-bar-title">
+                <h3>My Account</h3>
+            </div>
+            <div class="block-content">
+                <ul>
+
+                    <li><a href="@Url.Action("Index","MManage")">معلومات الحساب</a></li>
+                    <li><a href="@Url.Action("Index","MManage")">تعديل البيانات الشخصية</a></li>
+                    <li><a href="@Url.Action("ChangePassword","Manage")">تعديل كلمة المرور</a></li>
+                    <li><a href="@Url.Action("Index","MManage")">إضافة رقم الجوال</a></li>
+                    <li><a href="@Url.Action("Browse","Favorite")">المفضلة</a></li>
+                    <li><a href="@Url.Action("AddressBook","MManage")">دفتر العناوين</a></li>
+                    <li><a href="@Url.Action("Browse","Cart")">سلة الشراء</a></li>
+                    @*<li><a href="@Url.Action("AddressBook","MManage")">دفتر العناوين</a></li>*@
+                    <li><a href="@Url.Action("Order","MManage",new {state = OrderStates.Active})">الطلبات الفعالة</a></li>
+                    <li><a href="@Url.Action("Order","MManage",new {state=OrderStates.canceled})">الطلبات الملغية</a></li>
+                    <li><a href="@Url.Action("Order","MManage",new {state=OrderStates.complete})">الطلبات المؤرشفة</a></li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <div id="manage-main" class="col-md-9">
+        @RenderBody()
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        var pathname = (location.pathname + location.search);
+       
+        $('a').each(function() {
+            if ($(this).attr('href') == pathname) {
+                $(this).css('font-weight', 'bold').attr('href','#');
+                
+            }
+        });
+    });
+</script>
+@if (IsSectionDefined("scripts"))
+{@RenderSection("scripts", required: false)}

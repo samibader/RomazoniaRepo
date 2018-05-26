@@ -1,0 +1,73 @@
+﻿
+@{
+    //int order = 0;
+    ViewBag.Title = "استعراض بوستات الانستغرام";
+}
+
+<!-- BREADCRUMBS -->
+<section class="page-section breadcrumbs">
+    <div class="container">
+        <ul class="breadcrumb">
+            <li>@Html.ActionLink("الرئيسية", "Index", "Home")</li>
+            <li>@Html.ActionLink("حسابي", "Index", "Manage")</li>
+            <li class="active">@ViewBag.Title</li>
+        </ul>
+    </div>
+</section>
+<!-- /BREADCRUMBS -->
+
+<section class="page-section">
+    <div class="wrap container">
+        @ViewBag.StatusMessage
+        <div class="row">
+            @Html.Partial("_AccountSidebar")
+            <!--start main contain of page-->
+            <div class="col-lg-9 col-md-9 col-sm-8">
+                <div class="information-title">@ViewBag.Title</div>
+                <div class="details-wrap">
+                    <div class="details-box">
+                        @*<table>
+                            <tr>
+                                <td>RateLimitLimit</td>
+                                <td>:</td>
+                                <td>@Model.RateLimitLimit</td>
+                            </tr>
+                            <tr>
+                                <td>RateLimitRemaining</td>
+                                <td>:</td>
+                                <td>@Model.RateLimitRemaining</td>
+                            </tr>
+                            <tr>
+                                <td>Pagination.NextUrl</td>
+                                <td>:</td>
+                                <td>@Model.Pagination.NextUrl</td>
+                            </tr>
+                            <tr>
+                                <td>NextCursor</td>
+                                <td>:</td>
+                                <td>@Html.ActionLink("My Feed", "MyFeed", new { maxId = Model.Data.Last().Id })</td>
+                            </tr>
+                            <tr>
+                                <td>BackCursor</td>
+                                <td>:</td>
+                                <td>@Html.ActionLink("My Feed", "MyFeed", new { maxId = ViewBag.PrevMaxId })</td>
+                            </tr>
+                        </table>*@
+                        <!-- Products List -->
+                        <div class="products list">
+                            <!-- / -->
+                            
+                                @Html.Partial("_InstaFeed")
+                            <div id="endPost" style="display:none" class="alert alert-success text-center" role="alert">لا يوجد بوستات متبقية</div>
+                            
+                            <!-- / -->
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <!--end main contain of page-->
+        </div>
+    </div>
+</section>

@@ -1,0 +1,169 @@
+﻿@model IEnumerable<EShop.WEB.Models.FavoriteItem>
+@using Resx = EShop.Resources.Views.EShopResource
+@{
+    ViewBag.Title = "المفضلة";
+    // Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Manage.cshtml";
+}
+@*<div class="my-account">
+        <div class="page-title">
+            <h2>@Resx.Favorite</h2>
+        </div>
+        @if (@Model.ToList().Count > 0)
+        {
+            <div class="wishlist-item table-responsive">
+                <table class="col-md-12">
+                    <thead>
+                        <tr>
+                            <th class="th-delate">حذف</th>
+                            <th class="th-product">صورة المنتج</th>
+                            <th class="th-details">اسم المنتج</th>
+                            <th class="th-price">السعر</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var favoriteItem in @Model)
+                        {
+                            <tr>
+                                <td class="th-delate"><a href="#" onclick="del(@favoriteItem.SkuId, @favoriteItem.Id)">x</a></td>
+                                <td class="th-product"><a href="@Url.Action("Browse", "Product", new {skuId = favoriteItem.SkuId})"><img src="@(favoriteItem.Images[0]).ashx?height=100" alt="@favoriteItem.Name"></a></td>
+                                <td class="th-details">
+                                    <h2>
+                                        <a href="@Url.Action("Browse", "Product", new {skuId = favoriteItem.SkuId})">@favoriteItem.Name</a>
+                                        @if (favoriteItem.Color != null)
+                                        {
+                                            <small><a href="#">اللون : @favoriteItem.Color.ColorName</a></small>
+                                            <br>
+                                        }
+                                        @if (favoriteItem.Size != null)
+                                        {
+                                            <small><a href="#">القياس : @favoriteItem.Size.Name</a></small>
+                                        }
+                                    </h2>
+                                </td>
+                                <td class="th-price">@favoriteItem.TotalPrice</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+        else
+        {
+            <div> <p>لا يوجد منتجات في المفضلة </p></div>
+        }
+    </div>*@
+<section class="main-container col1-layout">
+    <div class="main">
+        <div class="col-main">
+            <div class="cart">
+                <div class="page-content page-order">
+                    <div class="page-title">
+                        <h2>@Resx.Favorite</h2>
+                    </div>
+
+
+                    <div class="order-detail-content">
+                        @if (Model.Any())
+                        {
+                            <div class="table-responsive">
+                                <table class="table table-bordered cart_summary">
+                                    <thead>
+                                        <tr>
+                                            <th class="cart_product">المنتج</th>
+                                            <th>الوصف</th>
+                                            <th>التوافر</th>
+                                            <th>سعر الواحدة</th>
+                                            @*<th>الكمية</th>*@
+                                            <th>المجموع الكلي</th>
+                                            <th class="action"><i class="fa fa-trash-o"></i></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="item">
+                                                <td class="cart_product"><a href="@Url.Action("Browse", "Product", new {id = item.Id})"><img src="@(item.Images[0]).ashx?height=100" alt="Product"></a></td>
+                                                <td class="cart_description">
+                                                    <p class="product-name">
+                                                        <a href="@Url.Action("Browse", "Product", new {id = item.Id})">@item.Name </a>
+                                                    </p>
+                                                    @if (item.Color != null)
+                                                    {
+                                                        <small><a href="#">اللون : @item.Color.ColorName</a></small>
+                                                        <br>
+                                                    }
+                                                    @if (item.Size != null)
+                                                    {
+                                                        <small><a href="#">القياس : @item.Size.Name</a></small>
+                                                    }
+                                                </td>
+                                                @{
+                                                    String availability = @item.IsAvailable ? "in-stock" : "out-of-stock";
+                                                    String Name = @item.IsAvailable ? "متوفر" : "غير متوفر";
+                                                }
+                                                <td class="availability @availability in-stock"><span class="label">@Name</span></td>
+                                                <td class="price"><span>@item.TotalPriceDisplay</span></td>
+                                                @*<td class="qty">
+                                                        <input class="form-control input-sm" type="text" name="products[@(idx)].Quantity" value="@item.Quantity">
+                                                        <input type="hidden" name="products[@(idx)].SKUId" value="@item.SKUId" />
+                                                        <input type="hidden" name="products[@(idx++)].Id" value="@item.Id" />
+                                                    </td>*@
+                                                <td class="tprice"><span>@(item.TotalPriceDisplay)</span></td>
+                                                <td class="action"><a href="#" onclick="del(@item.SkuId, @item.Id)"><i class="icon-close"></i></a></td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                            @* <div class="cart-collaterals row">
+                                    <div class="totals col-sm-5 col-md-offset-7 ">
+                                        <h3>المجموع الكلي لسلة الشراء</h3>
+                                        <div class="inner">
+                                            <table id="shopping-cart-totals-table" class="table shopping-cart-table-total">
+                                                <colgroup>
+                                                    <col>
+                                                    <col width="1">
+                                                </colgroup>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td style="" class="a-right" colspan="1"><strong>المجموع الكلي</strong></td>
+                                                        <td style="" class="a-right"><strong><span class="price">@Model.TotalPriceDisplay</span></strong></td>
+                                                    </tr>
+                                                </tfoot>
+                                                <tbody>
+                                                        <tr>
+                                                            <td style="" class="a-right" colspan="1"> المجموع الجزئي </td>
+                                                            <td style="" class="a-right"><span class="price">@Model.TotalPrice</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                            </table>
+                                            <ul class="checkout">
+                                                <li>
+                                                    <button type="button" title="Proceed to Checkout" onclick="location.href = '@Url.Action("Index", "Checkout")'" class="button btn-proceed-checkout"><span>المتابعة إلى الدفع</span></button>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <!--inner-->
+
+                                    </div>
+                                </div>*@
+                        }
+                        else
+                        {
+                            <div>
+                                <p style="border: 2px solid; border-radius: 5px; padding: 2%; text-align: center">لا يوجد منتجات في المفضلة !</p>
+                            </div>
+                        }
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>

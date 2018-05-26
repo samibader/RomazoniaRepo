@@ -1,0 +1,113 @@
+﻿@using EShop.WEB.Models
+@model LoginVm
+@using Resx = EShop.Resources.Views.EShopResource
+
+<style>
+    .modal-content button {
+        width: 100%;
+    }
+</style>
+<style>
+    .check-remember {
+        width: 2% !important;
+    }
+
+    .error {
+        color: coral;
+    }
+</style>
+
+@if (!User.Identity.IsAuthenticated)
+{
+    <p class="top-Signup">
+        <a href="#" class="" role="button" data-toggle="modal" data-target="#login-modal">تسجيل الدخول أو إنشاء حساب</a>
+    </p>
+
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content" style="padding: 5px;">
+                <div class="modal-header">
+                    <img id="img_logo" src="/Assets/images/logo.png" alt="logo">
+                    <button type="button" style="width: 10%" class="close" data-dismiss="modal" aria-label="Close"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button>
+                </div>
+                <div id="div-forms">
+                    <h4>تسجيل الدخول</h4>
+                    <p class="before-login-text" id="Message">أهلا بعودتك! يرجى تسجيل الدخول إلى حسابك</p>
+                    @using (@Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "form1" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email) <span class="red2">*</span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control text-log" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger small" })
+                        </div>
+
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password) <span class="red2">*</span>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control text-log" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+                        </div>
+
+                        <div class="form-group">
+
+                            @Html.CheckBoxFor(m => m.RememberMe, new { @class = "check-remember" })
+                            @Html.LabelFor(m => m.RememberMe, new { @class = "inline" })
+
+                        </div>
+                        <button type="button" id="f" class="button"><i class="fa fa-lock"></i>&nbsp; <span>@Resx.Login</span></button>
+
+                    }
+                    <div class="modal-footer">
+                        <div>
+                            <button onclick="location.href = '@Url.Action("Register","Account")'" id="login_register_btn" type="button" class="btn btn-link">انشئ حساباً</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+
+    using (@Html.BeginForm("Logout", "Account", FormMethod.Post,new {id="logout"}))
+    {
+        @Html.AntiForgeryToken()
+        <p class="top-Signup">
+            <a href="@Url.Action("Index","MManage")" class="">أهلا بك @ViewBag.FullName</a>
+
+        </p>
+    
+    }
+}
+
+<script>
+    $(".text-log").keydown(function (event) {
+        if (event.keyCode == 13) {
+            $("#f").trigger('click');
+            return false;
+        }
+    });
+    $("#f").click(function () {
+        var dataToPost = $("#form1").serialize();
+        $.ajax({
+
+            url: "@Url.Action("Login","Account")",
+            type: 'POST',
+            data:dataToPost,
+            success: function (data) {
+                if (data.charAt(0) == '/')
+                    location.href = data;
+                else
+                    var msg = document.getElementById("Message");
+                msg.innerHTML = data;
+                $("#Message").addClass("error");
+            }
+        });
+
+
+    });
+</script>

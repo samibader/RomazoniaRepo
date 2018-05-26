@@ -1,0 +1,112 @@
+﻿@model EShop.WEB.Models.UserBankInforamtionVM
+<style>
+    #bank-confirm {
+        transition: 1s all ease;
+    }
+</style>
+@using (Html.BeginForm("Confirm", "Order", FormMethod.Post, new { @id = "additional-information", @class = "form-horizontal" }))
+{
+    <fieldset>
+        <legend style="font-size: 15px;line-height: 34px;">معلومات التحويل</legend>
+
+        <div class="form-group">
+            <label class="col-sm-3">
+               المبلغ المحوّل بالريال
+            </label>
+            <div class="col-sm-9">
+
+                @Html.TextBoxFor(Amount => Model.Amount, new { @class = "form-control" })
+                @Html.ValidationMessageFor(Model => Model.Amount)
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 right">
+                اسم صاحب الحساب المحَول منه
+            </label>
+            <div class="col-sm-9">
+
+                @Html.TextBoxFor(AutherName => Model.AutherName, new { @class = "form-control", })
+                @Html.ValidationMessageFor(Model => Model.AutherName)
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 right">
+                رقم الحساب المحول منه
+            </label>
+            <div class="col-sm-9">
+
+                @Html.TextBoxFor(AccountNumber => Model.AccountNumber, new { @class = "form-control", })
+                @Html.ValidationMessageFor(Model => Model.AccountNumber)
+            </div>
+
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 right">
+                اسم البنك المحول منه
+            </label>
+            <div class="col-sm-9">
+
+                @Html.TextBoxFor(BankName => Model.BankName, new { @class = "form-control", })
+                @Html.ValidationMessageFor(Model => Model.BankName)
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 right">
+                تاريخ التحويل
+            </label>
+            <div class="col-sm-9">
+
+                @Html.TextBoxFor(TransferDate => Model.TransferDate, new { @id = "transfer-date", @class = "form-control", })
+                @Html.ValidationMessageFor(Model => Model.TransferDate)
+            </div>
+
+        </div>
+        <div class="buttons">
+            <div style="padding-top: 5px;text-align:center">
+                <h3>
+                    <input type="button" value="تثبيت الطلبية" id="bank-confirm" disabled="disabled" class="btn btn-success mybutton">
+
+                </h3>
+            </div>
+        </div>
+    </fieldset>
+
+}
+
+@if (ViewBag.flag != null && ViewBag.flag)
+{
+    <script>
+        $(function () {
+            generateFlash('success', 'تم تثبيت الطلب سيتم تحويلك بعد قليل');
+            setTimeout(function () { location.href = '@ViewBag.data'; }, 2000);
+        });
+    </script>
+}
+<script>
+    $(document).ready(function () {
+        $('#additional-information input[type=text]').val('');
+        var frm = $('#additional-information');
+        frm.removeData("validator").removeData("unobtrusiveValidation");//remove the form validation
+        $.validator.unobtrusive.parse(frm);//add the form validation
+       
+        $('#additional-information input').on('keyup blur', function () {
+            
+            if ($('#additional-information').valid()) {
+                $('#bank-confirm').prop('disabled', false);
+            } else {
+                $('#bank-confirm').prop('disabled', 'disabled');
+            }
+        });
+    });
+
+</script>
+<script>
+    $("#transfer-date")
+        .datepicker({
+            rtl: true, orientation: "auto", autoclose: true
+        });
+</script>

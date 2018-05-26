@@ -1,0 +1,567 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutShort" xml:space="preserve">
+    <value>About Us Short Description</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="Account" xml:space="preserve">
+    <value>Account </value>
+  </data>
+  <data name="AccountInfo" xml:space="preserve">
+    <value>Account Information</value>
+  </data>
+  <data name="AddToCart" xml:space="preserve">
+    <value>Add To Cart</value>
+  </data>
+  <data name="AddToCompare" xml:space="preserve">
+    <value>Add To Compare</value>
+  </data>
+  <data name="AddToWishList" xml:space="preserve">
+    <value>Add To Wishlist</value>
+  </data>
+  <data name="AgreeTerms" xml:space="preserve">
+    <value>I'v read and approved the Terms of Service and Privacy Policy</value>
+  </data>
+  <data name="AgreeTermsRequired" xml:space="preserve">
+    <value>Approval for the Terms of Service and Privacy Policy is required</value>
+  </data>
+  <data name="AllCategories" xml:space="preserve">
+    <value>All Categories</value>
+  </data>
+  <data name="AllProducts" xml:space="preserve">
+    <value>All Products</value>
+  </data>
+  <data name="AllRights" xml:space="preserve">
+    <value>All Rights Reserved</value>
+  </data>
+  <data name="Arabic" xml:space="preserve">
+    <value>Arabic</value>
+  </data>
+  <data name="Availability" xml:space="preserve">
+    <value>Availability</value>
+  </data>
+  <data name="BestSelling" xml:space="preserve">
+    <value>Best Selling</value>
+  </data>
+  <data name="Brand" xml:space="preserve">
+    <value>InstaShop</value>
+  </data>
+  <data name="Buyer" xml:space="preserve">
+    <value>Buyer</value>
+  </data>
+  <data name="BuyerDesc" xml:space="preserve">
+    <value>(I want to buy via the website)</value>
+  </data>
+  <data name="Cart" xml:space="preserve">
+    <value>Shopping Cart</value>
+  </data>
+  <data name="CartEmpty" xml:space="preserve">
+    <value>Shopping Cart is empty</value>
+  </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Categories</value>
+  </data>
+  <data name="Checkout" xml:space="preserve">
+    <value>Checkout</value>
+  </data>
+  <data name="City" xml:space="preserve">
+    <value>City</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>All Rights Reserved</value>
+  </data>
+  <data name="Count" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="Country" xml:space="preserve">
+    <value>Country</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="CreateAccount" xml:space="preserve">
+    <value>Create Account</value>
+  </data>
+  <data name="CreateNewAccount" xml:space="preserve">
+    <value>Create New Account</value>
+  </data>
+  <data name="CustomerService" xml:space="preserve">
+    <value>Customer Service</value>
+  </data>
+  <data name="CustomerSupport" xml:space="preserve">
+    <value>CustomerSupport</value>
+  </data>
+  <data name="Dashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="DeliveryInformation" xml:space="preserve">
+    <value>Delivery Information</value>
+  </data>
+  <data name="Descriptions" xml:space="preserve">
+    <value>Descriptions</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="DisplayPage" xml:space="preserve">
+    <value>Display Page</value>
+  </data>
+  <data name="Dollar" xml:space="preserve">
+    <value>US Dollar</value>
+  </data>
+  <data name="DontHaveAccount" xml:space="preserve">
+    <value>Don't have account ?</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EmailExists" xml:space="preserve">
+    <value>The email is already used , please choose another one</value>
+  </data>
+  <data name="EmailFriend" xml:space="preserve">
+    <value>E-mail Friend</value>
+  </data>
+  <data name="English" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="EnterLoginInfo" xml:space="preserve">
+    <value>Enter your info to login to your account</value>
+  </data>
+  <data name="FAQs" xml:space="preserve">
+    <value>FAQs</value>
+  </data>
+  <data name="Favorite" xml:space="preserve">
+    <value>Favorite</value>
+  </data>
+  <data name="Favourite" xml:space="preserve">
+    <value>Favourite</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="FollowUs" xml:space="preserve">
+    <value>Follow Us</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Forgot your password ?</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>Free</value>
+  </data>
+  <data name="GetTheLatestDealsAndSpecialOffers" xml:space="preserve">
+    <value>Get The Latest Deals And Special Offers</value>
+  </data>
+  <data name="GridList" xml:space="preserve">
+    <value>Grid / List</value>
+  </data>
+  <data name="Hani" xml:space="preserve">
+    <value>Hani</value>
+  </data>
+  <data name="HeaderDesc" xml:space="preserve">
+    <value>Contact us now</value>
+  </data>
+  <data name="HeaderSubDesc" xml:space="preserve">
+    <value>+98 777 666 55</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Information" xml:space="preserve">
+    <value>INFORMATION</value>
+  </data>
+  <data name="InputEmail" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
+  <data name="Insider" xml:space="preserve">
+    <value>INSIDER</value>
+  </data>
+  <data name="Instagramkom" xml:space="preserve">
+    <value>Instagramkom</value>
+  </data>
+  <data name="InStock" xml:space="preserve">
+    <value>InStock</value>
+  </data>
+  <data name="InvalidEmail" xml:space="preserve">
+    <value>Invalid email !</value>
+  </data>
+  <data name="Issam" xml:space="preserve">
+    <value>Issam</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="Loading" xml:space="preserve">
+    <value>Loading</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="LogInSignUp" xml:space="preserve">
+    <value>LogIn / SignUp</value>
+  </data>
+  <data name="LoginViaEmail" xml:space="preserve">
+    <value>Login via Email</value>
+  </data>
+  <data name="LoginViaInstagram" xml:space="preserve">
+    <value>Login via Instagram</value>
+  </data>
+  <data name="Logo" xml:space="preserve">
+    <value>~/assets/img/logo.png</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="LookBook" xml:space="preserve">
+    <value>LookBook</value>
+  </data>
+  <data name="Mem1" xml:space="preserve">
+    <value>Buy Products</value>
+  </data>
+  <data name="Mem2" xml:space="preserve">
+    <value>Create store on instagramkom</value>
+  </data>
+  <data name="Mem3" xml:space="preserve">
+    <value>Customize store apperance</value>
+  </data>
+  <data name="Mem4" xml:space="preserve">
+    <value>Automatic notification via SMS</value>
+  </data>
+  <data name="Mem5" xml:space="preserve">
+    <value>Special ads on home page</value>
+  </data>
+  <data name="Mem6" xml:space="preserve">
+    <value>Show more from your store</value>
+  </data>
+  <data name="Mem7" xml:space="preserve">
+    <value>Technical support 24/7</value>
+  </data>
+  <data name="Mem8" xml:space="preserve">
+    <value>Provide services via website </value>
+  </data>
+  <data name="MembershipSubscription" xml:space="preserve">
+    <value>Membership Subscription</value>
+  </data>
+  <data name="Monthly" xml:space="preserve">
+    <value>Monthly</value>
+  </data>
+  <data name="MyAccount" xml:space="preserve">
+    <value>My Account</value>
+  </data>
+  <data name="MyOrders" xml:space="preserve">
+    <value>My Orders</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="NewestFirst" xml:space="preserve">
+    <value>Newest First</value>
+  </data>
+  <data name="News" xml:space="preserve">
+    <value>NEWS</value>
+  </data>
+  <data name="NewsLetter" xml:space="preserve">
+    <value>Newsletter</value>
+  </data>
+  <data name="NewsLetterDesc" xml:space="preserve">
+    <value>Subscribe at our newsletter</value>
+  </data>
+  <data name="Nodar" xml:space="preserve">
+    <value>Nodar</value>
+  </data>
+  <data name="Of" xml:space="preserve">
+    <value>Of</value>
+  </data>
+  <data name="PassNotEqual" xml:space="preserve">
+    <value>Password and Confirm don't match</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="PaymentMethods" xml:space="preserve">
+    <value>Payment Methods</value>
+  </data>
+  <data name="PerPage" xml:space="preserve">
+    <value>{0} / Page</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="PopularTags" xml:space="preserve">
+    <value>Popular Tags</value>
+  </data>
+  <data name="PremiumSeller" xml:space="preserve">
+    <value>PremiumSeller</value>
+  </data>
+  <data name="PriceHigh" xml:space="preserve">
+    <value>Price : Higher First</value>
+  </data>
+  <data name="PriceLow" xml:space="preserve">
+    <value>Price : Lower First</value>
+  </data>
+  <data name="Privacy" xml:space="preserve">
+    <value>Privacy Policy</value>
+  </data>
+  <data name="ProductPrice" xml:space="preserve">
+    <value>Product Price</value>
+  </data>
+  <data name="QuickOverview" xml:space="preserve">
+    <value>QUICK OVERVIEW</value>
+  </data>
+  <data name="Rates" xml:space="preserve">
+    <value>Rate(s)</value>
+  </data>
+  <data name="RecentlyAddedItems" xml:space="preserve">
+    <value>Recently Added Items</value>
+  </data>
+  <data name="Register" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterAs" xml:space="preserve">
+    <value>I want to register as :</value>
+  </data>
+  <data name="RelatedProducts" xml:space="preserve">
+    <value>Related Products</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Remember me next time ?</value>
+  </data>
+  <data name="Required" xml:space="preserve">
+    <value>Field ({0}) required !</value>
+  </data>
+  <data name="ResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="ResetPasswordBody" xml:space="preserve">
+    <value>Please reset your password by clicking &lt;a href=\"{0}\"&gt;here&lt;/a&gt;</value>
+  </data>
+  <data name="ReturnPolicy" xml:space="preserve">
+    <value>Return Policy</value>
+  </data>
+  <data name="Rial" xml:space="preserve">
+    <value>Saudi Rial</value>
+  </data>
+  <data name="Sale" xml:space="preserve">
+    <value>Sale</value>
+  </data>
+  <data name="SAR" xml:space="preserve">
+    <value>SAR</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="Seller" xml:space="preserve">
+    <value>Seller</value>
+  </data>
+  <data name="SellerDesc" xml:space="preserve">
+    <value>(I want to build my store via the website)</value>
+  </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="ServiceProvider" xml:space="preserve">
+    <value>ServiceProvider</value>
+  </data>
+  <data name="ServiceProviderDesc" xml:space="preserve">
+    <value>(I want to provide services via website)</value>
+  </data>
+  <data name="ShopBy" xml:space="preserve">
+    <value>Shop By</value>
+  </data>
+  <data name="SiteMap" xml:space="preserve">
+    <value>Sitemap</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="SortBy" xml:space="preserve">
+    <value>Sort By</value>
+  </data>
+  <data name="Special" xml:space="preserve">
+    <value>Special</value>
+  </data>
+  <data name="SpecialOffer" xml:space="preserve">
+    <value>Special Offer !</value>
+  </data>
+  <data name="SpecialProducts" xml:space="preserve">
+    <value>Special Products</value>
+  </data>
+  <data name="Store" xml:space="preserve">
+    <value>Store</value>
+  </data>
+  <data name="StringLength" xml:space="preserve">
+    <value>Input length must be between {0} and {1} characters</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="SubscriptionPeriod" xml:space="preserve">
+    <value>By Year</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>TAGs</value>
+  </data>
+  <data name="TermsAndConditions" xml:space="preserve">
+    <value>Terms &amp; Conditions</value>
+  </data>
+  <data name="TermsOfService" xml:space="preserve">
+    <value>Terms of Service</value>
+  </data>
+  <data name="Title" xml:space="preserve">
+    <value>Instagramkom</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Trends" xml:space="preserve">
+    <value>Trends</value>
+  </data>
+  <data name="UpsellProducts" xml:space="preserve">
+    <value>UPSELL PRODUCTS</value>
+  </data>
+  <data name="ViewCart" xml:space="preserve">
+    <value>View Cart</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Welcome</value>
+  </data>
+  <data name="WelcomeInStore" xml:space="preserve">
+    <value>Welcome To Our Store !</value>
+  </data>
+  <data name="WishList" xml:space="preserve">
+    <value>WishList</value>
+  </data>
+</root>

@@ -1,0 +1,512 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{15F7163C-5884-4FC4-9D33-A67B1A1B280B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EShop.DAL</RootNamespace>
+    <AssemblyName>EShop.DAL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="EF\ApplicationDbContext.cs" />
+    <Compile Include="Entities\Address.cs" />
+    <Compile Include="Entities\ApplicationRole.cs" />
+    <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Entities\Attrib.cs" />
+    <Compile Include="Entities\AttributeDescription.cs" />
+    <Compile Include="Entities\AttributeGroup.cs" />
+    <Compile Include="Entities\AttributeGroupDescription.cs" />
+    <Compile Include="Entities\BillingAddress.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\CategoryDescription.cs" />
+    <Compile Include="Entities\CheckOut.cs" />
+    <Compile Include="Entities\ColorHelper.cs" />
+    <Compile Include="Entities\Coupon.cs" />
+    <Compile Include="Entities\Designer.cs" />
+    <Compile Include="Entities\DesignerDescription.cs" />
+    <Compile Include="Entities\Discount.cs" />
+    <Compile Include="Entities\DiscountDescription.cs" />
+    <Compile Include="Entities\Image.cs" />
+    <Compile Include="Entities\Language.cs" />
+    <Compile Include="Entities\Option.cs" />
+    <Compile Include="Entities\OptionDescription.cs" />
+    <Compile Include="Entities\OptionHelper.cs" />
+    <Compile Include="Entities\OptionValue.cs" />
+    <Compile Include="Entities\OptionValueDescription.cs" />
+    <Compile Include="Entities\Order.cs" />
+    <Compile Include="Entities\OrderHistory.cs" />
+    <Compile Include="Entities\OrderItem.cs" />
+    <Compile Include="Entities\Product.cs" />
+    <Compile Include="Entities\ProductAttributeValue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\ProductDescription.cs" />
+    <Compile Include="Entities\ProductDiscount.cs" />
+    <Compile Include="Entities\ProductRate.cs" />
+    <Compile Include="Entities\ProductSizeAttribute.cs" />
+    <Compile Include="Entities\ProductSKU.cs" />
+    <Compile Include="Entities\ProductSKUOptionValue.cs" />
+    <Compile Include="Entities\Sample.cs" />
+    <Compile Include="Entities\Favorite.cs" />
+    <Compile Include="Entities\ShippingAddress.cs" />
+    <Compile Include="Entities\ShippingBillingMethod.cs" />
+    <Compile Include="Entities\ShippingBillingMethodDescription.cs" />
+    <Compile Include="Entities\ShippingCompany.cs" />
+    <Compile Include="Entities\ShippingCompanyDescription.cs" />
+    <Compile Include="Entities\ShoppingCart.cs" />
+    <Compile Include="Entities\SizeAttribute.cs" />
+    <Compile Include="Entities\SizeAttributeDescription.cs" />
+    <Compile Include="Entities\SizeHelper.cs" />
+    <Compile Include="Entities\Slide.cs" />
+    <Compile Include="Entities\Tag.cs" />
+    <Compile Include="Interfaces\IEntityBase.cs" />
+    <Compile Include="Interfaces\IUnitOfWork.cs" />
+    <Compile Include="Migrations\201611011949280_initial1.cs" />
+    <Compile Include="Migrations\201611011949280_initial1.Designer.cs">
+      <DependentUpon>201611011949280_initial1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611011958522_initial2.cs" />
+    <Compile Include="Migrations\201611011958522_initial2.Designer.cs">
+      <DependentUpon>201611011958522_initial2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611012004060_initial3.cs" />
+    <Compile Include="Migrations\201611012004060_initial3.Designer.cs">
+      <DependentUpon>201611012004060_initial3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611012015219_initial4.cs" />
+    <Compile Include="Migrations\201611012015219_initial4.Designer.cs">
+      <DependentUpon>201611012015219_initial4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611021930241_MakeDateNullable.cs" />
+    <Compile Include="Migrations\201611021930241_MakeDateNullable.Designer.cs">
+      <DependentUpon>201611021930241_MakeDateNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611061315587_ADDIscolorToOption.cs" />
+    <Compile Include="Migrations\201611061315587_ADDIscolorToOption.Designer.cs">
+      <DependentUpon>201611061315587_ADDIscolorToOption.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611061744584_addVirtualProps.cs" />
+    <Compile Include="Migrations\201611061744584_addVirtualProps.Designer.cs">
+      <DependentUpon>201611061744584_addVirtualProps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611062127358_pendingChanges.cs" />
+    <Compile Include="Migrations\201611062127358_pendingChanges.Designer.cs">
+      <DependentUpon>201611062127358_pendingChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611111851295_MovingPropsToSKU.cs" />
+    <Compile Include="Migrations\201611111851295_MovingPropsToSKU.Designer.cs">
+      <DependentUpon>201611111851295_MovingPropsToSKU.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611121228066_AddOptionValueImage.cs" />
+    <Compile Include="Migrations\201611121228066_AddOptionValueImage.Designer.cs">
+      <DependentUpon>201611121228066_AddOptionValueImage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611130152429_Addin_ShoppingCart.cs" />
+    <Compile Include="Migrations\201611130152429_Addin_ShoppingCart.Designer.cs">
+      <DependentUpon>201611130152429_Addin_ShoppingCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611130218143_add_ShopCart.cs" />
+    <Compile Include="Migrations\201611130218143_add_ShopCart.Designer.cs">
+      <DependentUpon>201611130218143_add_ShopCart.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611231901411_Add_Favorite.cs" />
+    <Compile Include="Migrations\201611231901411_Add_Favorite.Designer.cs">
+      <DependentUpon>201611231901411_Add_Favorite.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612041345012_add_checkout.cs" />
+    <Compile Include="Migrations\201612041345012_add_checkout.Designer.cs">
+      <DependentUpon>201612041345012_add_checkout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612070140279_offfff.cs" />
+    <Compile Include="Migrations\201612070140279_offfff.Designer.cs">
+      <DependentUpon>201612070140279_offfff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612081044426_add_shippingAndBilling.cs" />
+    <Compile Include="Migrations\201612081044426_add_shippingAndBilling.Designer.cs">
+      <DependentUpon>201612081044426_add_shippingAndBilling.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612101746121_AddCategoryBanner.cs" />
+    <Compile Include="Migrations\201612101746121_AddCategoryBanner.Designer.cs">
+      <DependentUpon>201612101746121_AddCategoryBanner.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612111632299_addingModificationDateAndNullable.cs" />
+    <Compile Include="Migrations\201612111632299_addingModificationDateAndNullable.Designer.cs">
+      <DependentUpon>201612111632299_addingModificationDateAndNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612120025217_modifyOrderStatus.cs" />
+    <Compile Include="Migrations\201612120025217_modifyOrderStatus.Designer.cs">
+      <DependentUpon>201612120025217_modifyOrderStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612120131240_modify_to_nullable.cs" />
+    <Compile Include="Migrations\201612120131240_modify_to_nullable.Designer.cs">
+      <DependentUpon>201612120131240_modify_to_nullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612120229151_drop_order_prop.cs" />
+    <Compile Include="Migrations\201612120229151_drop_order_prop.Designer.cs">
+      <DependentUpon>201612120229151_drop_order_prop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612120920296_solve_order_prop.cs" />
+    <Compile Include="Migrations\201612120920296_solve_order_prop.Designer.cs">
+      <DependentUpon>201612120920296_solve_order_prop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612121444246_solve-my.cs" />
+    <Compile Include="Migrations\201612121444246_solve-my.Designer.cs">
+      <DependentUpon>201612121444246_solve-my.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612121604027_solve-my-life-hell.cs" />
+    <Compile Include="Migrations\201612121604027_solve-my-life-hell.Designer.cs">
+      <DependentUpon>201612121604027_solve-my-life-hell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612130126154_what-is-happining.cs" />
+    <Compile Include="Migrations\201612130126154_what-is-happining.Designer.cs">
+      <DependentUpon>201612130126154_what-is-happining.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612141849507_remove_SKUId_FromDiscount.cs" />
+    <Compile Include="Migrations\201612141849507_remove_SKUId_FromDiscount.Designer.cs">
+      <DependentUpon>201612141849507_remove_SKUId_FromDiscount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612152029571_add_checkout1.cs" />
+    <Compile Include="Migrations\201612152029571_add_checkout1.Designer.cs">
+      <DependentUpon>201612152029571_add_checkout1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612180202496_change_invoiceId_toString.cs" />
+    <Compile Include="Migrations\201612180202496_change_invoiceId_toString.Designer.cs">
+      <DependentUpon>201612180202496_change_invoiceId_toString.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612181328298_adding_Color_Size_Helpers.cs" />
+    <Compile Include="Migrations\201612181328298_adding_Color_Size_Helpers.Designer.cs">
+      <DependentUpon>201612181328298_adding_Color_Size_Helpers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612181729066_Adding_OptionHelper.cs" />
+    <Compile Include="Migrations\201612181729066_Adding_OptionHelper.Designer.cs">
+      <DependentUpon>201612181729066_Adding_OptionHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612181755040_delete_Name_And_ImageURL_From_SizeHelper.cs" />
+    <Compile Include="Migrations\201612181755040_delete_Name_And_ImageURL_From_SizeHelper.Designer.cs">
+      <DependentUpon>201612181755040_delete_Name_And_ImageURL_From_SizeHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612181951190_adding-option-id.cs" />
+    <Compile Include="Migrations\201612181951190_adding-option-id.Designer.cs">
+      <DependentUpon>201612181951190_adding-option-id.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612211909281_addNameToProductDescription.cs" />
+    <Compile Include="Migrations\201612211909281_addNameToProductDescription.Designer.cs">
+      <DependentUpon>201612211909281_addNameToProductDescription.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612231556138_addIsPercentageToOrder.cs" />
+    <Compile Include="Migrations\201612231556138_addIsPercentageToOrder.Designer.cs">
+      <DependentUpon>201612231556138_addIsPercentageToOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612231928337_alterOrder.cs" />
+    <Compile Include="Migrations\201612231928337_alterOrder.Designer.cs">
+      <DependentUpon>201612231928337_alterOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612260102447_adding_Attribute_Group.cs" />
+    <Compile Include="Migrations\201612260102447_adding_Attribute_Group.Designer.cs">
+      <DependentUpon>201612260102447_adding_Attribute_Group.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612271517339_Adding_Designer_Description.cs" />
+    <Compile Include="Migrations\201612271517339_Adding_Designer_Description.Designer.cs">
+      <DependentUpon>201612271517339_Adding_Designer_Description.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612280441549_Adding_Size_Attributes.cs" />
+    <Compile Include="Migrations\201612280441549_Adding_Size_Attributes.Designer.cs">
+      <DependentUpon>201612280441549_Adding_Size_Attributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612301656213_Editing_sizeAttributes_Remove_unWantedColomns.cs" />
+    <Compile Include="Migrations\201612301656213_Editing_sizeAttributes_Remove_unWantedColomns.Designer.cs">
+      <DependentUpon>201612301656213_Editing_sizeAttributes_Remove_unWantedColomns.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612301859379_Editing_sizeAttributes_Remove_unWantedColomns_2.cs" />
+    <Compile Include="Migrations\201612301859379_Editing_sizeAttributes_Remove_unWantedColomns_2.Designer.cs">
+      <DependentUpon>201612301859379_Editing_sizeAttributes_Remove_unWantedColomns_2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612311718306_Add_ProductSizeAttributes.cs" />
+    <Compile Include="Migrations\201612311718306_Add_ProductSizeAttributes.Designer.cs">
+      <DependentUpon>201612311718306_Add_ProductSizeAttributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201612312040318_AddItemOrderColorSize.cs" />
+    <Compile Include="Migrations\201612312040318_AddItemOrderColorSize.Designer.cs">
+      <DependentUpon>201612312040318_AddItemOrderColorSize.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701030005361_Adding_Discount_Tables.cs" />
+    <Compile Include="Migrations\201701030005361_Adding_Discount_Tables.Designer.cs">
+      <DependentUpon>201701030005361_Adding_Discount_Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701031948408_Fixing_Product_Attributes.cs" />
+    <Compile Include="Migrations\201701031948408_Fixing_Product_Attributes.Designer.cs">
+      <DependentUpon>201701031948408_Fixing_Product_Attributes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701141810491_favorite-fix.cs" />
+    <Compile Include="Migrations\201701141810491_favorite-fix.Designer.cs">
+      <DependentUpon>201701141810491_favorite-fix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701291638301_Adding_Product_Comment.cs" />
+    <Compile Include="Migrations\201701291638301_Adding_Product_Comment.Designer.cs">
+      <DependentUpon>201701291638301_Adding_Product_Comment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702181857364_Adding_Slider_Manager.cs" />
+    <Compile Include="Migrations\201702181857364_Adding_Slider_Manager.Designer.cs">
+      <DependentUpon>201702181857364_Adding_Slider_Manager.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704101903179_add_order_ip.cs" />
+    <Compile Include="Migrations\201704101903179_add_order_ip.Designer.cs">
+      <DependentUpon>201704101903179_add_order_ip.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
+    <Compile Include="Repositories\UnitOfWork.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EShop.Common\EShop.Common.csproj">
+      <Project>{2792c87c-4ed4-4af7-8935-80cded5a2ec7}</Project>
+      <Name>EShop.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201611011949280_initial1.resx">
+      <DependentUpon>201611011949280_initial1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611011958522_initial2.resx">
+      <DependentUpon>201611011958522_initial2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611012004060_initial3.resx">
+      <DependentUpon>201611012004060_initial3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611012015219_initial4.resx">
+      <DependentUpon>201611012015219_initial4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611021930241_MakeDateNullable.resx">
+      <DependentUpon>201611021930241_MakeDateNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611061315587_ADDIscolorToOption.resx">
+      <DependentUpon>201611061315587_ADDIscolorToOption.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611061744584_addVirtualProps.resx">
+      <DependentUpon>201611061744584_addVirtualProps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611062127358_pendingChanges.resx">
+      <DependentUpon>201611062127358_pendingChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611111851295_MovingPropsToSKU.resx">
+      <DependentUpon>201611111851295_MovingPropsToSKU.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121228066_AddOptionValueImage.resx">
+      <DependentUpon>201611121228066_AddOptionValueImage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611130152429_Addin_ShoppingCart.resx">
+      <DependentUpon>201611130152429_Addin_ShoppingCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611130218143_add_ShopCart.resx">
+      <DependentUpon>201611130218143_add_ShopCart.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611231901411_Add_Favorite.resx">
+      <DependentUpon>201611231901411_Add_Favorite.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612041345012_add_checkout.resx">
+      <DependentUpon>201612041345012_add_checkout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612070140279_offfff.resx">
+      <DependentUpon>201612070140279_offfff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612081044426_add_shippingAndBilling.resx">
+      <DependentUpon>201612081044426_add_shippingAndBilling.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612101746121_AddCategoryBanner.resx">
+      <DependentUpon>201612101746121_AddCategoryBanner.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612111632299_addingModificationDateAndNullable.resx">
+      <DependentUpon>201612111632299_addingModificationDateAndNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612120025217_modifyOrderStatus.resx">
+      <DependentUpon>201612120025217_modifyOrderStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612120131240_modify_to_nullable.resx">
+      <DependentUpon>201612120131240_modify_to_nullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612120229151_drop_order_prop.resx">
+      <DependentUpon>201612120229151_drop_order_prop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612120920296_solve_order_prop.resx">
+      <DependentUpon>201612120920296_solve_order_prop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612121444246_solve-my.resx">
+      <DependentUpon>201612121444246_solve-my.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612121604027_solve-my-life-hell.resx">
+      <DependentUpon>201612121604027_solve-my-life-hell.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612130126154_what-is-happining.resx">
+      <DependentUpon>201612130126154_what-is-happining.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612141849507_remove_SKUId_FromDiscount.resx">
+      <DependentUpon>201612141849507_remove_SKUId_FromDiscount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612152029571_add_checkout1.resx">
+      <DependentUpon>201612152029571_add_checkout1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612180202496_change_invoiceId_toString.resx">
+      <DependentUpon>201612180202496_change_invoiceId_toString.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612181328298_adding_Color_Size_Helpers.resx">
+      <DependentUpon>201612181328298_adding_Color_Size_Helpers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612181729066_Adding_OptionHelper.resx">
+      <DependentUpon>201612181729066_Adding_OptionHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612181755040_delete_Name_And_ImageURL_From_SizeHelper.resx">
+      <DependentUpon>201612181755040_delete_Name_And_ImageURL_From_SizeHelper.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612181951190_adding-option-id.resx">
+      <DependentUpon>201612181951190_adding-option-id.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612211909281_addNameToProductDescription.resx">
+      <DependentUpon>201612211909281_addNameToProductDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612231556138_addIsPercentageToOrder.resx">
+      <DependentUpon>201612231556138_addIsPercentageToOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612231928337_alterOrder.resx">
+      <DependentUpon>201612231928337_alterOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612260102447_adding_Attribute_Group.resx">
+      <DependentUpon>201612260102447_adding_Attribute_Group.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612271517339_Adding_Designer_Description.resx">
+      <DependentUpon>201612271517339_Adding_Designer_Description.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612280441549_Adding_Size_Attributes.resx">
+      <DependentUpon>201612280441549_Adding_Size_Attributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612301656213_Editing_sizeAttributes_Remove_unWantedColomns.resx">
+      <DependentUpon>201612301656213_Editing_sizeAttributes_Remove_unWantedColomns.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612301859379_Editing_sizeAttributes_Remove_unWantedColomns_2.resx">
+      <DependentUpon>201612301859379_Editing_sizeAttributes_Remove_unWantedColomns_2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612311718306_Add_ProductSizeAttributes.resx">
+      <DependentUpon>201612311718306_Add_ProductSizeAttributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612312040318_AddItemOrderColorSize.resx">
+      <DependentUpon>201612312040318_AddItemOrderColorSize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701030005361_Adding_Discount_Tables.resx">
+      <DependentUpon>201701030005361_Adding_Discount_Tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701031948408_Fixing_Product_Attributes.resx">
+      <DependentUpon>201701031948408_Fixing_Product_Attributes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701141810491_favorite-fix.resx">
+      <DependentUpon>201701141810491_favorite-fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701291638301_Adding_Product_Comment.resx">
+      <DependentUpon>201701291638301_Adding_Product_Comment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702181857364_Adding_Slider_Manager.resx">
+      <DependentUpon>201702181857364_Adding_Slider_Manager.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704101903179_add_order_ip.resx">
+      <DependentUpon>201704101903179_add_order_ip.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

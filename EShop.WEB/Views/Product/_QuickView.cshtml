@@ -1,0 +1,321 @@
+﻿@using EShop.BLL.DTO
+@model EShop.BLL.DTO.ProductDTO
+
+<style>
+    #quick .product-view-area .short-description {
+        margin-bottom: 0px;
+        padding-top: 0px;
+    }
+
+    #quick .product-variation {
+        padding: 2px 0;
+        margin-bottom: 0;
+    }
+
+    #quick .product-view-area .product-details-area {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+</style>
+@using Resx = EShop.Resources.Views.EShopResource
+<div class="modal fade" id="quick-modal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none; z-index: 1000">
+    <div class="modal-dialog">
+        <div class="modal-content" style="/*padding: 5px;*/ ">
+            <div class="modal-header" style="padding:0;background-color: bisque;">
+                @*<img id="img_logo" src="/Assets/images/logo.png" alt="logo">*@
+                <h3 style="float: right;font-size: 20px;font-weight: bold;margin: 7px 20px;">نظرة سريعة</h3>
+                <button type="button" style="width: 10%;margin-top: 10px;" class="close" data-dismiss="modal" aria-label="Close"> <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> </button>
+            </div>
+            <div id="div-forms" class="row">
+
+
+                <div class="product-view-area">
+                    <div class="product-big-image col-xs-12 col-sm-5 col-lg-5 col-md-5">
+                        @if (@Model.IsDiscounted)
+                        {
+                            <div class="icon-sale-label sale-left">تخفيض</div>
+                        }
+
+                        @if (@Model.IsNew)
+                        {
+                            <div class="icon-new-label new-left">@Resx.New</div>
+                        }
+                        <div class="large-image">
+                            <a href="" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20"> <img class="zoom-img" src="@Model.Images[0]" alt="@Model.Name"> </a>
+                        </div>
+
+                    </div>
+
+                    <!-- end: more-images -->
+
+
+                    <div class="col-xs-12 col-sm-7 col-lg-7 col-md-7 product-details-area">
+                        <div class="product-name">
+                            <h4>@Model.Name</h4>
+                        </div>
+                        <div class="price-box">
+                            @if (Model.IsDiscounted)
+                            {
+                                <p class="old-price"> <span class="price-label">السعر الأصلي:</span> <span class="price"> @Model.OrginalPriceDisplay </span> </p>
+                                <p class="special-price"> <span class="price-label">السعر المخصص</span> <span class="price"> @Model.TotalPriceDisplay </span> </p>
+                            }
+                            else
+                            {
+                                <p class="special-price"> <span class="price-label">السعر المخصص</span> <span class="price"> @Model.OrginalPriceDisplay </span> </p>
+
+                            }
+                        </div>
+                        <div style="padding-right: 10px; display: flex; border-bottom: 1px solid #e5e5e5;">
+                            @{
+                                String availability = @Model.IsAvailable ? "in-stock" : "out-of-stock";
+                                String Name = @Model.IsAvailable ? "متوفر" : "غير متوفر";
+                            }
+                            <p class="availability @availability pull-right">
+                                <span>@Name</span> @if (Model.IsAvailable)
+                                {
+                                    <text>عدد القطع المتبقية <span class="badge">@Model.Quantity</span></text>
+                                }
+                            </p>
+                        </div>
+                        <div class="ratings">
+                            <div class="rating">
+                                @{ Html.RenderPartial("_Stars", Model.TotalRate);}
+                            </div>
+
+                            <p class="rating-links">
+                                <a href="#">@Model.rates.Count التقييمات</a> <span class="separator">|</span> <a href="#reviews" id="aa">أضف تقييما</a>
+                            </p>
+
+
+                        </div>
+                        <div class="short-description">
+                            <h4>نظرة سريعة</h4>
+                            <p>@Model.MetaDescriptions</p>
+
+                        </div>
+                        <div class="short-description" style="border-bottom: 1px solid #e5e5e5;">
+                            <h2> المصمم</h2>
+                            <p><a href="@Url.Action("Browse","Designer",new{designerName=Model.Designer.DesignerName})">@Model.Designer.DesignerName</a></p>
+
+                        </div>
+                        @if (@Model.SelectedColor == @Model.SelectedSize && @Model.SelectedSize == -1)
+                        {
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                        }
+                        else
+                        {
+                            <div class="product-color-size-area" style=" margin-bottom: 0px;">
+                                <h4 class="saider-bar-title">المواصفات</h4>
+                                @using (@Html.BeginForm("Browse", "Product", new { id = Model.Id }, FormMethod.Get, new { @id = "QuickFilterForm" }))
+                                {
+
+
+                                    if (@Model.SelectedColor != -1)
+                                    {
+
+                                        <div class="color-area" style="float: @(Model.SelectedSize == -1 ? "right" : "left")">
+                                            <h2 class="saider-bar-title">اللون</h2>
+                                            <div class="color">
+                                                <ul>
+                                                    @{ int colorIdx = 0;}
+                                                    @foreach (ColorValuesDTO color in @Model.Colors)
+                                                    {
+                                                        var background = "";
+                                                        if (color.IsImages)
+                                                        {
+                                                            background = "background:url(" + color.Image + ");background-size:contain;";
+                                                        }
+                                                        else
+                                                        {
+                                                            background = "background-color:" + color.Image;
+                                                        }
+                                                        @*<li><a href="@Url.Action("Browse", "Product", new {id = @Model.Id, c = @color.ColorName})" style="background-color: @color.Image" class="colorClass @(Model.SelectedColorValue == color.ValueId ? "selectedColor" : "")"></a></li>*@
+                                                        <li>
+                                                            <input type="radio" id="q-@color.ColorName" name="c" value="@color.ColorNameEnglish" @(colorIdx == @Model.SelectedColor ? "checked" : "") style="display: none;" class="sizeColor">
+                                                            <label for="q-@color.ColorName" style="@background" class="colorLabel  @(colorIdx++==@Model.SelectedColor ? "selectedColor" : "")"></label>
+
+                                                        </li>
+                                                    }
+                                                </ul>
+                                            </div>
+
+                                        </div>
+                                    }
+                                    if (@Model.SelectedSize != -1)
+                                    {
+
+                                        <div class="size-area">
+                                            <h2 class="saider-bar-title">القياس</h2>
+                                            <div class="size">
+                                                <ul>
+                                                    @{
+                                        int sizeIdx = 0;
+                                                    }
+                                                    @foreach (SizeValueDTO size in @Model.Sizes)
+                                                    {
+                                                        @*<li class="@(size.Available ? "not" : "") selectable"><a class="@(size.Available ? "not" : "") @(size.OptionValueId ==@Model.SelectedSizeValue ? "selectedSize" : "") ">@size.Name</a></li>*@
+                                                        <li>
+                                                            @if (size.Available)
+                                                            {
+                                                                <input type="radio" id="q-@size.Name" name="s" value="@size.EnglishName" style="display: none;" @(sizeIdx == @Model.SelectedSize ? "checked" : "") class="sizeColor">
+                                                            }
+                                                            <label for="q-@size.Name" class="@(sizeIdx++== @Model.SelectedSize ? "selectedSize" : "") @(!size.Available?"line":"")">@size.Name</label>
+                                                        </li>
+                                                    }
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+
+                        }
+                        <div class="product-variation">
+                            @using (@Html.BeginForm("Add", "Cart", FormMethod.Post, new { @id = "QuickAddToCartForm" }))
+                            {
+                                <input type="Hidden" id="skuId" name="SKUId" value="@Model.SKUId" />
+                                <input type="Hidden" id="productId" name="ProductId" value="@Model.Id" />
+                                <div class="cart-plus-minus">
+                                    <label for="qty">الكمية:</label>
+                                    <div class="numbers-row">
+                                        <div onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="dec qtybutton"><i class="fa fa-minus">&nbsp;</i></div>
+                                        <input type="text" class="qty" title="Qty" value="1" id="qty" name="Quantity">
+                                        <div onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="inc qtybutton"><i class="fa fa-plus">&nbsp;</i></div>
+                                    </div>
+                                </div>
+                                <button class="button pro-add-to-cart" title="Add to Cart" type="submit" onclick=" return chk()"><span><i class="fa fa-shopping-cart"></i> أضف إلى سلة الشراء</span></button>
+                            }
+                        </div>
+                        @*<div class="short-description" style="border-bottom: 1px solid #e5e5e5;">
+                            <h2>وسوم المنتج</h2>
+                            <p>
+                                @foreach (var tag in Model.Tags)
+                                {
+                                <a href="@Url.Action("Browse", "Tag", new {tagName = tag.EnglishName})">@tag.Name</a>
+                                }
+                            </p>*@
+
+                    </div>
+                    @*<div class="modal-footer">
+                                                <div class="product-cart-option">
+                                <ul>
+                                    <li><a href="#" onclick="addToFav(@Model.Id)"><i class="fa fa-heart"></i><span>أضف إلى المفضلة</span></a></li>
+                                    <li><a href="#"><i class="fa fa-envelope"></i><span>أرسل لصديق عبر الأيميل</span></a></li>
+                                </ul>
+                            </div>
+                        </div>*@
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function selectSize(skuId) {
+        var x = document.getElementById("skuId");
+        x.value = skuId;
+        var xx = document.getElementById(skuId);
+        $(".selectedSize").removeClass("selectedSize");
+        $('#'+skuId.toString()).addClass("selectedSize");
+    }
+
+    function chk() {
+        var x = document.getElementById("skuId");
+
+        if (x.value =="") {
+            alert("Select A size");
+            return false;}
+
+        return true;
+    }
+
+</script>
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+        $('#QuickAddToCartForm').on('submit', function (e) {
+
+            e.preventDefault();
+
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '@Url.Action("Add","Cart")',
+                data: $('#QuickAddToCartForm').serialize(),
+                success: function(data) {
+                    $("#quick-modal").modal('hide');
+                    $('#CartSummary')
+                        .load('@Url.Action("CartSummary", "Cart")',function() {
+                            var type = (data.Success) ? 'success' : 'error';
+                            generateFlash(type, data.Msg);
+                            if(data.Success){
+                                jQuery('body,html').animate({
+                                    scrollTop: 0,
+                                }, 700);
+
+                                $('#topCart').addClass("showw");
+                                setTimeout(function() { $("#topCart").removeClass("showw")},2500);
+                                $("#topCart").hover(
+                                    function() { $("#topCart").removeClass("showw"); });}
+                        });
+
+
+
+
+                    //$("#topCart").hover(function() { this.removeClass("showw"); });
+                    // var s= document.getElementById("topCart").attributes.getNamedItem('style');
+                    //document.getElementById("topCart").
+
+
+                    //$("#topCart").css(new {transform:"scaleY(1) !important"});
+                    //$("#topCart").addClass("ViewCart");
+
+
+                }
+            });
+
+        });
+
+    });
+    $(function() {
+        $('.sizeColor').change(function() {
+            debugger;
+            $('#QuickFilterForm').submit();
+        });
+    });
+</script>
+
+@*<script>
+        function selectColor(productId, valueId) {
+
+            var prod = document.getElementById("prod-"+productId);
+            var className = "product-item-photo";
+
+
+            var elems = prod.getElementsByClassName(className);
+            for (var i = 0; i < elems.length; i++) {
+                elems[i].className += elems[i].className ? ' Hidden' : 'Hidden';
+            }
+            //var colorElems = prod.getElementsByClassName("selectedColor");
+            //for (var ii = 0; ii < colorElems.length; ii++) {
+            //    colorElems[ii].className = "";
+            //    colorElems[ii].className = "colorClass";
+            //}
+            // el.className += el.className == "" ? 'selectedColor' : ' selectedColor';
+            $("#prod-" + productId.toString() + " .selectedColor").removeClass("selectedColor");
+            $('#' + productId.toString() + "--" + valueId.toString()).addClass("selectedColor");
+
+            // alert(elems);
+            document.getElementById(productId.toString() + '-' + valueId.toString()).className = "";
+            document.getElementById(productId.toString() + '-' + valueId.toString()).className = className;
+            return false;
+        }
+    </script>*@

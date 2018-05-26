@@ -1,0 +1,179 @@
+﻿@model EShop.BLL.DTO.ProductDTO
+@using Resx = EShop.Resources.Views.EShopResource
+@{
+    var product = Model;
+}
+
+<div class="product-item" id="prod-@Model.Id">
+    <div class="item-inner">
+
+        <div class="product-thumbnail">
+            @if (@Model.IsDiscounted)
+            {
+                <div class="icon-sale-label sale-left">حسم</div>
+            }
+
+            @if (@Model.IsNew)
+            {
+                <div class="icon-new-label new-left">@Resx.New</div>
+            }
+            @if (!@Model.IsAvailable)
+            {
+                <div class="icon-empty-label empty-left">غيرمتوفر</div>
+            }
+            
+            @if (product.SelectedColor != -1)
+            {
+                <a id="@(product.Id.ToString() + '-' + product.Colors[product.SelectedColor].ValueId.ToString())" href="@Url.Action("Browse", "Product", new {id = product.Id, c = product.Colors[product.SelectedColor].ColorNameEnglish})" class="product-item-photo colorClass"> <img src="@(product.Colors[product.SelectedColor].ProductImage).ashx?height=200" alt=""></a>
+                <div class="btn-quickview" id="q-d-@(product.Id.ToString() + '-' + product.Colors[product.SelectedColor].ValueId)">
+                    <input type="hidden" id="h-@(product.Id.ToString() + '-' + product.Colors[product.SelectedColor].ValueId)" value="@product.Colors[product.SelectedColor].ColorNameEnglish" />
+                    
+                    
+                    <a href="@Url.Action("Browse", "Product", new {id = product.Id, c = product.Colors[product.SelectedColor].ColorNameEnglish})"><span class="q2"></span></a>
+                    <a href="#quickview" onclick="quickView(@Model.Id, '@product.Colors[product.SelectedColor].ColorNameEnglish')"><span></span></a>
+                </div>
+                //int len = Math.Min(product.Colors.Count, 2);
+                int len = product.Colors.Count;
+                for (int i = 0; i < len; i++)
+                {
+                    if (i == product.SelectedColor)
+                    {
+                        continue;
+                    }
+
+                    <a id="@(product.Id.ToString() + '-' + product.Colors[i].ValueId.ToString())" href="@Url.Action("Browse", "Product", new {id = product.Id, c = product.Colors[i].ColorNameEnglish})" class="product-item-photo colorClass Hidden"> <img class="product-image-photo" src="@(product.Colors[i].ProductImage).ashx?height=200" alt=""></a>
+
+                    <div class="btn-quickview Hidden" id="q-d-@(product.Id.ToString() + '-' + product.Colors[i].ValueId)">
+                        <input type="hidden" id="h-@(product.Id.ToString() + '-' + product.Colors[i].ValueId)" value="@product.Colors[i].ColorNameEnglish" />
+                        
+                        
+                        <a href="@Url.Action("Browse", "Product", new {id = product.Id, c = product.Colors[i].ColorNameEnglish})"><span class="q2"></span></a>
+                        <a href="#quickview" onclick="quickView(@Model.Id,'@product.Colors[i].ColorNameEnglish')"><span></span></a>
+                    </div>
+                }
+            }
+            else
+            {
+
+                <a id="@(product.Id.ToString())" href="@Url.Action("Browse", "Product", new {id = product.Id, c = ""})" class="product-item-photo"> <img class="product-image-photo" src="@(product.Images[0]).ashx?height=200" alt=""></a>
+    <div class="btn-quickview btn-quickview2" id="q-d-@(product.Id.ToString())">
+       
+        <a href="@Url.Action("Browse", "Product", new {id = product.Id, c = ""})"><span class="q2"></span></a>
+        <a href="#quickview" onclick="quickView(@Model.Id,'')"><span></span></a>
+        <input type="hidden" id="h-@(product.Id.ToString())" value="" />
+
+    </div>
+            }
+        </div>
+        <div class="pro-box-info">
+            <div class="item-info">
+                <div class="info-inner">
+                    <div class="item-title">
+                        <a title="منتج">@product.Name </a>
+                    </div>
+                    <div class="item-content">
+                        <div class="rating">
+                            @for (int i = 0; i < product.TotalRate; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                            @for (int i = 0; i < 5 - product.TotalRate; i++)
+                            {
+
+                                <i class="fa fa-star-o"></i>
+                            }
+                        </div>
+                        <div class="item-price">
+                            <div class="price-box">
+
+                                @if (product.IsDiscounted)
+                                {
+                                    <p class="old-price"> <span class="price-label">سعر خاص:</span> <span class="price"> @product.OrginalPriceDisplay</span> </p>
+                                    <br />
+                                    <p class="special-price"> <span class="price-label">السعر النظامي:</span> <span class="price"> @product.TotalPriceDisplay</span> </p>
+                                }
+                                else
+                                {
+                                    @*<p class="special-price"> <span class="price-label">سعر خاص:</span> <span class="price"> @product.OrginalPrice @product.CurrencyName</span> </p>*@
+                                    <p class="special-price"> <span class="price-label">سعر خاص:</span> <span class="price"> @product.OrginalPriceDisplay</span> </p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-hover">
+                <div class="product-item-actions">
+                    <div class="pro-actions">
+                        <div class="product-color-size-area">
+                            <div class="color-area1">
+                                <div class="color">
+                                    <ul style="margin: 0 auto;">
+                                        @if (product.SelectedColor != -1)
+                                        {
+                                            var background = "";
+                                            if (product.Colors[product.SelectedColor].IsImages)
+                                            {
+                                                background = "background:url(" + product.Colors[product.SelectedColor].Image + ");background-size:contain;";
+                                            }
+                                            else
+                                            {
+                                                background = "background-color:"+ @product.Colors[product.SelectedColor].Image;
+                                            }
+                                            <li><a id="@(product.Id.ToString() + "--" + product.Colors[product.SelectedColor].ValueId)" href="" onclick="return selectColor(@product.Id.ToString(), @product.Colors[product.SelectedColor].ValueId.ToString())" style="@background" class="colorClass selectedColor"></a></li>
+
+                                            //int len = Math.Min(product.Colors.Count, 2);
+                                            int len = product.Colors.Count;
+                                            for (int i = 0; i < len; i++)
+                                            {
+                                               
+                                                if (product.Colors[i].IsImages)
+                                                {
+                                                    background = "background:url(" + product.Colors[i].Image + ");background-size:contain;";
+                                                }
+                                                else
+                                                {
+                                                    background = "background-color:"+product.Colors[i].Image;
+                                                }
+                                                if (i == product.SelectedColor)
+                                                {
+                                                    continue;
+                                                }
+                                                <li><a id="@(product.Id.ToString() + "--" + product.Colors[i].ValueId)" href="" onclick="return selectColor(@product.Id.ToString(), @product.Colors[i].ValueId.ToString())" style="@background" class="colorClass"></a></li>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <li><a style="background-color: white; padding-left: 40px;"></a></li>
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="add-to-links" data-role="add-to-links">
+                        <a href="#" onclick="addToFav(@product.Id)" class="action add-to-wishlist" title="أضف إلى المفضلة"> <span>المفضلة</span> </a> <a href="#" onclick="return easyAdd(@product.Id)" class="action add-to-compare" title="اضافة سريعة للسلة"> <span>اضافة للسلة</span> </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+
+    function quickView(id, color) {
+
+        $.ajax({
+            type: 'get',
+            url: '@Url.Action("QuickView","Product")',
+            data: { "id": id, 'color': color },
+            success: function (data) {
+                $("#quick").html(data);
+                $("#quick-modal").modal('show');
+            }
+        });
+    }
+    </script>
+</div>
+

@@ -1,0 +1,319 @@
+﻿@model EShop.WEB.Models.AddSizeAttributeVM
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+
+                <a href="#" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a>
+            </div>
+            <h1>Options</h1>
+            <ul class="breadcrumb">
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="#">تعديل واصفة قياسات</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> تعديل اصفة قياسات</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" id="form-option" class="form-horizontal">
+                    <div class="form-group required">
+
+                        <div class="col-sm-10">
+                            <label class="col-sm-2 control-label">الاسم العربي</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <img src="~/Assets/images/flag-arabic.jpg" />
+                                </span>
+                                <input required  id="op-arabic" type="text" name="arabicName" value="@Model.SizeAttribute.ArabicName" placeholder="الاسم العربي" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-10">
+                            <label class="col-sm-2 control-label">الاسم الانكليزي</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <img src="~/Assets/images/flag-english.jpg" />
+                                </span>
+                                <input required id="op-english" type="text" name="englishName" value="@Model.SizeAttribute.EnglishName" placeholder="English Name" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-2 text-right">
+                            <button id="btn-save-option" form="form-option" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Save"><i class="fa fa-save"></i></button>
+                        </div>
+                    </div>
+                    <input id="att-id-hid" type="hidden" name="SizeAttribute[Id]" value="@Model.SizeAttribute.Id" />
+
+                </form>
+                @*<input id="optionIdTemp" type="hidden" name="optionId" value="" />*@
+
+                <div id="option-val">
+
+
+                    <div id="values-div">
+                        @*<table id="option-value" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <td class="text-center">مجموعة القياسات</td>
+
+                                    <td class="text-center">القياسات</td>
+
+                                    <td class="text-center">القيمة مقدرة بالسنتيمتر</td>
+                                    <td class="text-center"></td>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var sizeAttributeValue in Model.SizeAttributeValues)
+                                {
+                                    <tr>
+                                        <td class="text-center">
+                                            @*<label class="col-sm-2 control-label">الاسم العربي</label>*@
+                                            <div class="input-group">
+                                                @*<span class="input-group-addon">
+                                                    <img src="~/Assets/images/flag-arabic.jpg" />
+                                                </span>*@
+                                                <input id='@("op-arabic" + sizeAttributeValue.Id)' type="text" name="ArabicName" value="@sizeAttributeValue.SizeCategoryName" placeholder="" class="form-control" disabled>
+                                                <input id="@("op-sizeCat-id" + sizeAttributeValue.Id)" type="hidden" name="" value="" />
+                                            </div>
+                                            @*<label class="col-sm-2 control-label">الاسم الانكليزي</label>*@
+                                            @*<div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <img src="~/Assets/images/flag-english.jpg" />
+                                                </span>
+                                                <input id='@("op-english"+optionValue.Id)' type="text" name="EnglishName" value="@optionValue.EnglishName" placeholder="English Name" class="form-control">
+                                            </div>*@
+                                        </td>
+                                        <td class="text-center">
+                                            @*<label class="col-sm-2 control-label">الاسم العربي</label>*@
+                                            <div class="input-group">
+                                                @*<span class="input-group-addon">
+                    <img src="~/Assets/images/flag-arabic.jpg" />
+                </span>*@
+                                                <input id='@("op-english" + sizeAttributeValue.Id)' type="text" name="SizeAttributeValues[SizeValueId]" value="@sizeAttributeValue.SizeValueName" placeholder="" class="form-control" disabled>
+                                                <input id='@("size-value-id" + sizeAttributeValue.Id)' type="hidden" name="" value="@sizeAttributeValue.SizeValueId"  />
+                                            </div>
+                                            @*<label class="col-sm-2 control-label">الاسم الانكليزي</label>*@
+                                            @*<div class="input-group">
+                <span class="input-group-addon">
+                    <img src="~/Assets/images/flag-english.jpg" />
+                </span>
+                <input id='@("op-english"+optionValue.Id)' type="text" name="EnglishName" value="@optionValue.EnglishName" placeholder="English Name" class="form-control">
+            </div>*@
+                                        </td>
+
+                                        <td class="text-center">
+                                            <input id='@("op-value"+sizeAttributeValue.Id)' class="form-control" type="number" name="Value" value="@sizeAttributeValue.Value" data-validation="required" />
+                                        </td>
+                                        <td class="text-center"><a onclick="EditValue('@sizeAttributeValue.Id')" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="تعديل"><i class="fa fa-pencil"></i></a></td>
+                                    </tr>
+                                }
+
+                            </tbody>
+                            <tfoot>
+
+                            </tfoot>
+                        </table>*@
+                        <form id="option-value-form" method="post">
+                            <input id="optionId" type="hidden" name="SizeAttributeId" value="@Model.SizeAttribute.Id" />
+                            <table class="table table-striped table-bordered table-hover">
+                                <tr>
+                                    <td colspan="4" class="text-center"><b>إضافة قيمة للواصفة</b></td>
+                                </tr>
+                                <tr id="option-value-row1">
+                                    <td class="text-center">
+                                        @*<input type="hidden" name="option_value[1][option_value_id]" value="">*@
+                                        <div class="input-group">
+                                            @*<span class="input-group-addon">
+                                                <img src="~/Assets/images/flag-arabic.jpg" />
+
+                                            </span>*@
+                                            <select required class="form-control" id="size-cat-list" name="SizeCategoryId" data-validation="required">
+                                                <option value="0">أختر فئة القياسات</option>
+                                                @foreach (var SizeCategory in Model.SizesCategories)
+                                                {
+                                                    <option value="@SizeCategory.Id">@SizeCategory.ArabicName</option>
+                                                }
+                                            </select>
+                                        </div>
+                                        @*<input type="hidden" name="option_value[1][option_value_id]" value="">*@
+
+                                        @*<div class="input-group">
+                                            <span class="input-group-addon">
+                                                <img src="~/Assets/images/flag-english.jpg" />
+                                            </span>
+                                            <input type="text" name="EnglishName" value="" placeholder="English Name" class="form-control">
+                                        </div>*@
+                                    </td>
+
+                                    <td class="text-center">
+                                        @*<input type="hidden" name="option_value[1][option_value_id]" value="">*@
+                                        <div class="input-group">
+                                            @*<span class="input-group-addon">
+                    <img src="~/Assets/images/flag-arabic.jpg" />
+
+                </span>*@
+                                            <select required class="form-control" id="size-val-list" name="SizeValueId"></select>
+                                        </div>
+                                        @*<input type="hidden" name="option_value[1][option_value_id]" value="">*@
+
+                                        @*<div class="input-group">
+                <span class="input-group-addon">
+                    <img src="~/Assets/images/flag-english.jpg" />
+                </span>
+                <input type="text" name="EnglishName" value="" placeholder="English Name" class="form-control">
+            </div>*@
+                                    </td>
+
+                                    <td class="text-right">
+                                        <input id="add-new-val" required type="number" name="Value" value="" placeholder="القيمة" class="form-control">
+
+                                    </td>
+                                    <td class="text-center">
+
+                                        <button id="add-op-value" type="button" data-toggle="tooltip" title="إضافة" class="btn btn-success" >
+                                            <i class="fa fa-plus">
+                                            </i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $("#form-option").validate();
+        $('#size-cat-list').on('change', function () {
+            var procemessage = "<option value='0'> Please wait...</option>";
+            $("#size-val-list").html(procemessage).show();
+            var url = '@Url.Action("GetSizesForSizeCategory", "ManageSizeAttributes")';
+            var sizeCatId = $(this).val();
+            $.ajax({
+                url: url,
+                data: { Id: sizeCatId },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    var markup = "<option value='0'>اختر القياس</option>";
+                    for (var x = 0; x < data.length; x++) {
+                        markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                    }
+                    $("#size-val-list").html(markup).show();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+
+        });
+       
+        function EditValue(ovId) {
+            var sizeCatId = $("#op-sizeCat-id" + ovId).val();
+            var sizeAttributeId = $("#att-id-hid").val();
+            var sizeValueId = $('#size-value-id'+ovId).val();
+            var value = $("#op-value" + ovId).val();
+            //var imageURL = $('#img-hid' + ovId).val();
+            if (value == "")
+            {
+                generateFlash('error', "يرجى إدخال قيمة في حقل القيمة");
+
+            }else{
+            $.ajax({
+                url: '@Url.Action("EditSizeAttributeValue", "ManageSizeAttributes")',
+                method: 'post',
+                data: {
+                    Id: ovId,
+                    SizeValueId: sizeValueId,
+                    SizeAttributeId: sizeAttributeId,
+                    value: value
+                    
+                },
+                success: function (data) {
+                    refreshPage();
+                    if (data.Succedeed == true) {
+                        generateFlash('success', data.message);
+
+                    }
+                    else {
+                        generateFlash('error', data.message);
+                    }
+                }
+            });
+            }
+        }
+
+        function refreshPage() {
+            $.ajax({
+                url: '@Url.Action("Edit","ManageSizeAttributes")',
+                method: 'Get',
+                data: { Id: '@Model.SizeAttribute.Id' },
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+
+        $(document).ready(function () {
+           
+            // $('#option-value').addClass('hidden');
+            $('#btn-save-option').on('click', function (e) {
+                e.preventDefault();
+               
+                //if ($('input[name="arabicName"]').val() == "" || $('input[name="englishName"]').val() == "")
+                if( !$("#form-option").valid()){
+                    generateFlash('error', "الرجاء تعبئة جميع الحقول");
+                } else {
+                    $.ajax({
+                        url: '@Url.Action("Edit","ManageSizeAttributes")',
+                        method: 'post',
+                        data: $('#form-option').serialize(),
+                        success: function (data) {
+                            refreshPage();
+                            if (data.Succedeed == true) {
+                                generateFlash('success', data.message);
+
+                            }
+                            else {
+                                generateFlash('error', data.message);
+                            }
+                        }
+                    });
+                }
+            });
+            
+            $('#add-op-value').on('click', function (e) {
+                e.preventDefault();
+                $('#option-value-form').validate();
+                if (!$('#option-value-form').valid()) {
+                    generateFlash('error', "الرجاء تعبئة جميع الحقول");
+                }else{
+                $.ajax({
+                    url: '@Url.Action("AddSizeAttributeValue", "ManageSizeAttributes")',
+                    method: 'post',
+                    data: $('#option-value-form').serialize(),
+                    success: function (data) {
+                        generateFlash('success', "تمت الإضافة بنجاح");
+                        console.log(data);
+                        refreshPage();
+
+                    }
+                });
+                }
+            });
+        });
+    </script>
+</div>

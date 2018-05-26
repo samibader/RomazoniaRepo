@@ -1,0 +1,85 @@
+﻿@model List<EShop.BLL.DTO.ProductRateDTO>
+
+
+<div class="col-sm-5 col-lg-5 col-md-5">
+    <div class="reviews-content-left">
+
+        <h2>تقييمات الزبائن</h2>
+        @if (Model.Count > 0)
+        {
+            foreach (var rate in @Model)
+            {
+                <div class="review-ratting">
+                    <p>
+                        <a href="#">@rate.Note</a>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>السعر</th>
+                                    <td>
+                                        <div class="rating">
+                                            @for (int i = 0; i < rate.Rate1; i++)
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+
+                                            @for (int i = 0; i < 5 - rate.Rate1; i++)
+                                            {
+                                                <i class="fa fa-star-o"></i>
+                                            }
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>القيمة النوعية</th>
+                                    <td>
+                                        <div class="rating">
+                                            @for (int i = 0; i < rate.Rate2; i++)
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+
+                                            @for (int i = 0; i < 5 - rate.Rate2; i++)
+                                            {
+                                                <i class="fa fa-star-o"></i>
+                                            }
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>الجودة</th>
+                                    <td>
+                                        <div class="rating">
+                                            @for (int i = 0; i < rate.Rate3; i++)
+                                            {
+                                                <i class="fa fa-star"></i>
+                                            }
+
+                                            @for (int i = 0; i < 5 - rate.Rate3; i++)
+                                            {
+                                                <i class="fa fa-star-o"></i>
+                                            }
+
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    <p class="author">
+                        @rate.UserId<small> (اضيفت ب @rate.date.ToShortDateString()</small>
+                    </p>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="review-ratting">
+                
+                <p>لم يتم تقييم المنتج بعد</p>
+                <p>قم بإضافة تقييمك الخاص من خلال الواجهة على اليسار</p>
+            </div>
+        }
+    </div>
+</div>

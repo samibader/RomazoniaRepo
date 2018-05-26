@@ -1,0 +1,10 @@
+﻿@model EShop.WEB.Models.ChangePasswordViewModel
+@{
+    ViewBag.Title = "Manage";
+   
+    if (!Request.IsAjaxRequest())
+    {
+        Layout = "~/Views/Manage/_ManageLayout.cshtml";
+    }
+}
+<h1>معلومات الحساب</h1>

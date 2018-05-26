@@ -1,0 +1,160 @@
+﻿@using EShop.WEB.Models;
+@model DesignerVM
+@{
+    ViewBag.Title = "إضافة مصمم";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                <a id="btn-add" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Save"><i class="fa fa-save"></i></a>
+                <a href="@Url.Action("Index","ManageDesigners")" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a>
+            </div>
+            <h1>إضافة مصمم</h1>
+            <ul class="breadcrumb">
+                <li><a href="#">الرئيسية</a></li>
+                <li><a href="@Url.Action("Index","ManageDesigners")">المصممون</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> إضافة مصمم</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" id="form-designer" class="form-horizontal">
+                    <div class="form-group required">
+                        @Html.ValidationSummary("يرجى تصحيح الاخطاء التالية:")
+                        <label class="col-sm-2 control-label">اسم المصمم</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><img src="~/Assets/images/flag-arabic.jpg" title="العربية"></span>
+                                @*<input type="text" name="attribute_group_description[1][name]" value="" placeholder="Attribute Group Name" class="form-control">*@
+                                @Html.TextBoxFor(c => c.ArabicName, new { @class = "form-control", placeholder = "اسم المصمم" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group required">
+                        <label class="col-sm-2 control-label">Designer Name</label>
+                        <div class="col-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><img src="~/Assets/images/flag-english.jpg" title="English"></span>
+                                @*<input type="text" name="attribute_group_description[1][name]" value="" placeholder="Attribute Group Name" class="form-control">*@
+                                @Html.TextBoxFor(c => c.EnglishName, new { @class = "form-control", placeholder = "Designer Name" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-sort-order">الصورة</label>
+                        <div class="col-sm-10">
+                            <img id="img-designer" src="" title="صورة المصمم" class="img-thumbnail img">
+                            <input type="hidden" name="ImageUrl" value=""  id="img-hid" class="form-control">
+                            <label style="margin: 7px; margin-left: 26px;" title="Upload image file" for="fileToUpload" class="btn btn-primary">
+                                <input id="fileToUpload" type="file" accept="image/*" name="ImageUrl" class="hide">
+                                اضف صورة
+                            </label>
+                            
+                          
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        $("#fileToUpload").on('change', function (e) {
+
+        e.preventDefault();
+        // Checking whether FormData is available in browser
+        if (window.FormData !== undefined) {
+
+            var fileUpload = $("#fileToUpload").get(0);
+            var files = fileUpload.files;
+
+            // Create FormData object
+            var fileData = new FormData();
+
+            // Looping over all files and add it to FormData object
+            for (var i = 0; i < files.length; i++) {
+                fileData.append(files[i].name, files[i]);
+            }
+
+            // Adding one more key to FormData object
+            fileData.append('username', 'Manas');
+
+            $.ajax({
+                url: '@Url.Action("UploadFiles","Base")',
+                type: "POST",
+                contentType: false, // Not to set any content header
+                processData: false, // Not to process data
+                data: fileData,
+                success: function (result) {
+                   // alert(result.message);
+                    $('#img-hid').val("/uploads/" + result.name);
+                    $('#img-designer').attr('src', '/uploads/' + result.name + '.ashx?width=200&height=200');
+                },
+                error: function (err) {
+                    alert(err.statusText);
+                }
+            });
+        } else {
+            alert("FormData is not supported.");
+        }
+
+
+    });
+        function refreshPage() {
+            $.ajax({
+                url: '@Url.Action("Add", "ManageDesigners")',
+                method: 'Get',
+
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+        $('#btn-add').on('click', function (e) {
+            e.preventDefault();
+            var form = $("#form-designer");
+            //form.validate({
+            //    ignore: ":hidden"
+            //});
+            if (form.valid() == false) {
+                generateFlash('error', "يرجى التحقق من القيم المدخلة أو ادخال الحقول المطلوبة");
+                return;
+            }
+            // $('#form-category').submit();
+            $.ajax({
+                url: '@Url.Action("Add","ManageDesigners")',
+                method: 'POST',
+                data: $('#form-designer').serialize(),
+                success: function (data) {
+                    if (data.Succedeed != null) {
+                        refreshPage();
+                        if (data.Succedeed == true) {
+
+                            generateFlash('success', data.message);
+                        }
+                        else {
+                            generateFlash('error', data.message);
+                        }
+                    } else {
+
+                        $('#content').html($(data).find('#content').html());
+                        console.log('');
+                        generateFlash('error', 'الرجاء تعبئة جميع الحقول المطلوبة');
+                    }
+                }
+            });
+        });
+
+    </script>
+</div>
+
+
+
+
+

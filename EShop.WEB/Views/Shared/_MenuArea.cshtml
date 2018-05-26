@@ -1,0 +1,191 @@
+﻿@using System.Web.Optimization
+@using EShop.WEB.Models
+@using EShop.WEB.Models
+@using EShop.WEB.Simulation_Data
+@model EShop.WEB.Models.CategoryMenuVM
+@using Resx = EShop.Resources.Views.EShopResource
+<div class="menu-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 hidden-xs">
+                <div class="main-menu">
+                    <nav>
+                        <ul>
+                            @*<li class="custom-menu">
+                                <a href="@Url.Action("Index","Home")">@Resx.Home</a>
+                            </li>*@
+                            @foreach (CategoryMenuVM cat in @Model.SubCategories)
+                            {
+                                <li class="megamenu">
+                                    <a href="@Url.Action("Browse", "CategoryBase", new { categoryName = EShop.Common.Utils.GenerateSlug(cat.EnglishName) })">@cat.Name</a>
+                                    <div class="mega-menu">
+                                        <span class="mega-menu-img left hidden-sm">
+                                            <a href="@Url.Action("Browse", "CategoryBase", new { categoryName = EShop.Common.Utils.GenerateSlug(cat.EnglishName) })">
+                                                <img src="@cat.ImageUrl" alt="Bannar 2">
+                                            </a>
+                                        </span>
+                                        <div style="margin-left: 25%">
+                                            @{
+                                                int i = 1;
+                                            }
+                                            @foreach (CategoryMenuVM subcat in cat.SubCategories)
+                                            {
+                                                <span>
+                                                    <a class="mega-title" href="@Url.Action("Browse", "CategoryBase", new { categoryName = EShop.Common.Utils.GenerateSlug(subcat.EnglishName) })">@subcat.Name </a>
+                                                    @foreach (CategoryMenuVM child in subcat.SubCategories)
+                                                    {
+                                                        <a href="@Url.Action("Browse", "CategoryBase", new { categoryName = EShop.Common.Utils.GenerateSlug(child.EnglishName) })">@child.Name</a>
+                                                    }
+                                                </span>
+                                                if (i++%4 == 0)
+                                                {
+                                                    <div class="clearfix"></div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                            @*<li><a href="@Url.Action("Contact","Home")">@Resx.ContactUs</a></li>*@
+                        </ul>
+                    </nav>
+                    <!-- Signup -->
+                    @{ Html.RenderPartial("_LoginPartial1", new LoginVm());}
+
+                    <!-- END # MODAL LOGIN -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mobile-menu hidden-sm hidden-md hidden-lg">
+    <nav>
+        <span class="mobile-menu-title">الفئات</span>
+        <ul>
+            <li class="">
+                <a href="index-2.html">الرئيسية</a>
+            </li>
+            @foreach (CategoryMenuVM cat in @Model.SubCategories)
+            {
+                <li>
+                    <a href="@Url.Action("Browse", "CategoryBase",new {categoryName =cat.EnglishName })">@cat.Name</a>
+                    <ul class="">
+                        @foreach (CategoryMenuVM subcat in cat.SubCategories)
+                        {
+                            <li>
+                                <a href="@Url.Action("Browse", "CategoryBase", new { categoryName = subcat.EnglishName })">@subcat.Name </a>
+                                <ul>
+                                    @foreach (CategoryMenuVM child in subcat.SubCategories)
+                                    {
+                                        <li><a href="@Url.Action("Browse", "CategoryBase", new { categoryName = child.EnglishName })">@child.Name</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                </li>
+            }
+            @*<li class="">
+                    <a href="shop_grid.html">رجالي</a>
+                    <ul class="">
+                        <li>
+                            <a href="shop_grid.html">حقائب</a>
+                            <ul>
+                                <li><a href="shop_grid.html"> حقائب</a></li>
+                                <li><a href="shop_grid.html">أحذية رياضية</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="shop_grid.html">ملابس</a>
+                            <ul>
+                                <li><a href="shop_grid.html">ستر صوفية</a></li>
+                                <li><a href="shop_grid.html">قمصان</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="shop_grid.html">ملابس داخلية</a>
+                            <ul>
+                                <li><a href="shop_grid.html">brands</a></li>
+                                <li><a href="shop_grid.html">furniture</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="shop_grid.html">حقائب يد</a>
+                    <ul class="">
+                        <li>
+                            <a href="shop_grid.html">أحذية رجالية</a>
+                            <ul>
+                                <li><a href="shop_grid.html">خاتم ذهبي</a></li>
+                                <li><a href="shop_grid.html">خاتم بلاتين</a></li>
+                                <li><a href="shop_grid.html">خاتم فضة</a></li>
+                                <li><a href="shop_grid.html">خاتم تنغستين</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="shop_grid.html">أحذية نسائية</a>
+                            <ul>
+                                <li><a href="shop_grid.html"> ذهب</a></li>
+                                <li><a href="shop_grid.html">بلاتيني خاتم</a></li>
+                                <li><a href="shop_grid.html">فضي خاتم</a></li>
+                                <li><a href="shop_grid.html">تنغستين خاتم</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="shop_grid.html">Band</a>
+                            <ul>
+                                <li><a href="shop_grid.html">عقد بلاتيني </a></li>
+                                <li><a href="shop_grid.html">ذهب خاتم</a></li>
+                                <li><a href="shop_grid.html">فضي خاتم</a></li>
+                                <li><a href="shop_grid.html">Diamond Bracelets</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="shop_grid.html">أحذية</a>
+                    <ul class="">
+                        <li>
+                            <a href="shop_grid.html">خاتمs</a>
+                            <ul>
+                                <li><a href="shop_grid.html">ستر صوفية & معاطف</a></li>
+                                <li><a href="shop_grid.html">أحذية رياضية</a></li>
+                                <li><a href="shop_grid.html">ستر صوفية</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="shop_grid.html">Dresses</a>
+                            <ul>
+                                <li><a href="shop_grid.html">أحذية</a></li>
+                                <li><a href="shop_grid.html">أحذية رياضية</a></li>
+                                <li><a href="shop_grid.html">clog مفتوح</a></li>
+                                <li><a href="shop_grid.html">combat boots</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="shop_grid.html">الإكسسوارات</a>
+                            <ul>
+                                <li><a href="shop_grid.html">bootees Bags</a></li>
+                                <li><a href="shop_grid.html">أحذية رياضية</a></li>
+                                <li><a href="shop_grid.html">معاطف</a></li>
+                                <li><a href="shop_grid.html">أطفال</a></li>
+                                <li><a href="shop_grid.html">أحذية</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="shop_grid.html">Top</a>
+                            <ul>
+                                <li><a href="shop_grid.html">briefs</a></li>
+                                <li><a href="shop_grid.html">camis</a></li>
+                                <li><a href="shop_grid.html">nigthwear</a></li>
+                                <li><a href="shop_grid.html">أطفال</a></li>
+                                <li><a href="shop_grid.html">shapewer</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>*@
+        </ul>
+    </nav>
+</div>

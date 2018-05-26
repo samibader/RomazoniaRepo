@@ -1,0 +1,98 @@
+﻿
+@using EShop.Common
+@using EShop.WEB.Models
+@model List<CartItem>
+
+<div class="col-lg-3 col-sm-4 col-xs-12 top-cart" >
+    <div class="link-wishlist"> <a href="@Url.Action("Browse","Favorite")"> <span class="wishlist-count">@{Html.RenderAction("Count", "Favorite");}</span> <i class="fa fa-heart fa-lg"></i> </a> </div>
+    <div class="top-cart-contain">
+        <div class="mini-cart">
+            <div data-toggle="dropdown" id = "cart-menu" data-hover="dropdown" class="basket dropdown-toggle">
+                <a href="#">
+                    <div class="cart-icon"><i class="fa fa-shopping-cart"></i></div>
+                    <div class="shoppingcart-inner"><span class="cart-title">سلة الشراء</span> 
+                    <span class="cart-total">@(Model.Count==0?"السلة فارغة":Model.Count+ "منتجات : "+ViewBag.TotalDisplay)</span>
+                    </div>
+                </a>
+            </div>
+            <div>
+
+                <div id="topCart" style="" class="top-cart-content">
+                    @if (Model.Count > 0)
+                    {
+                        <div class="block-subtitle hidden-xs">القطع المضافة حديثا</div>
+                        <ul id="cart-sidebar" class="mini-products-list">
+                            @foreach (CartItem cart in @Model)
+                            {
+                                <li class="item odd">
+                               
+                                    <a href="@Url.Action("Browse", "Product", new {id=cart.Id, SkuId = cart.SkuId})" title="@cart.Name" class="product-image"><img src="@(cart.Images[0]).ashx?height=100" alt="@cart.Name" width="65"></a>
+                                    <div class="product-details">
+                                        <a href="#" title="Remove This Item" class="remove-cart" id="@cart.SkuId-@cart.Id"><i class="icon-close"></i></a>
+                                        <p class="product-name">
+                                       
+                                            <a href="@Url.Action("Browse", "Product", new { id = cart.Id, SkuId = cart.SkuId })">@cart.Name</a>
+                                        </p>
+                                        <strong>@cart.Quantity</strong> x <span class="price" style="float: right; direction: rtl;">@cart.TotalPriceDisplay</span>
+                                    </div>
+                                </li>
+                            }
+                            @*<li class="item even">
+                        <a href="#" title="Ipsums Dolors Untra" class="product-image"><img src="../Shared/images/products/img08.jpg" alt="Lorem ipsum dolor" width="65"></a>
+                        <div class="product-details">
+                            <a href="#" title="Remove This Item" class="remove-cart"><i class="icon-close"></i></a>
+                            <p class="product-name"><a href="#">معطف شتوي</a>
+                            </p>
+                            <strong>1</strong> x <span class="price">$230.00</span>
+                        </div>
+                    </li>
+                    <li class="item last odd">
+                        <a href="#" title="Ipsums Dolors Untra" class="product-image"><img src="../Shared/images/products/img10.jpg" alt="Lorem ipsum dolor" width="65"></a>
+                        <div class="product-details">
+                            <a href="#" title="Remove This Item" class="remove-cart"><i class="icon-close"></i></a>
+                            <p class="product-name"><a href="#">ثوب</a>
+                            </p>
+                            <strong>2</strong> x <span class="price">$420.00</span>
+                        </div>
+                    </li>*@
+                        </ul>
+
+                        <div class="top-subtotal">المجموع: <span class="price">@ViewBag.TotalDisplay</span></div>
+                        <div class="actions">
+                            <button onclick="location.href = '@Url.Action("Index","Checkout")'" class="btn-checkout" type="button"><i class="fa fa-check"></i><span>الدفع</span></button>
+                            <button onclick="location.href = '@Url.Action("Browse", "Cart")'" class="view-cart" type="button"><i class="fa fa-shopping-cart"></i> <span>عرض بطاقة المشتريات</span></button>
+                        </div>
+                    }
+
+
+                    else
+                    {
+                        <div class="block-subtitle hidden-xs">سلة الشراء فارغة !</div>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    $(".remove-cart").off('click')
+        .on('click',function () {
+            console.log(this.id);
+            $.ajax({
+                type: 'post',
+                dataType:'json',
+                url: '@Url.Action("Remove", "Cart")',
+                data: { 'SkuId': this.id },
+                success: function (data) {
+                    console.log(data);
+                    $('#CartSummary').load('@Url.Action("CartSummary","Cart")');
+               //     $('#sideCartSummary').load('@Url.Action("CartSummary","Cart",new {sideFlag=true})');
+                    // alert(data);
+                    var type = (data.Succedeed) ? 'success' : 'error';
+                    generateFlash(type, data.Message);
+                }
+            });
+        });
+</script>

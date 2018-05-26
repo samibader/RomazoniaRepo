@@ -1,0 +1,209 @@
+﻿@model EShop.WEB.Models.DetailedCartVM
+@using Resx = EShop.Resources.Views.EShopResource
+
+@{
+    ViewBag.Title = "سلة الشراء";
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Manage.cshtml";
+    var idx = 0;
+}
+
+<section class="main-container col1-layout">
+    <div class="main">
+        <div class="col-main">
+            <div class="cart">
+                @using (Html.BeginForm("Edit", "cart", FormMethod.Post, new { id = "cartForm" }))
+                {
+                    <div class="page-content page-order">
+                        <div class="page-title">
+                            <h2>@Resx.Cart</h2>
+                        </div>
+
+
+                        <div class="order-detail-content">
+                            @if (Model.DetailedCartItems.Count > 0)
+                            {
+                                <div class="table-responsive">
+                                    <table class="table table-bordered cart_summary">
+                                        <thead>
+                                            <tr>
+                                                <th class="cart_product">المنتج</th>
+                                                <th>الوصف</th>
+                                                <th>التوافر</th>
+                                                <th>سعر الواحدة</th>
+                                                <th>الكمية</th>
+                                                <th>المجموع الكلي</th>
+                                                <th class="action"><i class="fa fa-trash-o"></i></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @foreach (var item in @Model.DetailedCartItems)
+                                            {
+                                                <tr class="item">
+                                                    <td class="cart_product"><a href="@Url.Action("Browse", "Product", new {id = item.Id})"><img src="@(item.Image).ashx?height=100" alt="Product"></a></td>
+                                                    <td class="cart_description">
+                                                        <p class="product-name">
+                                                            <a href="@Url.Action("Browse", "Product", new {id = item.Id})">@item.Name </a>
+                                                        </p>
+                                                        @if (item.Color != null)
+                                                        {
+                                                            <small><a href="#">اللون : @item.Color.ColorName</a></small>
+                                                            <br>
+                                                        }
+                                                        @if (item.Size != null)
+                                                        {
+                                                            <small><a href="#">القياس : @item.Size.Name</a></small>
+                                                        }
+                                                    </td>
+                                                    @{
+                                                        String availability = @item.Availabel ? "in-stock" : "out-of-stock";
+                                                        String Name = @item.Availabel ? "متوفر" : "غير متوفر";
+                                                    }
+                                                    <td class="availability @availability in-stock"><span class="label">@Name</span></td>
+                                                    <td class="price"><span>@item.PriceDisplay</span></td>
+                                                    <td class="qty">
+                                                        <input class="form-control input-sm" type="text" name="products[@(idx)].Quantity" value="@item.Quantity">
+                                                        <input type="hidden" name="products[@(idx)].SKUId" value="@item.SKUId" />
+                                                        <input type="hidden" name="products[@(idx++)].Id" value="@item.Id" />
+                                                    </td>
+                                                    <td class="tprice"><span>@(item.TotalPriceDisplay)</span></td>
+                                                    <td class="action"><a href="#" class="remove" id="@item.SKUId-@item.Id"><i class="icon-close"></i></a></td>
+
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+                                            <tr class="first last">
+                                                <td colspan="50" class="a-right last">
+                                                    <button type="button" title="Continue Shopping" class="button btn-continue" onclick="setLocation('#')"><span>متابعة التسوق</span></button>
+                                                    <button type="submit" name="update_cart_action" value="update_qty" title="Update Cart" class="button btn-update"><span>تعديل السلة</span></button>
+                                                    <button type="button" name="update_cart_action" value="empty_cart" title="Clear Cart" class="button btn-empty" id="empty_cart_button"><span>تنظيف السلة</span></button>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <div class="cart-collaterals row">
+                                    <div class="totals col-sm-5 col-md-offset-7 ">
+                                        <h3>المجموع الكلي لسلة الشراء</h3>
+                                        <div class="inner">
+                                            <table id="shopping-cart-totals-table" class="table shopping-cart-table-total">
+                                                <colgroup>
+                                                    <col>
+                                                    <col width="1">
+                                                </colgroup>
+                                                <tfoot>
+                                                    <tr>
+                                                        <td style="" class="a-right" colspan="1"><strong>المجموع الكلي</strong></td>
+                                                        <td style="" class="a-right"><strong><span class="price">@Model.TotalPriceDisplay</span></strong></td>
+                                                    </tr>
+                                                </tfoot>
+                                                @*<tbody>
+                                                        <tr>
+                                                            <td style="" class="a-right" colspan="1"> المجموع الجزئي </td>
+                                                            <td style="" class="a-right"><span class="price">@Model.TotalPrice</span></td>
+                                                        </tr>
+                                                    </tbody>*@
+                                            </table>
+                                            <ul class="checkout">
+                                                <li>
+                                                    <button type="button" title="Proceed to Checkout" onclick="location.href = '@Url.Action("Index", "Checkout")'" class="button btn-proceed-checkout"><span>المتابعة إلى الدفع</span></button>
+                                                </li>
+
+                                            </ul>
+                                        </div>
+                                        <!--inner-->
+
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div>
+                                    <p style="border: 2px solid; border-radius: 5px; padding: 2%; text-align: center">سلة الشراء فارغة !</p>
+                                </div>
+                            }
+                        </div>
+
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<script>
+    $(".remove")
+        .click(function () {
+            console.log(this.id);
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: '@Url.Action("Remove", "Cart")',
+                data: { 'SkuId': this.id.toString() },
+                success: function (data) {
+                    console.log(data);
+                    $('#CartSummary').load('@Url.Action("CartSummary","Cart")');
+                    $('.col-md-9').load('@Url.Action("Browse","Cart")');
+
+                    //alert(data);
+                    var type = (data.Succedeed) ? 'success' : 'error';
+                    generateFlash(type, data.Message);
+                }
+
+            });
+        });
+    $("#empty_cart_button").click(function () {
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: '@Url.Action("RemoveAll", "Cart")',
+            success: function (data) {
+                $('#CartSummary').load('@Url.Action("CartSummary","Cart")');
+                $('.col-md-9').load('@Url.Action("Browse","Cart")');
+                var type = (data.Succedeed) ? 'success' : 'error';
+                generateFlash(type, data.Message);
+            }
+
+        });
+
+    });
+</script>
+<script>
+    $("#cartForm")
+        .submit(function (e) {
+            var valid = true;
+            e.preventDefault();
+            $("input[name*=prod]")
+                .each(function () {
+                    if ($(this).val() == '0') {
+                        valid = false;
+                    }
+                });
+            if (valid) {
+                $.ajax({
+                    type: 'post',
+                    url: '@Url.Action("Edit", "Cart")',
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        $('#CartSummary').load('@Url.Action("CartSummary", "Cart")');
+                        $('.col-md-9').load('@Url.Action("Browse", "Cart")');
+                        var type = (data.Succedeed) ? 'success' : 'error';
+                        generateFlash(type, data.Message);
+                    }
+                });
+            } else {
+                generateFlash('error', 'لايمكن تعديل كمية معدومة');
+                
+            }
+        });
+</script>
+<script>
+    $("input[name*=prod]")
+        .keyup(function() {
+            if ($(this).val() == '0')
+                $(this).css('border', '1px solid red');
+            else
+                $(this).removeAttr('style');
+        });
+</script>

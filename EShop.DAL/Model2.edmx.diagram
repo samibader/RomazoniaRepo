@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7616405fd4db41c190e3d6a57c25c4de" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.C__MigrationHistory" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetRoles" Width="1.5" PointX="8.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserClaims" Width="1.5" PointX="13.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUserLogins" Width="1.5" PointX="13.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AspNetUsers" Width="1.5" PointX="11" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Attrib" Width="1.5" PointX="3" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AttributeDescription" Width="1.5" PointX="11.25" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Category" Width="1.5" PointX="0.75" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.CategoryDescription" Width="1.5" PointX="8.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Designer" Width="1.5" PointX="0.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Discount" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Image" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Language" Width="1.5" PointX="6" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Option" Width="1.5" PointX="5.25" PointY="17.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.OptionDescription" Width="1.5" PointX="7.5" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.OptionValue" Width="1.5" PointX="10.5" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.OptionValueDescription" Width="1.5" PointX="12.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Product" Width="1.5" PointX="3" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductAttributeValue" Width="1.5" PointX="5.25" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductDescription" Width="1.5" PointX="8.25" PointY="13.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductRate" Width="1.5" PointX="5.25" PointY="27.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductSKU" Width="1.5" PointX="5.25" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ProductSKUOptionValue" Width="1.5" PointX="12.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Tag" Width="1.5" PointX="5.25" PointY="33.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.TagDescription" Width="1.5" PointX="7.5" PointY="33.25" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_AttributeDescription_dbo_Language_LanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Category_dbo_Category_ParentId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_CategoryDescription_dbo_Category_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Product_dbo_Category_CategoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_CategoryDescription_dbo_Language_LanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Product_dbo_Designer_DesignerId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Discount_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Image_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_OptionDescription_dbo_Language_LanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_OptionValueDescription_dbo_Language_LanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductAttributeValue_dbo_Language_LanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductDescription_dbo_Language_LanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_TagDescription_dbo_Language_LanguageId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_Option_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_OptionValue_dbo_Option_ProductId_OptionId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_OptionDescription_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_OptionValue_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_OptionValueDescription_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductAttributeValue_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductDescription_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductRate_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductSKU_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_dbo_TagDescription_dbo_Tag_TagId" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.AspNetUserRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.TagProduct" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

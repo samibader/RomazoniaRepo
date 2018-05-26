@@ -1,0 +1,211 @@
+﻿@model List<EShop.WEB.Models.SlideVM>
+<style>
+    #slide .owl-prev, #slide .owl-next {
+        position: absolute;
+        top: 43%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+        margin-top: -10px;
+    }
+
+    #slide .owl-prev {
+        left: 0;
+        background: #869791;
+    }
+
+    #slide .owl-next {
+        right: 0;
+        background: #869791;
+    }
+
+    .container {
+        width: 100% !important;
+    }
+    @@media only screen and (min-width: 280px) and (max-width: 479px) {
+   #slide .owl-controls .owl-buttons div {
+        color: #737373;
+         font-size: 15px !important;
+    margin: 5px !important;
+    }
+    }
+    
+    #slide .owl-controls .owl-buttons div {
+        color: #737373;
+        display: inline-block;
+        zoom: 1;
+        margin: 10px;
+        padding: 3px;
+        
+        font-size: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        border-radius: 0;
+        background: transparent;
+        filter: Alpha(Opacity=50);
+        opacity: 1;
+        
+    }
+
+    .owl-theme .owl-controls .owl-buttons div:hover {
+        color: white;
+        /*background-color: black;
+        border: 2px solid;*/
+    }
+
+    #slide .owl-item .item {
+        margin: 0;
+        padding: 0;
+    }
+
+    #slide {
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+</style>
+<!-- Main Slider Area -->
+<div class="main-slider-area" style="margin:0 -15px ">
+    <div class="container">
+        <div class="row">
+            <div id="slide" class="col-md-12 col-xs-12">
+                @foreach (var slide in Model)
+                {
+                    <div class="item">
+                        <a href="@slide.Url"><img src="@slide.ImageUrl" alt="dinosaur1" style="width:120%"></a>
+                    </div>
+                }
+            </div>
+            <script>
+                $(document).ready(function () {
+
+                    var owl1 = $("#slide");
+                    owl1.owlCarousel({
+                        navigation: true, // Show next and prev buttons
+                        slideSpeed: 1000,
+                        pagination: false,
+                        singleItem: true,
+                        navigationText: [
+     "<i class='fa fa-chevron-left'></i>",
+     "<i class='fa fa-chevron-right'></i>"
+                        ]
+
+                    });// Custom Navigation Events
+
+                    owl1.trigger('owl.play', 4500);
+                    $(".owl-prev").html('<i class="fa fa-chevron-left"></i>');
+                    $(".owl-next").html('<i class="fa fa-chevron-right"></i>');
+                });
+            </script>
+            @*<div class="col-md-12 col-xs-12">
+                <!-- Main Slider -->
+                <div class="main-slider">
+                    <div class="slider">
+                        <div id="mainSlider" class="nivoSlider slider-image">
+                            @foreach (var slide in Model)
+                            {
+                                <a href="@slide.Url">
+                                    <img src="@slide.ImageUrl" alt="main slider" title="#htmlcaption-@slide.Id" />
+                                </a>
+                            }
+
+
+                        </div>
+                        @foreach (var slide in Model)
+                        {
+                            <div class="slider-progress"></div>
+                              <!-- Slider Caption  -->
+                            @*<div id="htmlcaption-@slide.Id" class="nivo-html-caption slider-caption-@slide.Id">
+
+                                    <div class="slide-text">
+                                        <div class="middle-text">
+                                            <div class="cap-dec">
+                                                <h1 class="cap-dec wow zoomInRight" data-wow-duration="1.1s" data-wow-delay="0s"><label style="padding: 10px;">رجالي</label></h1>
+                                                <h2 class="cap-dec wow zoomInRight" data-wow-duration="1.3s" data-wow-delay="0s">&nbsp;</h2>
+                                                <p class="cap-dec wow zoomInRight" data-wow-duration="1.5s" data-wow-delay="0s">&nbsp;</p>
+                                            </div>
+                                            <div class="cap-readmore wow zoomInRight" data-wow-duration=".9s" data-wow-delay=".5s"> <a href="@Url.Action("Browse","CategoryBase",new {categoryName = "Menn"})">تسوق الآن</a> </div>
+                                        </div>
+                                    </div>
+                                </div>*@
+
+
+
+            @*<!-- Slider Caption Two -->
+                                <div id="htmlcaption2" class="nivo-html-caption slider-caption-2">
+                                    <div class="slider-progress"></div>
+                                    <div class="slide-text slide-text-2">
+                                        <div class="middle-text">
+                                            <div class="cap-dec">
+                                                <h1 class="wow zoomInUp" data-wow-duration="1.1s" data-wow-delay="0s"><label style="padding: 10px;">الأطفال</label></h1>
+                                                <h2 class="wow zoomInUp" data-wow-duration="1.1s" data-wow-delay="0s">&nbsp;</h2>
+                                                <p class="wow zoomInUp" data-wow-duration="1.3s" data-wow-delay="0s"> &nbsp;</p>
+                                            </div>
+                                            <div class="cap-readmore wow zoomInUp" data-wow-duration="1.3s" data-wow-delay=".3s"> <a href="@Url.Action("Browse","CategoryBase",new {categoryName = "Childrens"})">تسوق الآن</a> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Slider Caption Three -->
+                                <div id="htmlcaption3" class="nivo-html-caption slider-caption-3">
+                                    <div class="slider-progress"></div>
+                                    <div class="slide-text slide-text-3">
+                                        <div class="middle-text">
+                                            <div class="cap-dec">
+                                                <h1 class="wow zoomInUp" data-wow-duration="1.1s" data-wow-delay="0s"><label style="padding: 10px;">نسائي</label></h1>
+                                                <h2 class="wow zoomInUp" data-wow-duration="1.1s" data-wow-delay="0s">&nbsp;</h2>
+                                                <p class="wow zoomInUp" data-wow-duration="1.3s" data-wow-delay="0s">&nbsp;</p>
+                                            </div>
+                                            <div class="cap-readmore wow zoomInUp" data-wow-duration="1.3s" data-wow-delay=".3s"> <a href="@Url.Action("Browse","CategoryBase",new {categoryName = "Women"})"> تسوق الآن</a> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- End Main Slider -->
+                    <!-- service section -->
+                    @*<div class="jtv-service-area">
+                        <div class="row">
+                            <div class="col col-md-4 col-sm-4 col-xs-12">
+                                <div class="block-wrapper ship">
+                                    <div class="text-des">
+                                        <i class="fa fa-truck"></i>
+                                        <h3>توصيل مجاني</h3>
+                                        <p>وفر أكثر من 100 دولار </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-md-4 col-sm-4 col-xs-12 ">
+                                <div class="block-wrapper return">
+                                    <div class="text-des">
+                                        <i class="fa fa-dollar"></i>
+                                        <h3>نعيد النقود</h3>
+                                        <p>ضمانة 30 يوم لإعادة النقود</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-md-4 col-sm-4 col-xs-12">
+                                <div class="block-wrapper support">
+                                    <div class="text-des">
+                                        <i class="fa fa-gift"></i>
+                                        <h3>عروض خاصة</h3>
+                                        <p>منتجاتنا أقل مم السوق ب 25%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            @*<div class="col-md-3 col-sm-12 col-xs-12">
+                    <div class="banner-jtv">
+                        @{ Html.RenderAction("GetRandomCategory", "Home");}
+                        @Html.Partial("_RandomCategory")
+                        @{ Html.RenderAction("GetLeattestCategory", "Home");}
+                        @*<div class="banner-box banner-inner-box">
+                                <a href="#"><img alt="" src="~/assets/images/banner-2.jpg"></a>
+                                <div class="banner-text banner-text-mid"><span class="first-text">المنتجات الجديدة</span> <span class="medium-text">مجموعات أحذية مميزة</span> <a class="shop-now" href="#">إضغط للشراء</a></div>
+                            </div>
+                    </div>
+                </div>*@
+        </div>
+    </div>
+</div>
+<!-- End Main Slider Area -->

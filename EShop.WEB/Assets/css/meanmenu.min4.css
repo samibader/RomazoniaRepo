@@ -1,0 +1,417 @@
+/*! #######################################################################
+
+	JTY-MeanMenu 
+
+####################################################################### */
+a.meanmenu-reveal {
+	display: none
+}
+.mean-container .mean-bar {
+	float: left;
+	width: 100%;
+	position: relative;
+	background: #047aac;
+	padding: 4px 0;
+	min-height: 42px;
+	z-index: 9
+}
+.mean-container a.meanmenu-reveal {
+	width: 22px;
+	height: 22px;
+	padding: 13px 13px 11px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	cursor: pointer;
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+	text-indent: -9999em;
+	line-height: 22px;
+	font-size: 1px;
+	display: block;
+	font-weight: 600;
+	z-index: 1000;
+}
+.mean-container a.meanmenu-reveal span {
+	display: block;
+	background: #fff;
+	height: 3px;
+	margin-top: 3px
+}
+.mean-container .mean-nav {
+	float: left;
+	width: 100%;
+	background: #047aac;
+	margin-top: 44px
+}
+.mobile-menu-title{ font-size:18px; text-transform:uppercase; color:#fff; font-weight:600; margin:10px; line-height:42px;}
+.mean-container .mean-nav ul {
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	list-style-type: none
+}
+.mean-container .mean-nav ul li {
+	position: relative;
+	float: left;
+	width: 100%;
+	background: #fff;
+}
+.mean-container .mean-nav ul li a {
+	display: block;
+	float: left;
+	width: 90%;
+	padding: 1em 5%;
+	margin: 0;
+	text-align: left;
+	color: #000;
+	border-top: 1px solid #ddd;
+	text-decoration: none;
+	text-transform: uppercase
+}
+.mean-container .mean-nav ul li li a {
+	border-right: 1px solid #ddd;
+	border-top: 1px solid #ddd;
+	opacity: 0.75;
+	padding: 13px 6%;
+	text-shadow: none !important;
+	text-transform: none;
+	visibility: visible;
+
+}
+.mean-container .mean-nav ul li.mean-last a {
+	border-bottom: 0;
+	margin-bottom: 0
+}
+.mean-container .mean-nav ul li li li a {
+	border-bottom: 1px solid #ddd;
+	border-top: medium none;
+	padding: 9px 8%;
+
+}
+.mean-container .mean-nav ul li li li:first-child a {
+	border-top: 1px solid #ddd;
+}
+.mean-container .mean-nav ul li li:first-child a {
+	border-top: 0px solid #ddd;
+}
+.mean-container .mean-nav ul li li li li a {
+	width: 60%;
+	padding: 1em 20%
+}
+.mean-container .mean-nav ul li li li li li a {
+	width: 50%;
+	padding: 1em 25%
+}
+.mean-container .mean-nav ul li a:hover {
+	color: #047aac;
+}
+.mean-container .mean-nav ul li a.mean-expand {
+	margin-top: 1px;
+	width: 26px;
+	height: 22px;
+	padding: 12px;
+	text-align: center;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2;
+	font-weight: 700;
+	background: rgba(255,255,255,.1);
+	border: none !important;
+	border-left: 1px solid #ddd !important;
+}
+.mean-container .mean-nav ul li a.mean-expand:hover {
+	background: #047aac;
+	color: #fff;
+}
+.mean-container .mean-push {
+	float: left;
+	width: 100%;
+	padding: 0;
+	margin: 0;
+	clear: both
+}
+.mean-nav .wrapper {
+	width: 100%;
+	padding: 0;
+	margin: 0
+}
+.mean-container .mean-bar, .mean-container .mean-bar * {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box
+}
+.mean-remove {
+	display: none!important
+}
+.menu-area {
+	background-color: #086992;
+}
+.menu-area-2 {
+	background: none;
+}
+.main-menu {
+	background-color: #047aac;
+	height: 60px;
+}
+.main-menu ul {
+	text-align: left;
+	margin: auto;
+}
+.main-menu ul li {
+	display: inline-block;
+}
+.main-menu ul li.custom-menu {
+	position: relative;
+}
+.main-menu ul li a {
+	color: #fff;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	padding: 20px;
+	text-transform: uppercase;
+	transition: all 0.3s ease 0s;
+	position: relative;
+}
+.main-menu nav > ul > li > a::before {
+	background: #60e0c6 none repeat scroll 0 0;
+	content: "";
+	height: 25px;
+	position: absolute;
+	right: 0;
+	top: 18px;
+	width: 1px;
+}
+.main-menu nav > ul > li:first-child > a::before {
+	display: none;
+}
+.main-menu ul li:hover > a, .main-menu ul li.active > a {
+	color: #fff;
+	background-color: #00afef;
+}
+.main-menu ul li ul {
+	background-color: #f9f9f9;
+	border-top: 3px solid #086992;
+	left: 0;
+	padding: 20px;
+	position: absolute;
+	box-shadow: 2px 0 7px 0 rgba(0, 0, 0, 0.13);
+	opacity: 0;
+	top: 135%;
+	transition: all 0.3s ease 0s;
+	width: 200px;
+	visibility: hidden;
+	z-index: 999999;
+	text-align: left;
+}
+.main-menu ul li ul.dropdown li {
+	display: block;
+	background: none;
+}
+.main-menu ul li ul.dropdown li a {
+	display: block;
+	font-size: 13px;
+	font-weight: normal;
+	padding: 0 0 13px;
+	position: relative;
+	text-transform: capitalize;
+	color: #000;
+}
+.main-menu ul li:hover ul.dropdown {
+	opacity: 1;
+	top: 100%;
+	visibility: visible;
+}
+.main-menu ul li ul.dropdown li:hover a {
+	color: #086992;
+	font-weight: 400px;
+	background: none;
+	margin-left: 5px;
+}
+.main-menu ul li .mega-menu {
+	background-color: #f9f9f9;
+	border: 1px #ddd solid;
+	border-top: 2px solid #086992;
+	left: 0px;
+	margin: 0;
+	opacity: 0;
+	padding: 25px 15px 5px;
+	position: absolute;
+	text-align: left;
+	top: 130%;
+	transition: all 0.3s ease 0s;
+	width: 1170px;
+	visibility: hidden;
+	z-index: 9999999;
+	text-align: left;
+}
+.main-menu ul li:hover .mega-menu {
+	top: 100%;
+	opacity: 1;
+	visibility: visible
+}
+.main-menu ul li .mega-menu span {
+	float: left;
+	padding-right: 15px;
+	padding-left: 15px;
+	width: 24.6%;
+	margin-bottom: 15px;
+}
+.main-menu ul li .mega-menu ul {
+	float: left;
+	width: 24.6%;
+	padding-right: 15px;
+	padding-left: 15px;
+}
+.main-menu ul li .mega-menu span.mega-menu-img {
+	padding-right: 0;
+	width: 26%;
+}
+.main-menu ul li > .mega-menu span a {
+	display: block;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 0 0 13px;
+	text-transform: capitalize;
+}
+.main-menu ul li .mega-menu span a.mega-title {
+	border-bottom: 1px solid #ccc;
+	color: #333;
+	font-weight: 700;
+	margin-bottom: 15px;
+	text-transform: uppercase;
+}
+.main-menu ul li .mega-menu span.mega-menu-img {
+	width: 26%;
+	float: right;
+	padding-right: 15px;
+}
+.main-menu ul li .mega-menu span.mega-menu-img.left {
+	width: 25%;
+	float: left;
+	padding-left: 5px;
+	padding-right: 15px;
+}
+.main-menu ul li ul.dropdown li a:after, .main-menu ul li .mega-menu span a:after {
+	content: "\f104";
+	float: left;
+	font-family: fontawesome;
+	margin-right: 5px;
+}
+.main-menu ul li:hover .mega-menu span a {
+	color: #000
+}
+.main-menu ul li:hover .mega-menu span a:hover {
+	color: #086992;
+	margin-left: 5px;
+}
+.main-menu ul li:hover .mega-menu span a.mega-title:hover, .main-menu ul li:hover .mega-menu span.mega-menu-img a:hover {
+	margin-left: 0;
+}
+.main-menu ul li:hover .mega-menu span.mega-menu-img a {
+	margin: 0;
+	padding: 0;
+}
+.main-menu ul li .mega-menu span a:before {
+	display: none
+}
+.main-menu ul li .mega-menu span a.mega-title:after, .main-menu ul li .mega-menu span.mega-menu-img a:after {
+	display: none
+}
+.top-Signup {
+	float: right;
+	margin: 3px 0 0;
+}
+.top-Signup a, .top-Signup a:hover {
+	color: #fff;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 600;
+	letter-spacing: 1px;
+	padding: 15px 20px;
+	position: relative;
+	text-transform: uppercase;
+	transition: all 0.3s ease 0s;
+}
+.top-Signup a:focus {
+	color: #fff;
+}
+#login-modal .modal-header {
+	text-align: center;
+}
+#login-modal .modal-dialog {
+	    width: 90%;
+    max-width: 370px;
+    margin: 30px auto;
+}
+#login-modal input[type=text], input[type=password] {
+	margin-top: 10px;
+	height: 38px;
+}
+.modal-backdrop.in {
+	filter: alpha(opacity=50);
+	opacity: .8;
+}
+.modal-content {
+	background-color: #ececec;
+	border: 1px solid #bdc3c7;
+	border-radius: 0px;
+	outline: 0;
+}
+.modal-header {
+	min-height: 16.43px;
+	padding: 15px 15px 15px 15px;
+	border-bottom: 0px;
+}
+.modal-body {
+	position: relative;
+	padding: 5px 15px 5px 15px;
+}
+.modal-footer {
+	padding: 15px 15px 15px 15px;
+	text-align: left;
+	border-top: 0px;
+}
+.checkbox {
+	margin-bottom: 0px;
+}
+.btn-login {
+	background-color: #047aac;
+	width: 100%;
+	padding: 10px 0px;
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 16px;
+	letter-spacing: 1px;
+	border: none;
+	color: #fff;
+	font-weight: 600;
+}
+.form-control {
+	border-radius: 0px;
+}
+ @media only screen and (min-width: 280px) and (max-width: 767px) {
+.mean-container .mean-nav {
+	margin-top: 0px;
+}
+.mean-container .mean-nav ul {
+	margin-top: 0px;
+}
+.mean-container .mean-bar {
+	margin-top: 15px;
+}
+}
+ @media only screen and (min-width: 768px) and (max-width: 992px) {
+.main-menu ul li .mega-menu {
+	width: 720px;
+}
+}
+ @media only screen and (min-width: 993px) and (max-width: 1200px) {
+.main-menu ul li .mega-menu {
+	width: 940px;
+}
+}

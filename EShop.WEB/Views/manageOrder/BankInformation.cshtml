@@ -1,0 +1,101 @@
+﻿@model EShop.WEB.Models.BankInformationVM
+@{
+    ViewBag.Title = "وصف معلومات  البنك";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                <a href="@Url.Action("Index","ManageOrder")" data-original-title="الرجوع للطلبات" class="btn btn-default"><i class="fa fa-reply"></i></a>
+            </div>
+        </div>
+        <h1>وصف معلومات البنك</h1>
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("DashBoard","Admin")">الرئيسية</a></li>
+            <li><a >وصف معلومات البنك</a></li>
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-list"></i>وصف معلومات البنك</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post"  id="filter-form">
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="input-Description-id">الوصف</label>
+                                    @Html.TextAreaFor(c => c.Description, new { @class = "form-control summer", placeholder = "الوصف", id = "input-description-id" })
+                                </div>
+                                <input id="btn-save" type="submit" class="btn btn-primary pull-right" value="حفظ" />
+                            </div>
+
+                        </div>
+                    </div>
+                </form>
+
+
+</div>
+        </div>
+     
+    </div>
+    <script>
+        $('.summer').summernote({
+            focus: true,
+            direction: 'rtl',
+            fontNames: ['DroidArabicNaskh', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+            fontNamesIgnoreCheck: ['DroidArabicNaskh']
+        });
+    </script>
+    <script>
+        function refreshIndex() {
+            $.ajax({
+                url: '@Url.Action("BankInformation", "ManageOrder")',
+                method: 'Get',
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+
+        $(document).ready(function () {
+           var desc = $('.summer').val();
+           $('.summer').summernote('code',desc);
+
+
+            $('#btn-save').on('click', function (e) {
+                e.preventDefault();
+                var desc = $('.summer').summernote('code'); //save HTML If you need(aHTML: array).
+                $('#input-description-id').val(desc);
+                console.log($('.summer').val());
+                $.ajax({
+                    url: '@Url.Action("BankInformation","ManageOrder")',
+                    method: 'post',
+                    data: $('#filter-form').serialize(),
+                    success: function (data) {
+                        
+                        if (data.Succedeed == true) {
+                            refreshIndex();
+                            generateFlash('success', data.message);
+
+                        } else {
+                            generateFlash('error', data.message);
+                        }
+                    },
+                    error: function (err) {
+                        alert(err.status);
+                    }
+
+
+                });
+            });
+
+        });
+        
+    </script>
+</div>

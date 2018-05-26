@@ -1,0 +1,249 @@
+﻿@model EShop.WEB.Models.AddressVM
+
+@{
+    ViewBag.Title = "تعديل عنوان";
+    Layout = "~/Views/Shared/_Manage.cshtml";
+}
+<style>
+    label {
+        text-align: right !important;
+    }
+</style>
+<hgroup>
+    
+    <h2>تعديل عنوان</h2>
+    @if(@Model.IsDefault)
+    {
+        <h5>العنوان الافتراضي</h5>
+    }
+</hgroup>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address1, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Address1, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Address1)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Phone, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.Phone, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PostCode, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.PostCode, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.PostCode)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Country, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* @Html.TextBoxFor(model => model.Country, new { @class = "form-control" })*@
+
+                <select name="Country" class="form-control">
+                    <option value=""> --- Please Select --- </option>
+                    <option value="السعودية" selected="selected">السعودية</option>
+                </select>
+                @Html.ValidationMessageFor(model => model.Country)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.City, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @* @Html.TextBoxFor(model => model.Country, new { @class = "form-control" })*@
+                <select name="City" class="form-control">
+                    <option value=""> --- Please Select --- </option>
+                    <option value="الرياض">
+                        الرياض
+                    </option>
+                    <option value="مكة">
+                        مكة
+                    </option>
+                    <option value="المدينة المنورة">
+                        المدينة المنورة
+                    </option>
+                    <option value="بريدة">
+                        بريدة
+                    </option>
+                    <option value="تبوك">
+                        تبوك
+                    </option>
+                    <option value="الدمام">
+                        الدمام
+                    </option>
+                    <option value="الاحساء">
+                        الاحساء
+                    </option>
+                    <option value="القطيف">
+                        القطيف
+                    </option>
+                    <option value="خميس مشيط">
+                        خميس مشيط
+                    </option>
+                    <option value="الطائف">
+                        الطائف
+                    </option>
+                    <option value="نجران">
+                        نجران
+                    </option>
+                    <option value="حفر الباطن">
+                        حفر الباطن
+                    </option>
+                    <option value="الجبيل">
+                        الجبيل
+                    </option>
+                    <option value="ضباء">
+                        ضباء
+                    </option>
+                    <option value="الخرج">
+                        الخرج
+                    </option>
+                    <option value="الثقبة">
+                        الثقبة
+                    </option>
+                    <option value="ينبع البحر">
+                        ينبع البحر
+                    </option>
+                    <option value="الخبر">
+                        الخبر
+                    </option>
+                    <option value="عرعر">
+                        عرعر
+                    </option>
+                    <option value="الحوية">
+                        الحوية
+                    </option>
+                    <option value="عنيزة">
+                        عنيزة
+                    </option>
+                    <option value="سكاكا">
+                        سكاكا
+                    </option>
+                    <option value="جيزان">
+                        جيزان
+                    </option>
+                    <option value="القريات">
+                        القريات
+                    </option>
+                    <option value="الظهران">
+                        الظهران
+                    </option>
+                    <option value="الباحة">
+                        الباحة
+                    </option>
+                    <option value="الزلفي">
+                        الزلفي
+                    </option>
+                    <option value="الرس">
+                        الرس
+                    </option>
+                    <option value="وادي الدواسر">
+                        وادي الدواسر
+                    </option>
+                    <option value="بيشه">
+                        بيشه
+                    </option>
+                    <option value="سيهات">
+                        سيهات
+                    </option>
+                    <option value="شروره">
+                        شروره
+                    </option>
+                    <option value="بحره">
+                        بحره
+                    </option>
+                    <option value="تاروت">
+                        تاروت
+                    </option>
+                    <option value=" الدوادمي">
+                        الدوادمي
+                    </option>
+                    <option value="صبياء">
+                        صبياء
+                    </option>
+                    <option value="بيش">
+                        بيش
+                    </option>
+                    <option value="أحد رفيدة">
+                        أحد رفيدة
+                    </option>
+                    <option value="الفريش">
+                        الفريش
+                    </option>
+                    <option value="بارق">
+                        بارق
+                    </option>
+                    <option value="الحوطة">
+                        الحوطة
+                    </option>
+                    <option value="الأفلاج">
+                        الأفلاج
+                    </option>
+                </select>
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+        @if (!Model.IsDefault) { 
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsDefault, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxFor(model => model.IsDefault)
+                @Html.ValidationMessageFor(model => model.IsDefault)
+            </div>
+        </div>
+        }
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-1">
+                <input type="submit" value="حفظ" class="btn btn-default" />
+
+            </div>
+            <div class="col-md-1">
+                <input type="button" onclick="location.href='@Url.Action("AddressBook")'" value="عودة" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(function() {
+
+        $("option").each(function () {
+            console.log($(this).html().trim());
+            if ($(this).html().trim() == "@Model.City") {
+                $(this).attr('selected', 'selected');
+            }
+        });
+    });
+</script>

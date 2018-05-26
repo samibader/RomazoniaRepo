@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9070D515-0AE7-4C88-8F92-D22ED7AD7908}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EShop.BLL</RootNamespace>
+    <AssemblyName>EShop.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc, Version=4.5.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PayPal, Version=1.8.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.8.0\lib\net45\PayPal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PayPalCoreSDK, Version=1.7.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPalCoreSDK.1.7.1\lib\net45\PayPalCoreSDK.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DTO\AddProductDTO.cs" />
+    <Compile Include="DTO\AddressDTO.cs" />
+    <Compile Include="DTO\AddSizeAttributeDTO.cs" />
+    <Compile Include="DTO\AddtionalInfoDTO.cs" />
+    <Compile Include="DTO\AttributeDTO.cs" />
+    <Compile Include="DTO\AttributeGroupDTO.cs" />
+    <Compile Include="DTO\BankInformationDTO.cs" />
+    <Compile Include="DTO\BillingMethodDTO.cs" />
+    <Compile Include="DTO\CategoryDTO.cs" />
+    <Compile Include="DTO\CategoryManegerDTO.cs" />
+    <Compile Include="DTO\CategoryPathDTO.cs" />
+    <Compile Include="DTO\CategoryMenuDTO.cs" />
+    <Compile Include="DTO\CheckOutDTO.cs" />
+    <Compile Include="DTO\ColorValuesDTO.cs" />
+    <Compile Include="DTO\CouponDTO.cs" />
+    <Compile Include="DTO\DesignerDTO.cs" />
+    <Compile Include="DTO\ManageDesignerDTO.cs" />
+    <Compile Include="DTO\DiscountDTO.cs" />
+    <Compile Include="DTO\FilterMenuDTO.cs" />
+    <Compile Include="DTO\MainPageProductsDTO.cs" />
+    <Compile Include="DTO\ManageOrderDTO.cs" />
+    <Compile Include="DTO\OptionFiltersDTO.cs" />
+    <Compile Include="DTO\OptionIndexManagerDTO.cs" />
+    <Compile Include="DTO\OptionValueManagerDTO.cs" />
+    <Compile Include="DTO\OptionDTO.cs" />
+    <Compile Include="DTO\OptionManagerDTO.cs" />
+    <Compile Include="DTO\OrderDTO.cs" />
+    <Compile Include="DTO\OrderHistoryDTO.cs" />
+    <Compile Include="DTO\OrderItemDTO.cs" />
+    <Compile Include="DTO\ParentCategoryDTO.cs" />
+    <Compile Include="DTO\ProductDTO.cs" />
+    <Compile Include="DTO\ProductIndexManagerDTO.cs" />
+    <Compile Include="DTO\ProductOptionValueDTO.cs" />
+    <Compile Include="DTO\ProductRateDTO.cs" />
+    <Compile Include="DTO\ProductSKUDTO.cs" />
+    <Compile Include="DTO\SampleDTO.cs" />
+    <Compile Include="DTO\ShippingCompanyDTO.cs" />
+    <Compile Include="DTO\ShippingMethodDTO.cs" />
+    <Compile Include="DTO\SizeAttributeDTO.cs" />
+    <Compile Include="DTO\SizeAttributeValueDTO.cs" />
+    <Compile Include="DTO\SizeAttributeViewDTO.cs" />
+    <Compile Include="DTO\SizeCategoryDTO.cs" />
+    <Compile Include="DTO\SizeValueDTO.cs" />
+    <Compile Include="DTO\SlideDTO.cs" />
+    <Compile Include="DTO\TagDTO.cs" />
+    <Compile Include="DTO\TagProductDTO.cs" />
+    <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="DTO\OptionValueDTO.cs" />
+    <Compile Include="InitializeAutoMapper.cs" />
+    <Compile Include="Interfaces\IAddressService.cs" />
+    <Compile Include="Interfaces\ICheckOutService.cs" />
+    <Compile Include="Interfaces\ICouponService.cs" />
+    <Compile Include="Interfaces\IDesignerFilterService.cs" />
+    <Compile Include="Interfaces\IDiscount.cs" />
+    <Compile Include="Interfaces\IFavoriteService.cs" />
+    <Compile Include="Infrastructure\OperationDetails.cs" />
+    <Compile Include="Infrastructure\ServiceModule.cs" />
+    <Compile Include="Infrastructure\ValidationException.cs" />
+    <Compile Include="Interfaces\ICartService.cs" />
+    <Compile Include="Interfaces\ICategoryService.cs" />
+    <Compile Include="Interfaces\IManageAttributeGroup.cs" />
+    <Compile Include="Interfaces\IManageDesigner.cs" />
+    <Compile Include="Interfaces\IManageSizeAttributes.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
+    <Compile Include="Interfaces\IPaypalService.cs" />
+    <Compile Include="Interfaces\IProductFilterService.cs" />
+    <Compile Include="Interfaces\IProductManagerService.cs" />
+    <Compile Include="Interfaces\IProductService.cs" />
+    <Compile Include="Interfaces\ISampleService.cs" />
+    <Compile Include="Interfaces\ISliderService.cs" />
+    <Compile Include="Interfaces\ITagFilterService.cs" />
+    <Compile Include="Interfaces\IUserService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AddressService.cs" />
+    <Compile Include="Services\CartService.cs" />
+    <Compile Include="Services\CategoryService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\CheckOutService.cs" />
+    <Compile Include="Services\CouponService.cs" />
+    <Compile Include="Services\DesignerFilterService.cs" />
+    <Compile Include="Services\DiscountService.cs" />
+    <Compile Include="Services\FavoriteService.cs" />
+    <Compile Include="Services\ManageAttributeGroupService.cs" />
+    <Compile Include="Services\ManageDesignerService.cs" />
+    <Compile Include="Services\ManageSizeAttributes.cs" />
+    <Compile Include="Services\OrderService.cs" />
+    <Compile Include="Services\PaypalService.cs" />
+    <Compile Include="Services\ProductFilterService.cs" />
+    <Compile Include="Services\ProductManagerService.cs" />
+    <Compile Include="Services\ProductService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\SampleService.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Services\SliderService.cs" />
+    <Compile Include="Services\TagFilterService.cs" />
+    <Compile Include="Services\UserService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EShop.Common\EShop.Common.csproj">
+      <Project>{2792c87c-4ed4-4af7-8935-80cded5a2ec7}</Project>
+      <Name>EShop.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EShop.DAL\EShop.DAL.csproj">
+      <Project>{15f7163c-5884-4fc4-9d33-a67b1a1b280b}</Project>
+      <Name>EShop.DAL</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\PagedList.css" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

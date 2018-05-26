@@ -1,0 +1,557 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-right"><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order/invoice&amp;token=98afb38c3e9238de7f1b9619140bd13e&amp;order_id=2345" target="_blank" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="Print Invoice"><i class="fa fa-print"></i></a> <a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order/shipping&amp;token=98afb38c3e9238de7f1b9619140bd13e&amp;order_id=2345" target="_blank" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="Print Shipping List"><i class="fa fa-truck"></i></a> <a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order/edit&amp;token=98afb38c3e9238de7f1b9619140bd13e&amp;order_id=2345" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a> <a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=98afb38c3e9238de7f1b9619140bd13e" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a></div>
+            <h1>Orders</h1>
+            <ul class="breadcrumb">
+                <li><a href="http://demo.xtensions.in/best/admin/index.php?route=common/dashboard&amp;token=98afb38c3e9238de7f1b9619140bd13e">Home</a></li>
+                <li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=98afb38c3e9238de7f1b9619140bd13e">Orders</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-list"></i> Orders</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="http://demo.xtensions.in/best/admin/#tab-order" data-toggle="tab">Order Details</a></li>
+                    <li class=""><a href="http://demo.xtensions.in/best/admin/#tab-payment" data-toggle="tab">Payment Details</a></li>
+                    <li class=""><a href="http://demo.xtensions.in/best/admin/#tab-shipping" data-toggle="tab">Shipping Details</a></li>
+                    <li class=""><a href="http://demo.xtensions.in/best/admin/#tab-product" data-toggle="tab">Products</a></li>
+                    <li class=""><a href="http://demo.xtensions.in/best/admin/#tab-history" data-toggle="tab">History</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab-order">
+                        <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> Warning: You do not have permission to modify orders!</div>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>Order ID:</td>
+                                    <td>#2345</td>
+                                </tr>
+                                <tr>
+                                    <td>Invoice No.:</td>
+                                    <td>
+                                        <button id="button-invoice" class="btn btn-success btn-xs"><i class="fa fa-cog"></i> Generate</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Store Name:</td>
+                                    <td>Best checkout</td>
+                                </tr>
+                                <tr>
+                                    <td>Store Url:</td>
+                                    <td><a href="http://demo.xtensions.in/best/" target="_blank">http://demo.xtensions.in/best/</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Customer:</td>
+                                    <td>firstname lastname</td>
+                                </tr>
+                                <tr>
+                                    <td>Customer Group:</td>
+                                    <td>Default</td>
+                                </tr>
+                                <tr>
+                                    <td>E-Mail:</td>
+                                    <td><a href="mailto:hiddenindemo@example.com">hiddenindemo@example.com</a></td>
+                                </tr>
+                                <tr>
+                                    <td>Telephone:</td>
+                                    <td>99999999</td>
+                                </tr>
+                                <tr>
+                                    <td>Total:</td>
+                                    <td>$116.10</td>
+                                </tr>
+                                <tr>
+                                    <td>Order Status:</td>
+                                    <td id="order-status">Pending</td>
+                                </tr>
+                                <tr>
+                                    <td>IP Address:</td>
+                                    <td>79.121.43.236</td>
+                                </tr>
+                                <tr>
+                                    <td>User Agent:</td>
+                                    <td>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.75 Safari/537.36</td>
+                                </tr>
+                                <tr>
+                                    <td>Accept Language:</td>
+                                    <td>hu-HU,hu;q=0.8,en-US;q=0.6,en;q=0.4</td>
+                                </tr>
+                                <tr>
+                                    <td>Date Added:</td>
+                                    <td>08/12/2016</td>
+                                </tr>
+                                <tr>
+                                    <td>Date Modified:</td>
+                                    <td>08/12/2016</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tab-payment">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>First Name:</td>
+                                    <td>firstname</td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name:</td>
+                                    <td>lastname</td>
+                                </tr>
+                                <tr>
+                                    <td>Address 1:</td>
+                                    <td>3424</td>
+                                </tr>
+                                <tr>
+                                    <td>City:</td>
+                                    <td>34324</td>
+                                </tr>
+                                <tr>
+                                    <td>Postcode:</td>
+                                    <td>432</td>
+                                </tr>
+                                <tr>
+                                    <td>Region / State:</td>
+                                    <td>Cheshire</td>
+                                </tr>
+                                <tr>
+                                    <td>Region / State Code:</td>
+                                    <td>CHES</td>
+                                </tr>
+                                <tr>
+                                    <td>Country:</td>
+                                    <td>United Kingdom</td>
+                                </tr>
+                                <tr>
+                                    <td>Address Phone:</td>
+                                    <td>2432423</td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Method:</td>
+                                    <td>Cash On Delivery</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tab-shipping">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>First Name:</td>
+                                    <td>firstname</td>
+                                </tr>
+                                <tr>
+                                    <td>Last Name:</td>
+                                    <td>lastname</td>
+                                </tr>
+                                <tr>
+                                    <td>Address 1:</td>
+                                    <td>3424</td>
+                                </tr>
+                                <tr>
+                                    <td>City:</td>
+                                    <td>34324</td>
+                                </tr>
+                                <tr>
+                                    <td>Postcode:</td>
+                                    <td>432</td>
+                                </tr>
+                                <tr>
+                                    <td>Region / State:</td>
+                                    <td>Cheshire</td>
+                                </tr>
+                                <tr>
+                                    <td>Region / State Code:</td>
+                                    <td>CHES</td>
+                                </tr>
+                                <tr>
+                                    <td>Country:</td>
+                                    <td>United Kingdom</td>
+                                </tr>
+                                <tr>
+                                    <td>Address Phone:</td>
+                                    <td>2432423</td>
+                                </tr>
+                                <tr>
+                                    <td>Shipping Method:</td>
+                                    <td>Flat Shipping Rate</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tab-product">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+
+                                    <td class="text-left">Image</td>
+
+
+                                    <td class="text-left">Product</td>
+                                    <td class="text-left">Model</td>
+                                    <td class="text-right">Quantity</td>
+                                    <td class="text-right">Unit Price</td>
+                                    <td class="text-right">Total</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+
+                                    <td class="center" width="1"><a href="http://demo.xtensions.in/best/admin/index.php?route=catalog/product/edit&amp;token=98afb38c3e9238de7f1b9619140bd13e&amp;product_id=40"><img src="./OrdersDetails_files/iphone_1-80x80.jpg" title="iPhone" style="padding: 1px; border: 1px solid #DDDDDD;"></a></td>
+
+                                    <td class="text-left">
+                                        <a href="http://demo.xtensions.in/best/admin/index.php?route=catalog/product/edit&amp;token=98afb38c3e9238de7f1b9619140bd13e&amp;product_id=40">iPhone</a>
+                                    </td>
+                                    <td class="text-left">product 11</td>
+                                    <td class="text-right">1</td>
+                                    <td class="text-right">$101.00</td>
+                                    <td class="text-right">$101.00</td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="5" class="text-right">Sub-Total:</td>
+
+
+                                    <td class="text-right">$101.00</td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="5" class="text-right">COD Charges 10%:</td>
+
+
+                                    <td class="text-right">$10.10</td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="5" class="text-right">Flat Shipping Rate:</td>
+
+
+                                    <td class="text-right">$5.00</td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="5" class="text-right">Total:</td>
+
+
+                                    <td class="text-right">$116.10</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tab-history">
+                        <div id="history">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="text-left">Date Added</td>
+                                        <td class="text-left">Comment</td>
+                                        <td class="text-left">Status</td>
+                                        <td class="text-left">Customer Notified</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left">08/12/2016</td>
+                                        <td class="text-left"></td>
+                                        <td class="text-left">Pending</td>
+                                        <td class="text-left">No</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-6 text-left"></div>
+                                <div class="col-sm-6 text-right">Showing 1 to 3 of 3 (1 Pages)</div>
+                            </div>
+                        </div>
+                        <br>
+                        <fieldset>
+                            <legend>Add Order History</legend>
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-order-status">Order Status</label>
+                                    <div class="col-sm-10">
+                                        <select name="order_status_id" id="input-order-status" class="form-control">
+                                            <option value="7">Canceled</option>
+                                            <option value="9">Canceled Reversal</option>
+                                            <option value="13">Chargeback</option>
+                                            <option value="5">Complete</option>
+                                            <option value="8">Denied</option>
+                                            <option value="14">Expired</option>
+                                            <option value="10">Failed</option>
+                                            <option value="1" selected="selected">Pending</option>
+                                            <option value="15">Processed</option>
+                                            <option value="2">Processing</option>
+                                            <option value="11">Refunded</option>
+                                            <option value="12">Reversed</option>
+                                            <option value="3">Shipped</option>
+                                            <option value="16">Voided</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-notify">Notify Customer</label>
+                                    <div class="col-sm-10">
+                                        <input type="checkbox" name="notify" value="1" id="input-notify">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-comment">Comment</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="comment" rows="8" id="input-comment" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="text-right">
+                                <button id="button-history" data-loading-text="Loading..." class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add History</button>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+<!--
+$(document).delegate('#button-invoice', 'click', function() {
+	$.ajax({
+		url: 'index.php?route=sale/order/createinvoiceno&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-invoice').button('loading');
+		},
+		complete: function() {
+			$('#button-invoice').button('reset');
+		},
+		success: function(json) {
+			$('.alert').remove();
+
+			if (json['error']) {
+				$('#tab-order').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+			}
+
+			if (json['invoice_no']) {
+				$('#button-invoice').replaceWith(json['invoice_no']);
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$(document).delegate('#button-reward-add', 'click', function() {
+	$.ajax({
+		url: 'index.php?route=sale/order/addreward&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+		type: 'post',
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-reward-add').button('loading');
+		},
+		complete: function() {
+			$('#button-reward-add').button('reset');
+		},
+		success: function(json) {
+			$('.alert').remove();
+
+			if (json['error']) {
+				$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+			}
+
+			if (json['success']) {
+                $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+				$('#button-reward-add').replaceWith('<button id="button-reward-remove" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i> Remove Reward Points</button>');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$(document).delegate('#button-reward-remove', 'click', function() {
+	$.ajax({
+		url: 'index.php?route=sale/order/removereward&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+		type: 'post',
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-reward-remove').button('loading');
+		},
+		complete: function() {
+			$('#button-reward-remove').button('reset');
+		},
+		success: function(json) {
+			$('.alert').remove();
+
+			if (json['error']) {
+				$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+			}
+
+			if (json['success']) {
+                $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+				$('#button-reward-remove').replaceWith('<button id="button-reward-add" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i> Add Reward Points</button>');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$(document).delegate('#button-commission-add', 'click', function() {
+	$.ajax({
+		url: 'index.php?route=sale/order/addcommission&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+		type: 'post',
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-commission-add').button('loading');
+		},
+		complete: function() {
+			$('#button-commission-add').button('reset');
+		},
+		success: function(json) {
+			$('.alert').remove();
+
+			if (json['error']) {
+				$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+			}
+
+			if (json['success']) {
+                $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+				$('#button-commission-add').replaceWith('<button id="button-commission-remove" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i> Remove Commission</button>');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$(document).delegate('#button-commission-remove', 'click', function() {
+	$.ajax({
+		url: 'index.php?route=sale/order/removecommission&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+		type: 'post',
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-commission-remove').button('loading');
+
+		},
+		complete: function() {
+			$('#button-commission-remove').button('reset');
+		},
+		success: function(json) {
+			$('.alert').remove();
+
+			if (json['error']) {
+				$('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+			}
+
+			if (json['success']) {
+                $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+				$('#button-commission-remove').replaceWith('<button id="button-commission-add" class="btn btn-success btn-xs"><i class="fa fa-minus-circle"></i> Add Commission</button>');
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$('#history').delegate('.pagination a', 'click', function(e) {
+	e.preventDefault();
+
+	$('#history').load(this.href);
+});
+
+$('#history').load('index.php?route=sale/order/history&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345');
+
+$('#button-history').on('click', function() {
+  if(typeof verifyStatusChange == 'function'){
+    if(verifyStatusChange() == false){
+      return false;
+    }else{
+      addOrderInfo();
+    }
+  }else{
+    addOrderInfo();
+  }
+
+	$.ajax({
+		url: 'index.php?route=sale/order/api&token=98afb38c3e9238de7f1b9619140bd13e&api=api/order/history&order_id=2345',
+		type: 'post',
+		dataType: 'json',
+		data: 'order_status_id=' + encodeURIComponent($('select[name=\'order_status_id\']').val()) + '&notify=' + ($('input[name=\'notify\']').prop('checked') ? 1 : 0) + '&append=' + ($('input[name=\'append\']').prop('checked') ? 1 : 0) + '&comment=' + encodeURIComponent($('textarea[name=\'comment\']').val()),
+		beforeSend: function() {
+			$('#button-history').button('loading');
+		},
+		complete: function() {
+			$('#button-history').button('reset');
+		},
+		success: function(json) {
+			$('.alert').remove();
+
+			if (json['error']) {
+				$('#history').before('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+			}
+
+			if (json['success']) {
+				$('#history').load('index.php?route=sale/order/history&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345');
+
+				$('#history').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+				$('textarea[name=\'comment\']').val('');
+
+				$('#order-status').html($('select[name=\'order_status_id\'] option:selected').text());
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+function changeStatus(){
+  var status_id = $('select[name="order_status_id"]').val();
+
+  $('#openbay-info').remove();
+
+  $.ajax({
+    url: 'index.php?route=extension/openbay/getorderinfo&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345&status_id='+status_id,
+    dataType: 'html',
+    success: function(html) {
+      $('#history').after(html);
+    }
+  });
+}
+
+function addOrderInfo(){
+  var status_id = $('select[name="order_status_id"]').val();
+
+  $.ajax({
+    url: 'index.php?route=extension/openbay/addorderinfo&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345&status_id='+status_id,
+    type: 'post',
+    dataType: 'html',
+    data: $(".openbay-data").serialize()
+  });
+}
+
+$(document).ready(function() {
+  changeStatus();
+});
+
+$('select[name="order_status_id"]').change(function(){ changeStatus(); });
+//--></script>
+</div>

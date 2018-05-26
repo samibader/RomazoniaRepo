@@ -1,0 +1,6 @@
+﻿@model EShop.WEB.Models.CategoryMenuVM
+<div class="banner-box">
+    <a href="#"><img alt="" src="@Model.ImageUrl"></a>
+    <div class="banner-text"><span class="first-text">@Model.Name</span> </div>
+    <a class="shop-now" href="@Url.Action("Browse", "CategoryBase", new {categoryName=Model.EnglishName })">تسوق الآن</a>
+</div>

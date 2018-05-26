@@ -1,0 +1,444 @@
+﻿@using EShop.BLL.DTO
+@using EShop.Common
+@using PagedList.Mvc;
+@using MvcFlashMessages
+@using Resx = EShop.Resources.Views.EShopResource
+@model EShop.WEB.Models.ShopGridVM
+@{
+    ViewBag.Title = "استعراض المنتجات - #" + Model.Name;
+    Layout = Request.IsAjaxRequest() ? null : "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .pagination > .active > a, .pagination > .active > a:focus, .pagination > .active > a:hover, .pagination > .active > span, .pagination > .active > span:focus, .pagination > .active > span:hover {
+        background-color: #1fc0a0;
+    }
+</style>
+<style>
+    .SelectedTag {
+        background: #1fc0a0;
+        color: #fff;
+        cursor: pointer;
+    }
+</style>
+@Html.RenderFlash()
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home" href="@Url.Action("Index","Home")">الرئيسية</a><span>&raquo;</span></li>
+                    <li><strong>#@Model.Name</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main-container col2-left-layout">
+    <div class="container">
+        @*<div class="category-description"><a href="#"><img src="@Model.Banner" alt="banner"></a></div>*@
+        @using (@Html.BeginForm("Browse", "Tag", FormMethod.Get, new { @id = "Mainform" }))
+        {
+            <input type="hidden" value="@Model.categoryName" name="tagName" />
+            <div class="row">
+                <div class="col-main col-sm-9 col-xs-12 col-sm-push-3">
+
+                    <div class="shop-inner">
+                        <div class="page-title">
+                            <h2>#@Model.Name</h2>
+                        </div>
+                        <div class="toolbar">
+                            <div class="view-mode">
+                                <ul>
+
+                                    <li class="@(Model.Show=="g"?"active":"")">
+                                        <input type="radio" id="g" name="Show" value="g" class="filtert Hidden" @(Model.Show == "g" ? "checked" : "") />
+                                        <label for="g" class="filtert">
+                                            <i class="fa fa-th-large"></i>
+                                        </label>
+                                    </li>
+                                    <li class="@(Model.Show=="l"?"active":"")">
+                                        <input type="radio" id="l" name="Show" value="l" class="filtert Hidden" @(Model.Show == "l" ? "checked" : "") />
+                                        <label for="l" class="filtert">
+                                            <i class="fa fa-th-list"></i>
+                                        </label>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                            <div class="sorter">
+                                <div class="short-by">
+                                    <label>ترتيب حسب:</label>
+                                    <select name="sortBy" class="filtert">
+
+                                        <option @(Model.SortBy == @Sorts.PriceDownUp ? "selected" : "") value="@Sorts.PriceDownUp">السعر - أدنى إلى أعلى</option>
+                                        <option @(Model.SortBy == @Sorts.PriceUpDown ? "selected" : "") value="@Sorts.PriceUpDown">السعر - أعلى إلى أدنى</option>
+                                        <option @(Model.SortBy == @Sorts.DateAddedDown ? "selected" : "") value="@Sorts.DateAddedDown">الأحدث إلى الأقدم</option>
+                                        <option @(Model.SortBy == @Sorts.DateAddedUp ? "selected" : "") value="@Sorts.DateAddedUp">الأقدم إلى الأحدث</option>
+                                        <option @(Model.SortBy == @Sorts.NameUpDown ? "selected" : "") value="@Sorts.NameUpDown">الاسم - تنازلي</option>
+                                        <option @(Model.SortBy == @Sorts.NameDownUp ? "selected" : "") value="@Sorts.NameDownUp">الاسم تصاعدي</option>
+                                    </select>
+                                </div>
+                                <div class="short-by page">
+                                    <label>العدد في الصفحة:</label>
+                                    <select name="pSize" class="filtert">
+                                        <option value="6" @(Model.PageSize == 6 ? "selected" : "")>6</option>
+                                        <option value="15" @(Model.PageSize == 15 ? "selected" : "")>15</option>
+                                        <option value="18" @(Model.PageSize == 18 ? "selected" : "")>18</option>
+                                        <option value="24" @(Model.PageSize == 24 ? "selected" : "")>24</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        @if (@Model.Show == "g")
+                        {
+                            <div class="product-grid-area">
+                                <ul class="products-grid">
+
+                                    @foreach (ProductDTO product in @Model.ProductDtos)
+                                    {
+                                        <li id="@product.Id" class="item col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                                            @{ Html.RenderPartial("_SingleProduct", product); }
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="product-list-area">
+                                <ul class="products-list" id="products-list">
+                                    @foreach (ProductDTO product in @Model.ProductDtos)
+                                    {
+                                        <li id="@product.Id" class="item ">
+                                            <div class="product-img">
+                                                @*<div class="icon-sale-label sale-left">Sale</div>*@
+                                                @if (product.SelectedColor != -1)
+                                                {
+                                                    <a id="@(product.Id.ToString() + '-' + product.Colors[product.SelectedColor].ValueId)" href="@Url.Action("Browse", "Product", new { id = product.Id, c = product.Colors[product.SelectedColor].ColorNameEnglish })" class="p-image"><figure> <img class="small-image" src="~/uploads/@(product.Colors[product.SelectedColor].ProductImage).ashx?height=200" alt=""></figure></a>
+                                                    <input type="hidden" id="h-@(product.Id.ToString()+"-" + product.Colors[product.SelectedColor].ValueId)" value="@product.Colors[product.SelectedColor].ColorNameEnglish" />
+
+                                                    int len = Math.Min(product.Colors.Count, 2);
+                                                    for (int i = 0; i < len; i++)
+                                                    {
+                                                        if (i == product.SelectedColor)
+                                                        {
+                                                            continue;
+                                                        }
+                                                        <a id="@(product.Id.ToString() + '-' + product.Colors[i].ValueId)" href="@Url.Action("Browse", "Product", new {id = product.Id, c = product.Colors[i].ColorNameEnglish})" class="p-image Hidden"><figure> <img class="small-image" src="~/uploads/@(product.Colors[i].ProductImage).ashx?height=200" alt=""></figure></a>
+                                                        <input type="hidden" id="h-@(product.Id.ToString()+"-" + product.Colors[product.SelectedColor].ValueId)" value="@product.Colors[i].ColorNameEnglish" />
+
+                                                    }
+                                                }
+                                                else
+                                                {
+
+                                                    <a id="@(product.Id.ToString())" href="@Url.Action("Browse", "Product", new {id = product.Id, c = ""})" class="p-image"> <img class="small-image" src="~/uploads/@(product.Images[0]).ashx?height=200" alt=""></a>
+                                                    <input type="hidden" id="h-@(product.Id)" value="" />
+
+                                                }
+                                            </div>
+                                            <div class="product-shop">
+                                                <h2 class="product-name"><a href="@Url.Action("Browse","Product",new {id=product.Id})" title="@product.Name">@product.Name</a></h2>
+                                                <div class="rating">
+                                                    @for (int i = 0; i < product.TotalRate; i++)
+                                                    {
+                                                        <i class="fa fa-star"></i> }
+                                                    @for (int i = 0; i < 5 - product.TotalRate; i++)
+                                                    {
+
+                                                        <i class="fa fa-star-o"></i>
+                                                    }
+                                                    <p class="rating-links"> <a href="#">@product.rates.Count تقييمات</a>  </p>
+                                                </div>
+                                                <div class="price-box">
+                                                    <p class="special-price"> <span class="price-label"></span> <span class="price"> @product.OrginalPrice @product.CurrencyName </span> </p>
+                                                    @if (product.IsDiscounted)
+                                                    {
+                                                        <p class="old-price"> <span class="price-label"></span> <span class="price"> @product.TotalPrice @product.CurrencyName </span> </p>
+                                                    }
+                                                </div>
+                                                <div class="desc std">
+                                                    <p>
+                                                        @product.MetaDescriptions
+                                                    </p>
+                                                </div>
+                                                <div class="actions">
+                                                    <div class="product-color-size-area">
+                                                        <div class="color-area1">
+                                                            <div class="color">
+                                                                <ul>
+                                                                    @if (product.SelectedColor != -1)
+                                                                    {
+                                                                        <li><a id="@(product.Id.ToString() + "--" + product.Colors[product.SelectedColor].ValueId.ToString())" href="" onclick="return selectColor(@product.Id.ToString(), @product.Colors[product.SelectedColor].ValueId.ToString())" style="background-color: @product.Colors[product.SelectedColor].Image" class="colorClass selectedColor"></a></li>
+
+                                                                        int len = Math.Min(product.Colors.Count, 2);
+                                                                        for (int i = 0; i < len; i++)
+                                                                        {
+                                                                            if (i == product.SelectedColor)
+                                                                            {
+                                                                                continue;
+                                                                            }
+                                                                            <li><a id="@(product.Id.ToString() + "--" + product.Colors[i].ValueId.ToString())" href="" onclick="return selectColor(@product.Id.ToString(), @product.Colors[i].ValueId.ToString())" style="background-color: @product.Colors[i].Image" class="colorClass"></a></li>
+                                                                        }
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @*<li>&nbsp;</li>*@
+                                                                        <li><a style="background-color: white;"></a></li>
+                                                                    }
+
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <ul>
+                                                        <li> <a href="#" onclick="addToFav(@product.Id)"> <i class="fa fa-heart"></i><span>أضف للمفضلة</span> </a> </li>
+                                                        <li> <a href="#" style="border-right: 1px solid #e5e5e5; padding-right: 3px;" onclick="return easyAdd(@product.Id)"> <i class="fa fa-shopping-cart"></i><span>أضف للسلة</span> </a> </li>
+
+                                                        @* <li> <a href="compare.html"> <i class="fa fa-signal"></i><span> Add to Compare</span> </a> </li>*@
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </li>}
+                                </ul>
+                            </div>
+                        }
+                        <div class="pagination-area ">
+                            @{string pageDetails1 = "الصفحة {0} من اصل {1} صفحات";
+
+                            string pageDetails2 = "مشاهدة المنتجات من {0} إلى {1} من أصل {2} ";
+                            }
+                            @Html.PagedListPager(Model.ProductDtos, page => Url.Action("Browse", new
+                            {
+
+                                pNumber = page,
+
+                            }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true, PageCountAndCurrentLocationFormat = pageDetails1, ItemSliceAndTotalFormat = pageDetails2 })
+
+                            @*<ul>
+                                    <li><a class="active" href="#">1</a></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                </ul>*@
+                        </div>
+                    </div>
+                </div>
+                <aside class="sidebar col-sm-3 col-xs-12 col-sm-pull-9">
+                    <div class="block category-sidebar">
+                        <div class="sidebar-title">
+                            <h3>الفئات</h3>
+                        </div>
+                        <ul class="product-categories">
+                            <li class="cat-item current-cat cat-parent">
+                                <a href="shop_grid.html">Women</a>
+                                <ul class="children">
+                                    <li class="cat-item cat-parent">
+                                        <a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Accessories</a>
+                                        <ul class="children">
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Dresses</a></li>
+                                            <li class="cat-item cat-parent">
+                                                <a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Handbags</a>
+                                                <ul style="display: none;" class="children">
+                                                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Beaded Handbags</a></li>
+                                                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Sling bag</a></li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li class="cat-item cat-parent">
+                                        <a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Handbags</a>
+                                        <ul class="children">
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; backpack</a></li>
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Beaded Handbags</a></li>
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Fabric Handbags</a></li>
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Sling bag</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Jewellery</a> </li>
+                                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Swimwear</a> </li>
+                                </ul>
+                            </li>
+                            <li class="cat-item cat-parent">
+                                <a href="shop_grid.html">Men</a>
+                                <ul class="children">
+                                    <li class="cat-item cat-parent">
+                                        <a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Dresses</a>
+                                        <ul class="children">
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Casual</a></li>
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Designer</a></li>
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Evening</a></li>
+                                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Hoodies</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Jackets</a> </li>
+                                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Shoes</a> </li>
+                                </ul>
+                            </li>
+                            <li class="cat-item"><a href="shop_grid.html">Electronics</a></li>
+                            <li class="cat-item"><a href="shop_grid.html">Furniture</a></li>
+                            <li class="cat-item"><a href="shop_grid.html">KItchen</a></li>
+                        </ul>
+                    </div>
+                    <div class="block shop-by-side">
+                        <div class="sidebar-bar-title">
+                            <h3>التسوق حسب</h3>
+                        </div>
+                        <div class="block-content">
+                            <p class="block-subtitle">خيارات التسوق</p>
+                            <div class="layered-Category">
+                                <h2 class="saider-bar-title">الفئات</h2>
+                                <div class="layered-content">
+
+                                    <ul class="check-box-list">
+
+                                        @foreach (var category in Model.Categories)
+                                        {
+                                            <li>
+                                                <input type="checkbox" id="@category.Name" name="cat" value="@category.EnglishName" @(category.Checked ? "checked" : "") class="filtert">
+                                                <label for="@category.Name"> <span class="button"></span> @category.Name<span class="badge">@category.Count</span> </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="manufacturer-area">
+                                <h2 class="saider-bar-title">المصمم</h2>
+                                <div class="layered-content">
+
+                                    <ul class="check-box-list">
+                                        @foreach (var designer in Model.Designers)
+                                        {
+                                            <li>
+                                                <input type="checkbox" id="@designer.Name" name="d" value="@designer.Name" @(designer.Checked ? "checked" : "") class="filtert">
+                                                <label for="@designer.Name"> <span class="button"></span> @designer.Name<span class="badge">@designer.Count</span> </label>
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="color-area">
+                                <h2 class="saider-bar-title">اللون</h2>
+                                <div class="color">
+                                    <ul>
+                                        @foreach (var color in Model.Colors)
+                                        {
+                                            @*<li><a style="background-color: @color.Image" class="colorClass"></a></li>*@
+                                            <li>
+                                                <input type="checkbox" id="@color.Name" name="c" value="@color.Name" @(color.Checked ? "checked" : "") style="display: none;" class="filtert">
+                                                <label for="@color.Name" style="background-color: @color.Image" class="colorLabel  @(color.Checked ? "selectedColor" : "")"></label>
+
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="size-area">
+                                <h2 class="saider-bar-title">القياس</h2>
+                                <div class="size">
+                                    <ul>
+                                        @foreach (var size in @Model.Sizes)
+                                        {
+                                            <li>
+                                                <input type="checkbox" id="@size.Name" name="s" value="@size.EnglishName" @(size.Checked ? "checked" : "") style="display: none;" class="filtert">
+                                                <label for="@size.Name" class="@(size.Checked ? "selectedSize" : "")">@size.Name</label>
+
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="block product-price-range ">
+                        <div class="sidebar-bar-title">
+                            <h3>السعر</h3>
+                        </div>
+                        <div class="block-content">
+                            <div class="slider-range">
+                                <div data-label-reasult="المجال:" data-min="@Model.MinPrice" data-max="@Model.MaxPrice" data-unit="$" class="slider-range-price" data-value-min="@Model.MinPrice" data-value-max="@Model.MaxPrice"></div>
+                                <div class="amount-range-price">المجال : @Model.MinPrice - @Model.MaxPrice $</div>
+                                @Html.HiddenFor(MinPrice => Model.MinPrice)
+                                @Html.HiddenFor(MaxPrice => Model.MaxPrice)
+                            </div>
+                            <div style="text-align: center; padding: 8px;"><button class=" btn btn-info" id="price-filtert" type="button"> <span>ابحث</span> </button></div>
+                        </div>
+                    </div>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <div id="sideCartSummary">
+                            @{ Html.RenderAction("CartSummary", "Cart", new { sideFlag = true }); }
+                        </div>
+                    }
+                </aside>
+            </div>
+
+        }
+    </div>
+</div>
+<script>
+    function selectColor(productId, valueId) {
+        var prod = document.getElementById(productId);
+        var className = "@(Model.Show=="g"?"product-item-photo":"p-image")";
+
+        $("#" + productId + " .btn-quickview")
+       .each(function () {
+           if (!$(this).hasClass('Hidden'))
+               $(this).addClass('Hidden');
+       });
+        $('#q-d-' + productId + '-' + valueId).removeClass('Hidden');
+        var elems = prod.getElementsByClassName(className);
+        for (var i = 0; i < elems.length; i++) {
+            elems[i].className += elems[i].className ? ' Hidden' : 'Hidden';
+        }
+        //var colorElems = prod.getElementsByClassName("selectedColor");
+        //for (var ii = 0; ii < colorElems.length; ii++) {
+        //    colorElems[ii].className = "";
+        //    colorElems[ii].className = "colorClass";
+        //}
+        // el.className += el.className == "" ? 'selectedColor' : ' selectedColor';
+        $("#" + productId.toString() + " .selectedColor").removeClass("selectedColor");
+        $('#' + productId.toString() + "--" + valueId.toString()).addClass("selectedColor");
+
+        // alert(elems);
+        document.getElementById(productId.toString() + '-' + valueId.toString()).className = "";
+        document.getElementById(productId.toString() + '-' + valueId.toString()).className = className;
+        return false;
+    }
+
+    $(document)
+        .ready(function () {
+            $('.pagination')
+                .find('a')
+                .each(function () {
+                    var $this = $(this);
+
+                    var decodedUri = decodeURIComponent($("#Mainform").serialize());
+                    var _href = $this.attr("href");
+                    $this.attr("href", _href + '&' + decodedUri);
+                    console.log($(this).attr('href'));
+                });
+            //  alert();
+
+
+            //alert('');
+        });
+    $(".colorLabel")
+        .on('click',
+            function () {
+                $(this).toggleClass('selectedColor');
+            });
+    $(".size ul Label")
+        .on('click',
+            function () {
+                $(this).toggleClass('selectedSize');
+            });
+    @if (Request.IsAjaxRequest())
+    {
+        <text>bindEvent(); </text>
+    }
+</script>
+<div id="quick"></div>

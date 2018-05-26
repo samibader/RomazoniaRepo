@@ -1,0 +1,510 @@
+﻿@using EShop.WEB.Models;
+@using PagedList.Mvc;
+@using PagedList;
+@using EShop.Common;
+@model ManageOrderVM
+@{
+    ViewBag.Title = "استعراض الطلبات";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                <button type="submit" id="button-shipping" form="form-order" formaction="" data-toggle="tooltip" title="" class="btn btn-info" disabled="" data-original-title="Print Shipping List"><i class="fa fa-truck"></i></button>
+                <button type="submit" id="button-invoice" form="form-order" formaction="" data-toggle="tooltip" title="" class="btn btn-info" disabled="" data-original-title="Print Invoice"><i class="fa fa-print"></i></button>
+                <a href="" data-original-title="Add New" class="btn btn-success" ><i class="fa fa-plus"></i></a>
+            </div>
+        </div>
+        <h1>الطلبات</h1>
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("DashBoard", "Admin")">الرئيسية</a></li>
+            <li><a href="@Url.Action("index","ManageOrder")">الطلبات</a></li>
+        </ul>
+    </div>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-list"></i>قائمة الطلبات</h3>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Index", "ManageOrder", FormMethod.Post, new { id = "filter-form" }))
+            {
+                <div class="well">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                @Html.LabelFor(c => c.filters.Id, new { @class = "form-Label" })
+                                @*<label class="control-label" for="input-category-id">معرف الفئة</label>*@
+                                <input type="text" name="Id" value="@(Model.filters.Id == 0 ? "" : Model.filters.Id.ToString())" placeholder="معرف الطلب" id="input-order-id" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(c => c.filters.Invoice, new { @class = "form-Label" })
+                                @*<label class="control-label" for="input-category-id">معرف الفئة</label>*@
+                                <input type="text" name="inv" value="@Model.filters.Invoice" placeholder="رقم الفاتورة" id="input-invoice-id" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(c => c.filters.Status, new { @class = "form-Label" })
+                                @*<label class="control-label" for="input-status">الحالة</label>*@
+                                <select id="input-status" class="form-control" name="s">
+                                    <option value="" @(Model.filters.Status == null ? "selected" : "")>--اختر حالة--</option>
+                                    <option value="@(OrderStates.pending)" @(Model.filters.Status == OrderStates.pending ? "selected" : "")>انتظار</option>
+                                   
+                                    <option value="@(OrderStates.paid)" @(Model.filters.Status == OrderStates.paid ? "selected" : "")>مدفوع</option>
+                                    
+                                    <option value="@(OrderStates.pendingShipping)" @(Model.filters.Status == OrderStates.pendingShipping ? "selected" : "")>بانتظار الشحن</option>
+                                    <option value="@(OrderStates.shipped)" @(Model.filters.Status == OrderStates.shipped ? "selected" : "")>تم الشحن</option>
+                                    <option value="@(OrderStates.complete)" @(Model.filters.Status == OrderStates.complete ? "selected" : "")>منتهي</option>
+                                    <option value="@(OrderStates.canceled)" @(Model.filters.Status == OrderStates.canceled ? "selected" : "")>ملغي</option>
+                                </select>
+
+                                @*<input type="text" name="filter_customer" value="" placeholder="Customer" id="input-customer" class="form-control" autocomplete="off"><ul class="dropdown-menu"></ul>*@
+                            </div>
+
+                            <input id="btn-filter" type="submit" class="btn btn-primary pull-right" value="بحث" />
+                            <input id="btn-cancel-filter" type="submit" class="btn btn-primary pull-right" value="إلغاء البحث" />
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                @*<label class="control-label" for="input-arabic-name">الإسم العربي</label>*@
+                                @Html.LabelFor(c => c.filters.UserId, new { @class = "form-Label" })
+                                <input type="text" name="cn" value="@(String.IsNullOrEmpty(Model.filters.UserId) ? "" : Model.filters.UserId)" placeholder="اسم الزبون" id="input-customer-name" class="form-control" autocomplete="off"><ul class="dropdown-menu"></ul>
+                            </div>
+                            <div class="form-group">
+                                @*<label class="control-label" for="input-english-name">الاسم الانكليزي</label>*@
+                                @Html.LabelFor(c => c.filters.Total, new { @class = "form-Label" })
+                                <input type="text" name="t" value="@(Model.filters.Total==null ? "" : Model.filters.Total.ToString())" placeholder="المجموع الكلي" id="input-total" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                @*<label class="control-label" for="input-date-added">تاريخ الإضافة</label>*@
+                                @Html.LabelFor(c => c.filters.CreationDate, new { @class = "form-Label" })
+                                
+                                <div class="input-group date">
+
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="dc" value="@(String.IsNullOrEmpty(Model.filters.CreationDate.ToString()) ? "" : Model.filters.CreationDate.Value.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture))" placeholder="تاريخ الاضافة" id="input-date-added" class="form-control">
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                @*<label class="control-label" for="input-date-modified">تاريخ التعديل</label>*@
+                                @Html.LabelFor(c => c.filters.DateModified, new { @class = "form-Label" })
+                                <div class="input-group date">
+
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                    </span>
+                                    <input type="text" name="dm" value="@(String.IsNullOrEmpty(Model.filters.DateModified.ToString()) ? "" : Model.filters.DateModified.Value.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture))" placeholder="تاريخ التعديل" id="input-date-modified" class="form-control">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <table>
+                                <tr>
+                                    <td>
+                                        @Html.LabelFor(c => c.filters.PageSize)
+                                        <select id="pagesizelist" style="display:inline-block" name="PageSize" class="form-control">
+                                            <option value="1" @(Model.filters.PageSize == 1 ? "selected" : "")>1</option>
+                                            <option value="3" @(Model.filters.PageSize == 3 ? "selected" : "")>3</option>
+                                            <option value="6" @(Model.filters.PageSize == 6 ? "selected" : "")>6</option>
+                                            <option value="9" @(Model.filters.PageSize == 9 ? "selected" : "")>9</option>
+                                            <option value="10" @(Model.filters.PageSize == 10 ? "selected" : "")>10</option>
+                                            <option value="15" @(Model.filters.PageSize == 15 ? "selected" : "")>15</option>
+                                            <option value="20" @(Model.filters.PageSize == 20 ? "selected" : "")>20</option>
+                                            <option value="25" @(Model.filters.PageSize == 25 ? "selected" : "")>25</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        @Html.LabelFor(c => c.filters.SortBy)
+                                        <select id="sortlist" style="display:inline-block;" name="sb" class="form-control">
+                                            <optgroup label="حسب معرف الطلب">
+                                                <option value="@Sorts.OrderIdUp" @(Model.filters.SortBy == Sorts.OrderIdUp ? "selected" : "")>معرف الطلب - تصاعدي</option>
+                                                <option value="@Sorts.OrderIdDown" @(Model.filters.SortBy == Sorts.OrderIdDown ? "selected" : "")>معرف الطلب - تنازلي</option>
+                                            </optgroup>
+                                            <optgroup label="حسب رقم الفاتورة">
+                                                <option value="@Sorts.InvoiceUp" @(Model.filters.SortBy == Sorts.InvoiceUp ? "selected" : "")>رقم الفاتورة - تصاعدي</option>
+                                                <option value="@Sorts.InvoiceDown" @(Model.filters.SortBy == Sorts.InvoiceDown ? "selected" : "")>رقم الفاتورة - تنازلي</option>
+                                            </optgroup>
+                                            <optgroup label="حسب اسم الزبون">
+                                                <option value="@Sorts.CustomerNameUp" @(Model.filters.SortBy == Sorts.CustomerNameUp ? "selected" : "")>اسم الزبون - تصاعدي</option>
+                                                <option value="@Sorts.CustomerNameDown" @(Model.filters.SortBy == Sorts.CustomerNameDown ? "selected" : "")>اسم الزبون - تنازلي</option>
+                                            </optgroup>
+                                            <optgroup label="حسب الحالة">
+                                                <option value="@Sorts.OrederStatusUp" @(Model.filters.SortBy == Sorts.OrederStatusUp ? "selected" : "")>الحالة - تصاعدي</option>
+                                                <option value="@Sorts.OrederStatusDown" @(Model.filters.SortBy == Sorts.OrederStatusDown ? "selected" : "")>الحالة - تنازلي</option>
+                                            </optgroup>
+                                            <optgroup label="حسب الحالة">
+                                                <option value="@Sorts.TotalUp" @(Model.filters.SortBy == Sorts.TotalUp ? "selected" : "")>المجموع - تصاعدي</option>
+                                                <option value="@Sorts.TotalDown" @(Model.filters.SortBy == Sorts.TotalDown ? "selected" : "")>المجموع - تنازلي</option>
+                                            </optgroup>
+                                            <optgroup label="حسب تاريخ الإضافة">
+                                                <option value="@Sorts.DateAddedUp" @(Model.filters.SortBy == Sorts.DateAddedUp ? "selected" : "")>تاريخ الإضافة - تصاعدي</option>
+                                                <option value="@Sorts.DateAddedDown" @(Model.filters.SortBy == Sorts.DateAddedDown ? "selected" : "")>تاريخ الإضافة - تنازلي</option>
+                                            </optgroup>
+                                            <optgroup label="حسب تاريخ التعديل">
+                                                <option value="@Sorts.DateModifiedUp" @(Model.filters.SortBy == Sorts.DateModifiedUp ? "selected" : "")>تاريخ التعديل - تصاعدي</option>
+                                                <option value="@Sorts.DateModifiedDown" @(Model.filters.SortBy == Sorts.DateModifiedDown ? "selected" : "")>تاريخ التعديل - تنازلي</option>
+                                            </optgroup>
+
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-4"></div>
+                    <div class="col-sm-4"></div>
+                </div>
+
+            }
+            <form id="page-form" method="post"></form>
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+
+                            <td class="text-center">
+                                معرف الطلب
+                            </td>
+                            <td class="text-center">
+                                رقم الفاتورة
+                            </td>
+                            <td class="text-center">
+                                اسم الزبون
+
+                            <td class="text-center">
+                                الحالة
+                            </td>
+                            <td class="text-center">
+                                المجموع الكلي
+                            </td>
+                            <td class="text-center">
+                                تاربخ الإضافة
+                            </td>
+                            <td class="text-center">
+                                تاريخ التعديل
+                            </td>
+                            <td class="text-center">تعديل</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in Model.Orders)
+                        {
+                            <tr>
+
+                                <td class="text-center">@order.Id</td>
+                                <td class="text-center">@order.InvoiceId</td>
+                                <td class="text-center">@order.UserName</td>
+                                <td class="text-center">
+                                    <label class="label @(order.Status==OrderStates.complete?"label-success":"") @(order.Status==OrderStates.canceled?"label-danger":"") @(order.Status==OrderStates.pending?"label-default":"") @(order.Status == OrderStates.paid ? "label-info" : "") @(order.Status==OrderStates.pendingShipping?"label-warning":"") @(order.Status==OrderStates.shipped?"label-primary":"") ">@(Utils.getOrderStateByLang(order.Status))</label> 
+                                </td>
+                                <td class="text-center">@order.TotalDisplay</td>
+                                <td class="text-center">
+                                   @(order.CreationDate.Value.ToString("dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture))
+                                </td>
+                                <td class="text-center">@(order.DateModified.Value.ToString("dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture))</td>
+                                <td class="text-center">
+                                    <a href="@Url.Action("ViewOrder", "ManageOrder", new { Id = order.Id })" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="مشاهدة"><i class="fa fa-eye"></i></a>
+                                    @*<a href="@Url.Action("Edit", "ManageOrder", new { Id = order.Id })" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="تعديل"><i class="fa fa-pencil"></i></a>
+                                    <a data-id="@order.Id" role="button" data-toggle="modal" data-target="#myModal" title="" class="btn btn-danger confirm-delete" data-original-title="حذف"><i class="fa fa-trash"></i></a>*@
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <form id="delete-form" method="post" action="@Url.Action("Delete","ManageOrder")">
+                    <input name="Id" id="cat-del-id" type="hidden" value="" />
+                </form>
+            </div>
+
+            <div class="pager">
+                @{string pageDetails1 = "الصفحة {0} من اصل {1} صفحات";
+
+                string pageDetails2 = "مشاهدة الطلبات من {0} إلى {1} من أصل {2} ";
+                }
+                @Html.PagedListPager(Model.Orders, page => Url.Action("Index","ManageOrder", new
+                       {
+                           page,
+
+                           PageSize = Model.filters.PageSize,
+                           PageNum = Model.filters.PageNum,
+                           cn = Model.filters.UserId,
+                           t = Model.filters.Total,
+                           s = Model.filters.Status,
+                           Id = Model.filters.Id,
+                           dc = Model.filters.CreationDate,
+                           dm = Model.filters.DateModified,
+                           sb = Model.filters.SortBy,
+                           inv = Model.filters.Invoice
+                       }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true, PageCountAndCurrentLocationFormat = pageDetails1, ItemSliceAndTotalFormat = pageDetails2 })
+                @*الصفحة @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) من @Model.PageCount*@
+            </div>
+
+            @*<div class="row">
+                    <div class="col-sm-6 text-left"><ul class="pagination"><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=1">|&lt;</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=1">&lt;</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=1">1</a></li><li class="active"><span>2</span></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=3">3</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=4">4</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=5">5</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=6">6</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=7">7</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=8">8</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=9">9</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=3">&gt;</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=52">&gt;|</a></li></ul></div>
+                    <div class="col-sm-6 text-right">Showing 21 to 40 of 1037 (52 Pages)</div>
+                </div>*@
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content" style="padding: 5px;">
+                <div class="modal-header" style="background-color:rgba(255, 0, 0,0.3)">
+                    <h4>تنبيه</h4>
+                </div>
+                <div class="modal-body">
+                    <h5>هل انت متأكد من حذف هذا الطلب؟</h5>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirm" data-dismiss="modal" class="btn btn-danger">حذف</button>
+                    <button id="cancel" data-dismiss="modal" class="btn btn-continue">إلغاء</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <script>
+        $('#btn-cancel-filter').on('click', function (e) {
+            e.preventDefault();
+            $('#filter-form').find('input').val('');
+            $('#filter-form').find('select').val('');
+            $('#btn-filter').click();
+        });
+    </script>
+<script>
+    function refreshIndex() {
+        $.ajax({
+            url: '@Url.Action("Index", "ManageOrder")',
+            method: 'Get',
+            data: $("#filter-form").serialize(),
+            success: function (data) {
+                $('#content').html($(data).find('#content').html());
+            }
+        });
+    }
+
+    $(document).ready(function () {
+
+        $('.confirm-delete').on('click', function (e) {
+            e.preventDefault();
+
+            var id = $(this).data('id');
+            //alert(id);
+            $("#cat-del-id").val(id);
+           // alert($("#cat-del-id").val());
+
+            $('#myModal').show();
+
+        });
+
+        $('#confirm').on('click', function () {
+          //  $('#delete-form').submit();
+            $.ajax({
+                url: '@Url.Action("Delete", "ManageOrder")',
+                method: 'post',
+                data: $('#delete-form').serialize(),
+                success: function (data) {
+                    if (data.Succedeed != null) {
+                        refreshIndex();
+                        jQuery('body,html').fadeOut(0).fadeIn(1500);
+                        if (data.Succedeed == true) {
+
+                            generateFlash('success', data.message);
+
+                        }
+                        else {
+                            generateFlash('error', data.message);
+                        }
+                        $('#myModal').modal('hide');
+                        $('body').removeClass('modal-open');
+                        $('.modal-backdrop').remove();
+                    }
+                }
+
+            });
+           
+        });
+
+
+        $('.pagination')
+.find('a')
+.each(function () {
+    var $this = $(this);
+
+    var decodedUri = decodeURIComponent($("#filter-form").serialize());
+    var _href = $this.attr("href");
+    $this.attr("href", _href + '&' + decodedUri);
+    console.log($(this).attr('href'));
+});
+        $('.btn-del').on('click', function () {
+
+        });
+
+        $('#pagesizelist,#sortlist').on('change', function () {
+            // $('#filter-form').trigger('submit');
+            var pageNum = $('#page-hid-num');
+
+            // pageNum.removeAttr('name');
+
+
+
+            $.ajax({
+                url: '@Url.Action("Index","ManageOrder")',
+                method: 'post',
+                data: $('#filter-form').serialize(),
+                success: function (data) {
+
+                    $("#content").html($(data).find('#content').html());
+                    console.log($(data).find('#content').html());
+                    history.pushState("iss", "issa", "@Url.Action("Index","ManageOrder")" + "?" + $("#filter-form").serialize());
+                  //  jQuery('body,html').fadeOut(0).fadeIn(1500);
+                },
+                error: function (err) {
+                    alert(err.status);
+                }
+
+
+            });
+        });
+
+        $('#btn-filter').on('click', function (e) {
+            e.preventDefault();
+            $.ajax({
+                url: '@Url.Action("Index","ManageOrder")',
+                method: 'post',
+                data: $('#filter-form').serialize(),
+                success: function (data) {
+
+                    $("#content").html($(data).find('#content').html());
+                    // console.log($(data).find('#content').html());
+                    history.pushState("iss", "issa", "@Url.Action("Index","ManageOrder")" + "?" + $("#filter-form").serialize());
+                   
+                },
+                error: function (err) {
+                    alert(err.status);
+                }
+
+
+            });
+        });
+
+    });
+    @*$('#button-filter').on('click', function () {
+                            url = 'index.php?route=sale/order&token=3cdd53b5e7ac4cd3435a44aa88e72a02';
+
+                            var filter_order_id = $('input[name=\'filter_order_id\']').val();
+
+                            if (filter_order_id) {
+                                url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
+                            }
+
+                            var filter_customer = $('input[name=\'filter_customer\']').val();
+
+                            if (filter_customer) {
+                                url += '&filter_customer=' + encodeURIComponent(filter_customer);
+                            }
+
+                            var filter_order_status = $('select[name=\'filter_order_status\']').val();
+
+                            if (filter_order_status != '*') {
+                                url += '&filter_order_status=' + encodeURIComponent(filter_order_status);
+                            }
+
+                            var filter_total = $('input[name=\'filter_total\']').val();
+
+                            if (filter_total) {
+                                url += '&filter_total=' + encodeURIComponent(filter_total);
+                            }
+
+                            var filter_date_added = $('input[name=\'filter_date_added\']').val();
+
+                            if (filter_date_added) {
+                                url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+                            }
+
+                            var filter_date_modified = $('input[name=\'filter_date_modified\']').val();
+
+                            if (filter_date_modified) {
+                                url += '&filter_date_modified=' + encodeURIComponent(filter_date_modified);
+                            }
+
+                            location = url;
+                        });
+                        //--></script>
+                    <script type="text/javascript">
+<!--
+$('input[name=\'filter_customer\']').autocomplete({
+	'source': function(request, response) {
+		$.ajax({
+			url: 'index.php?route=sale/customer/autocomplete&token=3cdd53b5e7ac4cd3435a44aa88e72a02&filter_name=' +  encodeURIComponent(request),
+			dataType: 'json',
+			success: function(json) {
+				response($.map(json, function(item) {
+					return {
+						label: item['name'],
+						value: item['customer_id']
+					}
+				}));
+			}
+		});
+	},
+	'select': function(item) {
+		$('input[name=\'filter_customer\']').val(item['label']);
+	}
+});*@
+</script>
+<script type="text/javascript">
+
+    $('input[name^=\'selected\']').on('change', function () {
+        $('#button-shipping, #button-invoice').prop('disabled', true);
+
+        var selected = $('input[name^=\'selected\']:checked');
+
+        if (selected.length) {
+            $('#button-invoice').prop('disabled', false);
+        }
+
+        for (i = 0; i < selected.length; i++) {
+            if ($(selected[i]).parent().find('input[name^=\'shipping_code\']').val()) {
+                $('#button-shipping').prop('disabled', false);
+
+                break;
+            }
+        }
+    });
+    //$("#catalog").removeClass("active").removeClass('open');
+    $('input[name^=\'selected\']:first').trigger('change');
+
+    $('a[id^=\'button-delete\']').on('click', function (e) {
+        e.preventDefault();
+
+        if (confirm('Are you sure?')) {
+            location = $(this).attr('href');
+        }
+    });
+</script>
+
+<script>
+         $('.date').datepicker({
+             format: "dd/mm/yyyy",
+             language: "en-GB",
+             autoclose: true,
+             todayHighlight: true
+         });
+</script>
+</div>

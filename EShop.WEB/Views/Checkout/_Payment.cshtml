@@ -1,0 +1,341 @@
+﻿@using EShop.BLL.DTO
+@using EShop.Common
+@using EShop.WEB.Models
+@model EShop.WEB.Models.CheckoutVM
+@{
+    ViewBag.Title = "الدفع";
+}
+
+<style>
+    .datepicker {
+        width: 30%;
+    }
+</style>
+<div class="container">
+    <div class="row equal">
+        <div class="col-md-9">
+            <div class="row equal">
+                <div class="col-md-3 pside-bar">
+                    <!--Tabs Start-->
+                    <nav class="nav-sidebar" style="width: 100%;margin-top: 10px;">
+                        <ul id="myTab" class="nav nav-tabs tabs-left" style="margin-bottom: 15px;width: 100%">
+                            <li><a><span style="text-transform: uppercase;">طريقة الدفع </span></a></li>
+                            <input type="hidden" name="payment_method" id="payment_method" value="bank_transfer">
+                            @foreach (var modelBillingMethod in Model.BillingMethods)
+                            {
+                                <li id="bm-@modelBillingMethod.Id" class="@(modelBillingMethod.Id == (long)Model.SelectedBillingMethod?"active":"") pointer">
+
+                                    <a payment_method="bank_transfer" data-toggle="tab">@modelBillingMethod.Name</a>
+                                </li>
+                            }
+
+                            @*<li class="pointer" id="tcheque">
+
+                                    <a payment_method="cheque" data-toggle="tab">Cheque / Money Order</a>
+                                </li>
+                                <li class="pointer" id="tcod">
+
+                                    <a payment_method="cod" data-toggle="tab">Cash On Delivery</a>
+                                </li>
+                                <li class="pointer" id="tpp_standard">
+
+                                    <a payment_method="pp_standard" data-toggle="tab">PayPal</a>
+                                </li>*@
+                        </ul>
+                    </nav>
+                </div><!--col-md-3 ends-->
+                <div class="col-md-9">
+                    <!--col-md-9 starts-->
+                    <div id="myTabContent" class="tab-content">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div id="pLoader" class="loader"></div>
+                                <div class="tab-pane fade in active" id="payment-method-content">
+                                    <div id="spayment-method-content" class="center text-center">
+
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <td>صورة المنتج</td>
+
+
+                                                        <td colspan="2">اسم المنج</td>
+
+                                                        <td>الكمية</td>
+                                                        <td>السعر</td>
+                                                        <td>الأجمالي</td>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @foreach (var product in Model.CheckOutItems)
+                                                    {
+
+
+                                                        <tr>
+                                                            <td class="text-center" width="1"><a href="@Url.Action("Browse", "Product", new { id = product.Id, SkuId = product.SKUId })"><img src="@(product.ImageUrl).ashx?height=100" title="@product.Name" style="padding: 1px; border: 1px solid #DDDDDD;"></a></td>
+
+                                                            <td class="text-right" colspan="2">
+
+                                                                <a href="@Url.Action("Browse", "Product", new {id = product.Id, SkuId= product.SKUId})">@product.Name</a>
+
+                                                                <div style="margin-top: 24px;">
+                                                                    @if (!String.IsNullOrWhiteSpace(product.ColorEnglish))
+                                                                    {<div style="display: block;">
+                                                                        اللون: @product.ColorEnglish
+                                                                    </div>
+                                                                    }
+                                                                    @if (!String.IsNullOrWhiteSpace(product.SizeEnglish))
+                                                                    {<div style="display: block;">
+                                                                        القياس: @product.SizeEnglish
+                                                                    </div>}
+                                                                </div>
+                                                            </td>
+
+                                                            <td class="text-right">@product.Quantity</td>
+                                                            <td class="text-right">@product.UnitPriceDisplay</td>
+                                                            <td class="text-right">@product.TotalPriceDisplay</td>
+                                                        </tr>
+                                                    }
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr class="hidden-xs">
+
+                                                        <td colspan="5" class="text-right"><strong>المجموع الجزئي</strong></td>
+
+
+                                                        <td class="text-right">@Model.SubTotalCostDisplay</td>
+                                                    </tr>
+                                                    <tr class="hidden-sm hidden-md hidden-lg">
+                                                        <td colspan="3" class="text-right"><strong>المجموع الجزئي</strong></td>
+                                                        <td class="text-right">@Model.SubTotalCostDisplay</td>
+                                                    </tr>
+                                                    @*<tr class="hidden-xs">
+
+                                                            <td colspan="5" class="text-right"><strong>Bank Transfer Charges $5:</strong></td>
+
+
+                                                            <td class="text-right">$5.00</td>
+                                                        </tr>*@
+                                                    @*<tr class="hidden-sm hidden-md hidden-lg">
+                                                            <td colspan="3" class="text-right"><strong>Bank Transfer Charges $5:</strong></td>
+                                                            <td class="text-right">$5.00</td>
+                                                        </tr>*@
+                                                    @if (Model.ShippingMethod != ShippingMethods.WithCompany)
+                                                    {
+                                                        <tr class="hidden-xs">
+
+                                                            <td colspan="5" class="text-right"><strong>@Model.ShippingMethods.Where(sh => sh.Id == (long)Model.ShippingMethod).FirstOrDefault().Name</strong></td>
+
+
+                                                            <td class="text-right">@Model.ShippingCostDisplay</td>
+                                                        </tr>
+                                                        <tr class="hidden-sm hidden-md hidden-lg">
+                                                            <td colspan="3" class="text-right"><strong>@Model.ShippingMethods.Where(sh => sh.Id == (long)Model.ShippingMethod).FirstOrDefault().Name</strong></td>
+                                                            <td class="text-right">@Model.ShippingCostDisplay</td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr class="hidden-xs">
+
+                                                            <td colspan="5" class="text-right"><strong>@Model.SelectShippingCompany.Name</strong></td>
+
+
+                                                            <td class="text-right">@Model.SelectShippingCompany.ShippingCostDisplay</td>
+                                                        </tr>
+                                                        <tr class="hidden-sm hidden-md hidden-lg">
+                                                            <td colspan="3" class="text-right"><strong>@Model.SelectShippingCompany.Name</strong></td>
+                                                            <td class="text-right">@Model.SelectShippingCompany.ShippingCostDisplay</td>
+                                                        </tr>
+                                                    }
+                                                    @if (Model.Coupon.Id > 0)
+                                                    {
+                                                        <tr class="hidden-xs">
+
+                                                            <td colspan="5" class="text-right"><strong>الكوبون(@Model.Coupon.Code)</strong></td>
+
+
+                                                            <td class="text-right">@(Model.Coupon.IsPercentage ? "%" + Model.Coupon.Value : Model.Coupon.ValueDisplay)</td>
+                                                        </tr>
+                                                        <tr class="hidden-sm hidden-md hidden-lg">
+                                                            <td colspan="3" class="text-right"><strong>الكوبون(@Model.Coupon.Code)</strong></td>
+                                                            <td class="text-right">@(Model.Coupon.IsPercentage ? "%" + Model.Coupon.Value : Model.Coupon.ValueDisplay)</td>
+                                                        </tr>
+                                                    }
+                                                    <tr class="hidden-xs">
+
+                                                        <td colspan="5" class="text-right"><strong>المجموع الكلي:</strong></td>
+
+
+                                                        <td class="text-right">@Model.TotalCostDisplay</td>
+                                                    </tr>
+                                                    <tr class="hidden-sm hidden-md hidden-lg">
+                                                        <td colspan="3" class="text-right"><strong>المجموع الكلي:</strong></td>
+                                                        <td class="text-right">@Model.TotalCostDisplay</td>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                        @if (Model.SelectedBillingMethod == BillingMethods.BankTransfer)
+                                        {
+                                            <div id="more-info">
+                                                <h2>معلومات التحويل البنكي</h2>
+                                                <p>
+                                                    <b>الرجاء التقيد بالتعليمات لمتابعة الطلب </b>
+                                                </p>
+                                                <div class="well well-sm">
+                                                    @Html.Raw(Model.BillingMethods.Where(bm => bm.Id == (long)Model.SelectedBillingMethod).FirstOrDefault().MetaDescription)
+                                                </div>
+                                            </div>
+                                            <div id="user-info" class=" text-right">
+                                                @{ Html.RenderPartial("_AddtionalInformationPartial", new UserBankInforamtionVM()); }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="buttons">
+                                                <div class="paddingb">
+                                                    <h3>
+                                                        @if (Model.SelectedBillingMethod == BillingMethods.Paybal)
+                                                        {
+                                                            <a class="btn btn-success btn-paypal" href='@Url.Action("PaymentWithPaypal", "Checkout")'>
+                                                                <i class="fa fa-paypal"></i> قم بالدفع الآن
+                                                            </a>
+
+                                                        }
+                                                        else if (Model.SelectedBillingMethod == BillingMethods.Cash)
+                                                        {
+                                                            <input type="button" value="تثبيت الطلبية" id="button-confirm" class="btn btn-success mybutton">
+                                                        }
+                                                    </h3>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><!--col-md-9 outer ends-->
+            </div>
+        </div>
+        <div class="col-md-3 ">
+            <div class="clearfix" style="padding-bottom: 10px;"></div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title center text-center shippingS">
+                        <span><i class="fa fa-home"></i></span><span>عنوان الشحن</span>
+                    </div>
+                    @{
+                        AddressDTO shippingAddress = Model.AvailableAddresses.Where(ad => ad.Id == Model.SelectedShippingAddressId).FirstOrDefault();
+                        AddressDTO billingAddress = Model.AvailableAddresses.Where(ad => ad.Id == Model.SelectedBillingAddressId).FirstOrDefault();
+
+                    }
+                </div>
+                <div class="panel-body text-center" style="color: #858e8f;padding-top: 20px;">
+                    <p class="text-justified">
+                        @shippingAddress.FirstName<br />
+                        @shippingAddress.LastName<br />
+                        @shippingAddress.Address1<br />
+                        @shippingAddress.Phone<br />
+                        @shippingAddress.City<br />
+                        @shippingAddress.Country<br />
+                        @shippingAddress.PostCode<br />
+                    </p>
+                </div>
+                <div class="panel-footer text-right" style="color: #858e8f;">
+                    <div class="pchange"><a href="#" onclick="click2();"><i class="fa fa-arrow-left"></i>تغيير العنوان</a></div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="panel-title center text-center shippingS">
+                        <span><i class="fa fa-truck"></i></span><span>طريقة الشحن</span>
+                    </div>
+                </div>
+                <div class="panel-body text-center" style="color: #858e8f;padding-top: 10px;min-height: 40px;">
+                    <p class="text-justified">
+                        @Model.ShippingMethods.Where(sh => sh.Id == (long)@Model.ShippingMethod).FirstOrDefault().Name
+                    </p>
+                </div>
+                <div class="panel-footer text-right" style="color: #858e8f;">
+                    <div class="pchange"><a href="#" onclick="click2();"><i class="fa fa-arrow-left"></i>تعديل الشحن</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        if(typeof($.Validator)!= 'undefined'){
+            $.validator.unobtrusive.parse($("#user-info"));
+        }
+        $('#payment .pull-right').removeClass('pull-right');
+        $('#payment .btn-primary').addClass('btn-success mybutton');
+        $('#payment .btn-primary').parent().addClass('paddingb');
+        $('#payment .right .button').addClass('btn btn-success mybutton');
+        $('#payment .right .button').parent().addClass('paddingb');
+        $('#payment .right .button').removeClass('button');
+        $('#payment .btn-primary').removeClass('btn-primary');
+        $('#payment input[type=\'button\']').wrapAll('<h3>');
+    });
+</script>
+
+<script>
+
+    $("li[id*=bm]")
+        .click(function () {
+            if ($(this).hasClass('active'))
+                return;
+            var iid = $(this).attr('id').substring(3);
+
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("ChangeBillingMethod","Checkout")',
+                data: { id: iid },
+                success: function (data) {
+                    $("#payment").load("@Url.Action("Payment","Checkout")");
+                    ///   alert(data.Message);
+                }
+            });
+
+        });
+</script>
+
+<script>
+    $("#button-confirm").click(function () {
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("Confirm","Order")',
+            success: function (data) {
+                if (data.Succedeed) {
+                    generateFlash('success', 'تم تثبيت الطلب سيتم تحويلك بعد قليل');
+                    setTimeout(function () { location.href = data.Message; }, 2000);
+
+                }
+                else {
+                    alert(data.Message);
+                }
+            }
+        });
+    });
+
+</script>
+
+<script>
+    $("#user-info #additional-information").on('click', '#bank-confirm', function (e) {
+        e.preventDefault();
+        var d = $("#additional-information").serialize();
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("BankConfirm","Order")',
+            data: $("#additional-information").serialize(),
+            success: function (data) {
+                $("#user-info").html(data);
+                $.validator.unobtrusive.parse($("#user-info"));
+            }
+        });
+    });
+</script>

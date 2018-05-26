@@ -1,0 +1,629 @@
+﻿@using System.Web.Optimization
+@using MvcFlashMessages
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="/Assets/Scripts/jquery.min.js"></script>
+    <meta name="description" content="">
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700' rel='stylesheet' type='text/css'>
+    <!-- CSS Style -->
+    <!-- Bootstrap CSS -->
+    <link href="~/Assets/css/animate.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="/Assets/css/bootstrap.min.css">
+    
+   
+    <link rel="stylesheet" type="text/css" href="/Assets/css/bootstrap-rtl.css">
+    <!-- font-awesome & simple line icons CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/font-awesome.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/Assets/css/simple-line-icons.css" media="all">
+    <!-- owl.carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/css/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/css/owl.transitions.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/css/owl.carousel.rtl.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/animate.css" media="all">
+    <!-- flexslider CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/flexslider.css">
+    <!-- jquery-ui.min CSS -->
+    @*<link href="~/Content/jquery-ui.structure.css" rel="stylesheet" />*@
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    @*<link href="~/Content/jquery-ui.theme.css" rel="stylesheet" />*@
+    
+    <!-- nivo-slider css -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/nivo-slider.css">
+    <!-- style CSS -->
+    @if ((EShop.Common.WebSites)ViewBag.CurrentWebsite == EShop.Common.WebSites.Fashion)
+    {
+        <link rel="stylesheet" type="text/css" href="/Assets/css/style2.css" media="all">
+        <!-- Mean Menu CSS -->
+        <link rel="stylesheet" type="text/css" href="/Assets/css/meanmenu.min2.css">
+    }
+    else if ((EShop.Common.WebSites)ViewBag.CurrentWebsite == EShop.Common.WebSites.Gym)
+    {
+        <link rel="stylesheet" type="text/css" href="/Assets/css/style3.css" media="all">
+        <!-- Mean Menu CSS -->
+        <link rel="stylesheet" type="text/css" href="/Assets/css/meanmenu.min3.css">
+    }
+    else
+    {
+        <link rel="stylesheet" type="text/css" href="/Assets/css/style4.css" media="all">
+        <!-- Mean Menu CSS -->
+        <link rel="stylesheet" type="text/css" href="/Assets/css/meanmenu.min4.css">
+    }
+        
+    <link rel="stylesheet" type="text/css" href="/Assets/css/rtl.css" media="all">
+    <!--Flash Messages-->
+
+    <style>
+        
+     
+
+        .ui-autocomplete {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            float: left;
+            display: none;
+            min-width: 160px;
+            padding: 4px 0;
+            margin: 0 0 10px 0px;
+            list-style: none;
+            background-color: #ffffff;
+            border-color: #ccc;
+            border-color: rgba(0, 0, 0, 0.2);
+            border-style: solid;
+            border-width: 1px;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 0px;
+            -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+            -webkit-background-clip: padding-box;
+            -moz-background-clip: padding;
+            background-clip: padding-box;
+            *border-right-width: 2px;
+            *border-bottom-width: 2px;
+        }
+
+        .ui-menu-item > a.ui-corner-all {
+            display: block;
+            padding: 3px 15px;
+            clear: both;
+            font-weight: normal;
+            line-height: 18px;
+            color: #555555;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+
+        .ui-state-hover, .ui-state-active {
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #0088cc;
+            border-radius: 0px;
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            background-image: none;
+        }
+
+        .ui-autocomplete-loading {
+            background: white url("/content/images/loader.gif") left center no-repeat;
+        }
+    </style>
+
+    <link href="~/Assets/css/flash-messages.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    <script type="text/javascript">
+
+
+
+        function generateFlash(type, text) {
+
+            var n = noty({
+                text: text,
+                type: type,
+                timeout: 2500,
+                dismissQueue: true,
+                layout: 'top',
+                closeWith: ['click'],
+                theme: 'relax',
+                maxVisible: 10,
+                animation: {
+                    open: 'animated bounceInLeft',
+                    close: 'animated flipOutX',
+                    easing: 'swing',
+                    speed: 500
+                }
+            });
+
+        }
+    </script>
+    <style>
+        .modall {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 255, 255, 255, .8 ) url('http://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+
+        body.loading {
+            overflow: hidden;
+        }
+
+            body.loading .modall {
+                display: block;
+            }
+    </style>
+    <style>
+        .Hidden {
+            display: none !important;
+        }
+
+        .selectedColor {
+            border-color: black !important;
+            border: 2px solid;
+        }
+
+        .colorClass {
+            border-radius: 50%;
+        }
+
+        .product-color-size-area .color-area1 {
+            display: inline-block;
+            /*margin-right: 18px;*/
+            list-style-type: none;
+        }
+
+
+            .product-color-size-area .color-area1 .color ul {
+                list-style-type: none;
+            }
+
+        .colorLabel {
+            cursor: pointer;
+            height: 20px;
+            width: 20px;
+            /*border-radius: 10%;*/
+            /*border: 1px;*/
+        }
+
+        .selectedSize {
+            border-color: green !important;
+            border-style: dashed;
+            border-width: 30px;
+        }
+
+        .filter:hover {
+            cursor: pointer;
+        }
+
+        .filterd:hover {
+            cursor: pointer;
+        }
+
+        .filtert:hover {
+            cursor: pointer;
+        }
+
+        .SelectedTag {
+            background: #1fc0a0;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .auto-complete {
+            font-weight: 400;
+            font-size: 14px;
+        }
+        .modal.in .modal-dialog {
+            max-width:90%;
+        }
+        .modal-content {
+            text-align: center;
+        }
+        #quick-modal .modal-content {
+            text-align: initial;
+        }
+    </style>
+</head>
+
+<body>
+    @*@Html.Partial("_Alerts")*@
+    <div id="page">
+
+        <!--Header-->
+         @{ Html.RenderAction("Header", "Home"); }
+        <!--End Header-->
+        <div id="Main" class="container">
+            @RenderBody()
+        </div>
+        @Html.Partial("_Footer")
+        <a href="#" class="totop"> </a>
+    </div>
+    <div class="modall"></div>
+    <!--chooseWebsite Popup Start-->
+<div id="chooseWebsite" class="modal fade in" style="display: none;">
+    <div class="modal-dialog newsletter-popup">
+        <div class="modal-content" style="color: black;background-color: white;">
+            @* <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><font><font>×</font></font></button>*@
+            <div class="modal-body">
+                <h4 class="modal-title">أهلاً بك في عوالم رومازونيا </h4>
+                <hr />
+                <form id="newsletter-form" method="post" action="file:///G:/rtl-version/index.html#">
+                    <div class="content-subscribe">
+                        @*<div class="form-subscribe-header">
+                            <label>مالذي تبحث عنه ؟</label>
+                        </div>*@
+                        <div class="actions">
+
+                            <a class="button-subscribe" title="الاشتراك" style="display: block;" href='@Url.Action("Index", "Home", new {website = "Fashion"})'>رومازونيا فاشن<img style="display:block; margin: 0 auto;" src="~/Assets/images/clothes.png" /></a>
+                            <a class="button-subscribe" title="الاشتراك" style="display: inline-block;" href='@Url.Action("Index", "Home", new {website = "Gym"})'>رومازونيا جيم<img style="display:block;" src="~/Assets/images/gym.png" /></a>
+                            <a class="button-subscribe" title="الاشتراك" style="display: inline-block;" href='@Url.Action("Index", "Home", new {website = "Mobile"})'>رومازونيا تيليكوم<img style="display:block;" src="~/Assets/images/telecom.png" /></a>
+                        </div>
+                    </div>
+                </form>
+                @*<div class="subscribe-bottom">
+                    <input name="notshowpopup" id="notshowpopup" type="checkbox"><font>
+                        <font>
+                            لا تظهر هذه النافذة المنبثقة مرة أخرى
+                        </font>
+                    </font>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+  
+    <!--End of chooseWebsite Popup-->
+    <!-- JS -->
+    <!-- jquery js -->
+    <!-- bootstrap js -->
+    <script type="text/javascript" src="/Assets/Scripts/bootstrap.min.js"></script>
+    <!-- Mean Menu js -->
+    <script type="text/javascript" src="/Assets/Scripts/jquery.meanmenu.min.js"></script>
+    <script type="text/javascript" src="/Assets/Scripts/jquery.meanmenu.min.rtl.js"></script>
+    <!-- owl.carousel.min js -->
+    <script type="text/javascript" src="/Assets/Scripts/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="/Assets/Scripts/owl.carousel.rtl.js"></script>
+    <!-- bxslider js -->
+    <script type="text/javascript" src="/Assets/Scripts/jquery.bxslider.js"></script>
+    <!--jquery-ui.min js -->
+    @*<script src="~/Content/jquery-ui.js"></script>*@
+    <script src="~/Scripts/jquery-ui-1.12.1.js"></script>
+    <!-- countdown js -->
+    <script type="text/javascript" src="/Assets/Scripts/countdown.js"></script>
+    <!-- wow JS -->
+    <script type="text/javascript" src="/Assets/Scripts/wow.min.js"></script>
+    <!-- main js -->
+    <script type="text/javascript" src="/Assets/Scripts/main.js"></script>
+    <!-- nivo slider js -->
+    <script type="text/javascript" src="/Assets/Scripts/jquery.nivo.slider.js"></script>
+    <!-- Cloud Zoom -->
+    <script type="text/javascript" src="/Assets/Scripts/cloud-zoom.js"></script>
+    <!-- flexslider js -->
+    <script type="text/javascript" src="/Assets/Scripts/jquery.flexslider.js"></script>
+    <!-- Hot Deals Timer 1-->
+    <script src="~/Assets/Scripts/jquery.noty.packaged.js"></script>
+
+    <script type="text/javascript">
+        var dthen1 = new Date("12/25/16 11:59:00 PM");
+        start = "08/04/15 03:02:11 AM";
+        start_date = Date.parse(start);
+        var dnow1 = new Date(start_date);
+        if (CountStepper > 0)
+            ddiff = new Date((dnow1) - (dthen1));
+        else
+            ddiff = new Date((dthen1) - (dnow1));
+        gsecs1 = Math.floor(ddiff.valueOf() / 1000);
+
+        var iid1 = "countbox_1";
+        CountBack_slider(gsecs1, "countbox_1", 1);
+    </script>
+
+    <script>
+
+        $(document)
+            .ready(function() {
+
+                if ("@(Request.QueryString["fl"])" =="new") {
+                    $("#chooseWebsite").modal({keyboard:false,backdrop:false});
+                    localStorage.setItem("flag", "true");
+                }  
+        });
+
+    </script>
+    <script>
+        function bindEvent() {
+            jQuery('.slider-range-price')
+                .each(function () {
+                    var min = jQuery(this).data('min');
+                    var max = jQuery(this).data('max');
+                    var unit = jQuery(this).data('unit');
+                    var value_min = jQuery(this).data('value-min');
+                    var value_max = jQuery(this).data('value-max');
+                    var label_reasult = jQuery(this).data('label-reasult');
+                    var t = jQuery(this);
+                    jQuery(this)
+                        .slider({
+                            range: true,
+                            min: min,
+                            max: max,
+                            values: [value_min, value_max],
+                            slide: function (event, ui) {
+                                var result = label_reasult + " " + unit + ui.values[0] + ' - ' + unit + ui.values[1];
+                                $("#MinPrice").val(ui.values[0]);
+                                $("#MaxPrice").val(ui.values[1]);
+                                t.closest('.slider-range').find('.amount-range-price').html(result);
+                            }
+                        });
+                });
+
+            $('.filter').on('change', function (e) { filter(e); });
+            $('.filterd').on('change', function (e) { filterd(e); });
+            $('.filtert').on('change', function (e) { filtert(e); });
+            $('#price-filter').on('click', function (e) { filter(e); });
+            $('#price-filterd').on('click', function (e) { filterd(e); });
+            $('#price-filtert').on('click', function (e) { filtert(e); });
+        }
+        $(document).ready(function () {
+            bindEvent();
+        });
+        $(function () {
+
+        });
+        $body = $("body");
+
+        $(document).on({
+            ajaxStart: function () { $body.addClass("loading"); },
+            ajaxStop: function () { $body.removeClass("loading"); }
+        });
+    </script>
+    <script>
+        function del(sku, product) {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: "@Url.Action("Remove","Favorite")",
+                data: { skuId: sku, productId: product },
+                success: function (data) {
+
+                    $('#manage-main').load("@Url.Action("Browse","Favorite")");
+
+                    $('.wishlist-count').load("@Url.Action("Count", "Favorite")");
+                    // alert(msg);
+                    var type = (data.Success) ? 'success' : 'error';
+                    generateFlash(type, data.Msg);
+                }
+            });
+            return false;
+        }
+    </script>
+    <script>
+        function addToFav(pId) {
+            var id = $("a[id^=" + pId + "]").not('.Hidden').attr("id");
+            var valueId = id.split('-')[1];
+            valuId = valueId == undefined ? "" : valueId;
+            var colorName = $("input[id*=h-" + pId + "-" + valueId).val();
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: "@Url.Action("AddToFavorite","Favorite")",
+                data: { productId: pId,cName:colorName },
+                success: function (data) {
+                    $('.wishlist-count').load("@Url.Action("Count","Favorite")");
+                    //  alert(data);
+                    var type = (data.Success) ? 'success' : 'error';
+                    generateFlash(type, data.Msg);
+                }
+            });
+            return false;
+        }
+    </script>
+    <script>
+        $(function () {
+            $(document).ajaxError(function (e, xhr) {
+                if (xhr.status == 403) {
+                    var response = $.parseJSON(xhr.responseText);
+                    // window.location = response.LogOnUrl;
+                    $('#login-modal').modal('show');
+                }
+            });
+        });
+
+    </script>
+    <script>
+        function filter(e) {
+            e.preventDefault();
+            
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("Browse","CategoryBase")',
+                data: $('#Mainform').serialize(),
+
+                success: function (data) {
+                    //  console.log(data);
+                    //console.log($('#Mainform').serialize());
+                    $('#Main').html(data);
+
+                    history.pushState("hsakjdh", "hi", "@Url.Action("Browse","CategoryBase")" + "?" + $("#Mainform").serialize());
+                    //jQuery('body,html').animate({
+                    //    scrollTop: 0,
+                    //}, 700);
+                    //$("#topCart").css(new{opacity : "1 !important"});
+                    // var s= document.getElementById("topCart").attributes.getNamedItem('style');
+                    //document.getElementById("topCart").
+
+
+                    //$("#topCart").css(new {transform:"scaleY(1) !important"});
+                    //$("#topCart").addClass("ViewCart");
+                }
+            });
+        }
+
+    </script>
+
+    <script>
+        function filterd(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("Browse","Designer")',
+                data: $('#Mainform').serialize(),
+
+
+                success: function (data) {
+                    //  console.log(data);
+                    //console.log($('#Mainform').serialize());
+                    $('#Main').html(data);
+
+
+                    history.pushState("hsakjdh", "hi", "@Url.Action("Browse","Designer")" + "?" + $("#Mainform").serialize());
+                    jQuery('body,html').animate({
+                        scrollTop: 0,
+                    }, 700);
+                }
+            });
+        }
+
+
+    </script>
+    <script>
+        function filtert(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'post',
+                url: '@Url.Action("Browse","Tag")',
+                data: $('#Mainform').serialize(),
+
+                success: function (data) {
+                    //  console.log(data);
+                    //console.log($('#Mainform').serialize());
+                    $('#Main').html(data);
+
+                    history.pushState("hsakjdh", "hi", "@Url.Action("Browse","Tag")" + "?" + $("#Mainform").serialize());
+                    jQuery('body,html').animate({
+                        scrollTop: 0,
+                    }, 700);
+                }
+            });
+        }
+
+    </script>
+    <script type="text/javascript">
+
+        $(document)
+            .ready(function () {
+                $('#SearchText')
+                    .autocomplete({
+                        minLength: 1,
+                        source: function (request, response) {
+                            $.ajax({
+                                url: '@Url.Action("Search", "Search")',
+                                method: 'post',
+                                data: $("#search-form").serialize(),
+                                dataType: 'json',
+                                global: false,
+                                success: function (data) {
+                                    console.log(data);
+                                    response(data);
+                                },
+                                error: function (err) { alert(err); }
+                            });
+                        },
+                        focus: updateTextBox,
+                        select: updateTextBox,
+                        highlightClass: "text-bold"
+
+                    }).autocomplete('instance')._renderItem = function (ul, item) {
+                        return $('<li>').append('<a style="display:block;" class="auto-complete" href = ' + item.Link + '><img style="margin:5px" class="imageClass" src=' + item.ImageUrl + ".ashx?height=60 alt=" + item.Name + '/>' + item.Name + '</a>').appendTo(ul);
+
+
+                    };
+
+                function updateTextBox(event, ul) {
+                    console.log(ul.item.Name);
+                    $(this).val(ul.item.Name);
+                    $(this).data("_url", ul.item.Link);
+                    return false;
+                }
+                $("#SearchText").keydown(function (event) {
+                    if (event.keyCode == 13) {
+                        //console.log($(this));
+                        if ($("#SearchText").data("_url") == undefined) {
+                            event.preventDefault();
+                            return false;
+                        }
+                        window.location.href = $(this).data("_url");
+                        return false;
+                    }
+                });
+            });
+    </script>
+    <script>
+        function easyAdd(pId) {
+            var id = $("a[id^="+pId + "]").not('.Hidden').attr("id");
+            var valueId = id.split('-')[1];
+            valuId = valueId == undefined ? "" : valueId;
+            var colorName = $("input[id*=h-" + pId + "-" + valueId).val();
+            debugger;
+        $.ajax({
+            type: 'post',
+            dataType: 'json',
+            url: '@Url.Action("QuickAdd", "Cart")',
+            data: { "color": colorName, "ProductId": pId },
+            success: function(data) {
+                $('#CartSummary')
+                    .load('@Url.Action("CartSummary", "Cart")',
+                        function() {
+                            var type = (data.Success) ? 'success' : 'error';
+                            generateFlash(type, data.Msg);
+                            if (data.Success) {
+                                jQuery('body,html')
+                                    .animate({
+                                            scrollTop: 0,
+                                        },
+                                        700);
+
+                                $('#topCart').addClass("showw");
+                                setTimeout(function() { $("#topCart").removeClass("showw") }, 2500);
+                                $("#topCart")
+                                    .hover(
+                                        function() { $("#topCart").removeClass("showw"); });
+                            }
+                        });
+            }
+        });
+        return false;
+    }
+    </script>
+    <script>
+        $("#CartSummary")
+            .on('click', '#cart-menu',
+                function () {
+                    location.href = '@Url.Action("Browse","Cart")';
+                });
+    </script>
+    @if (IsSectionDefined("scripts"))
+    {@RenderSection("scripts", required: false)}
+</body>
+
+</html>

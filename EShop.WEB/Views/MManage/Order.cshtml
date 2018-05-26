@@ -1,0 +1,45 @@
+﻿@using EShop.Common
+@model List<EShop.WEB.Models.OrderVM>
+@{
+    ViewBag.Title = "الطلبات";
+    Layout = "~/Views/Shared/_Manage.cshtml";
+}
+
+<h1>الطلبات</h1>
+@if (Model.Count == 0)
+{
+    <h3 style="margin-right: 50%;">لايوجد طلبات </h3>
+}
+else
+{
+    <h5>@ViewBag.State</h5>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+                <td class="text-right">رقم الطلب</td>
+                <td class="text-left">حالة الطلب</td>
+                <td class="text-left">تاريخ الاضافة</td>
+                <td class="text-right">عدد المنتجات</td>
+                @*  <td class="text-left">Customer</td>*@
+                <td class="text-right">الاجمالي</td>
+                <td></td>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td class="text-right">@(String.IsNullOrWhiteSpace(order.InvoiceId)?" - - -":order.InvoiceId)</td>
+                    <td class="text-left">@Utils.getOrderStateByLang(order.Status)</td>
+                    <td class="text-left">@order.CreationDate.Value.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)</td>
+                    <td class="text-right">@order.OrderItems.Count</td>
+                    @*<td class="text-left"> </td>*@
+                    <td class="text-right">@order.TotalDisplay</td>
+                    <td class="text-right"><a href="@Url.Action("Index", "Order", new {Id = order.Id})" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="View"><i class="fa fa-eye"></i></a></td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+}

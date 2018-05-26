@@ -1,0 +1,195 @@
+﻿@using EShop.Common
+@using EShop.WEB.Models
+@using Microsoft.AspNet.Identity
+@using Resx = EShop.Resources.Views.EShopResource
+@{
+
+    bool IsRTL = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft;
+    var website = (Request.Cookies["website"] != null ? Response.Cookies["website"].Values[0] : "");
+
+
+}
+<style>
+    .jtv-user-info {
+        margin: 2px;
+    }
+
+    .website {
+        position: fixed;
+        top: 0;
+        z-index: 1000;
+        left: 44%;
+        padding: 5px;
+        background-color: #1fc0a0;
+        color: white;
+        border-radius: 5px;
+    }
+
+        .website a {
+            color: white;
+        }
+
+            .website a:hover {
+                text-decoration: none !important;
+                color: white;
+            }
+
+        .website:hover {
+            background-color: black;
+        }
+</style>
+<header>
+    <div class="header-container">
+        <div class="header-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-7 col-xs-6" style="margin-top: 7px">
+                        <!-- Default Welcome Message -->
+                        <span class="phone hidden-xs hidden-sm" style="direction: ltr">+966-541505529 <i class="fa fa-whatsapp fa-lg"></i></span>
+                        <div class="welcome-msg hidden-xs">@Resx.WelcomeInStore</div>
+                        <div class="language-currency-wrapper" >
+                            <div class="inner-cl">
+                                <div class="block block-language form-language">
+                                    <div class="lg-cur"> <span> <img src="~/Assets/images/flag-@(IsRTL ? "arabic" : "english").jpg" alt="Arabic"> <span class="lg-fr hidden-xs">@(IsRTL ? Resx.Arabic : Resx.English)</span> <i class="fa fa-angle-down"></i> </span> </div>
+                                    <ul>
+                                        <li><a class="@(IsRTL == false ? "Selected" : "")" href='@Url.Action("ChangeLang", "Home", new {Lang = "en-US", ReturnUrl = Url.Encode(Request.RawUrl)})'><img src="~/Assets/images/flag-english.jpg" alt="" /> <span>@Resx.English</span> </a></li>
+                                        <li><a class="@(IsRTL == true ? "Selected" : "")" href='@Url.Action("ChangeLang", "Home", new {Lang = "ar-SA", ReturnUrl = Url.Encode(Request.RawUrl)})'><img src="~/Assets/images/flag-arabic.jpg" alt="" /> <span>@Resx.Arabic</span> </a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="block block-currency" style="display:none">
+                                    <div class="item-cur">
+                                        <span class="hidden-xs">@(Request.Cookies["Currency"].Value.ToLower() == Currency.Rial.ToString().ToLower() ? Resx.Rial : Resx.Dollar)</span> <span class="hidden-lg hidden-md">@(Request.Cookies["Currency"].Value == "USD" ? "$" : "ريال")</span> <i class="fa fa-angle-down"></i>
+                                    </div>
+                                    <ul>
+                                        <li> <a class="@(Request.Cookies["Currency"].Value.ToLower() == Currency.Dollar.ToString().ToLower() ? "" : "selected")" href='@Url.Action("ChangeCurrency", "Home", new {currency = Currency.Rial.ToString().ToLower(), ReturnUrl = Url.Encode(Request.RawUrl)})'><span class="cur_icon">SAR</span>@Resx.Rial</a> </li>
+                                        <li> <a class="@(Request.Cookies["Currency"].Value.ToLower() == Currency.Dollar.ToString().ToLower() ? "selected" : "")" href='@Url.Action("ChangeCurrency", "Home", new {currency = Currency.Dollar.ToString().ToLower(), ReturnUrl = Url.Encode(Request.RawUrl)})'><span class="cur_icon">$</span> @Resx.Dollar</a> </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 hidden-sm hidden-lg hidden-md" style="margin-top: 25px;padding-right: 0px;">
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+                                <span>
+                                    <i class="fa fa-lock" style="padding-left: 8px;"></i>
+                                    <a href="#" class="" role="button" data-toggle="modal" data-target="#login-modal">تسجيل الدخول </a>
+
+                                </span>
+                            }
+                            else
+                            {
+                                <span>
+                                    <a href="@Url.Action("Index","MManage")" class="">أهلا بك @ViewBag.FullName</a>
+                                </span>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- top links -->
+                    <div class="headerlinkmenu col-lg-6 col-md-6 col-sm-5 col-xs-6 text-left">
+                        @*<div class="language-currency-wrapper website">
+                                <div>
+                                    <div class="block  text-center">
+
+                                        <a data-toggle="modal" data-target="#chooseWebsite">@(website == "clths" ? "رومازونيا ألبسة" : website == "gym" ? "رومازونيا رياضة" : "رومازونيا تقنيات") </a>
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="links row" style="width:100%">
+                            <div class="jtv-user-info col-xs-12 col-md-4">
+                                <div class="dropdown pull-left" style="display:none">
+                                    <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>@(website == WebSites.Fashion.ToString() ? "رومازونيا فاشن" : website == WebSites.Gym.ToString() ? "رومازونيا جيم" : "رومازونيا تيليكوم")</span><i class="fa fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu" role="menu" style=" right: auto;">
+                                        <li><a class="button-subscribe" title="رومازونيا" style="display: block;" href='@Url.Action("Index", "Home", new { website = "Fashion"})'>رومازونيا فاشن</a></li>
+                                        <li><a class="button-subscribe" title="رومازونيا" style="display: block;" href='@Url.Action("Index", "Home", new { website = "Gym"})'>رومازونيا جيم </a></li>
+                                        <li><a class="button-subscribe" title="رومازونيا" style="display: block;" href='@Url.Action("Index", "Home", new { website = "Mobile"})'>روماونيا تيليكوم</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="jtv-user-info col-xs-12 col-md-3">
+                                <div class="dropdown pull-left">
+                                    <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>حسابي</span> <i class="fa fa-angle-down"></i></a>
+                                    <ul class="dropdown-menu" role="menu" style=" right: auto;">
+                                        <li><a href="@Url.Action("Index", "MManage")">@Resx.Account</a></li>
+                                        <li><a href="@Url.Action("Browse", "Favorite")">@Resx.Favorite</a></li>
+                                        <li><a href="@Url.Action("Index", "Checkout")">@Resx.Checkout</a></li>
+                                        @if (User.Identity.GetUserName() == "admin@eshop.com")
+                                        {
+                                            <li><a href="@Url.Action("Index", "ManageCategory")">الإدارة</a></li>
+                                        }
+                                        <li class="divider"></li>
+                                        @if (!User.Identity.IsAuthenticated)
+                                        {
+                                            <li><a href="#" data-toggle="modal" data-target="#login-modal">@Resx.Login</a></li>
+                                            <li><a href="@Url.Action("Register", "Account")">@Resx.Register</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="#" onclick="$('#logout').submit()">@Resx.Logout</a></li>
+                                        }
+
+
+                                        @*<li><a href="@Url.Action("Register","Account")">@Resx.Register</a></li>*@
+                                    </ul>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 col-md-3 col-xs-12">
+                    <!-- Header Logo -->
+                    <div class="logo">
+                        <a title="e-commerce" href="@Url.Action("Index", "Home")">
+                        @if ((EShop.Common.WebSites)ViewBag.CurrentWebsite == EShop.Common.WebSites.Fashion)
+                        {
+                            <img alt="e-commerce" src="~/Assets/images/clothes.png">
+                        }
+                        else if ((EShop.Common.WebSites)ViewBag.CurrentWebsite == EShop.Common.WebSites.Gym)
+                        {
+                            <img alt="e-commerce" src="~/Assets/images/gym.png">
+                        }
+                        else
+                        {
+                            <img alt="e-commerce" src="~/Assets/images/telecom.png">
+                        }
+                        </a>
+                    </div>
+                    <!-- End Header Logo -->
+                </div>
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-6">
+                    <!-- Search -->
+                    @{Html.RenderAction("SearchByCategory", "Search");}
+                    <!-- End Search -->
+                </div>
+
+                <!-- Cart -->
+                <div id="CartSummary">
+                    @{Html.RenderAction("CartSummary", "Cart");}
+                </div>
+            </div>
+        </div>
+    </div>
+    @*<script>
+            $('.currency').click(function () {
+                alert(this.id);
+                $.ajax({
+                    type: 'post',
+                    dataType: 'json',
+                    data: {currency:this.id},
+                    url: '@Url.Action("ChangeCurrency","Home")',
+                    success: function (data) {
+                        generateFlash('success', data);
+                    }
+                });
+            });
+        </script>*@
+</header>
+<!--Menu Area-->
+@{ Html.RenderAction("MenuArea", "Home");}

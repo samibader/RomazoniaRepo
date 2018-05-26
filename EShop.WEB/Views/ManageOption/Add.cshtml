@@ -1,0 +1,100 @@
+﻿@model EShop.WEB.Models.OptionManagerVM
+@{
+    ViewBag.Title = "إضافة خيار";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+
+                <a href="@Url.Action("Index","ManageOption")" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a>
+            </div>
+            <h1>Options</h1>
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index","DashBoard")">الرئيسية</a></li>
+                <li><a href="@Url.Action("Index","Add")">إضافة خيار</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> إضافة خيار</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" id="form-option" class="form-horizontal">
+                    <div class="form-group required">
+                        @Html.ValidationSummary("يرجى تصحيح الاخطاء التالية:")
+                        <div class="col-sm-10">
+                            <label class="col-sm-2 control-label">الاسم العربي</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <img src="~/Assets/images/flag-arabic.jpg" />
+                                </span>
+                                <input id="op-arabic" type="text" name="ArabicName" value="" placeholder="الاسم العربي" class="form-control">
+                            </div>
+                        </div>
+                       
+                        <div class="col-sm-10">
+                            <label class="col-sm-2 control-label">الاسم الانكليزي</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">
+                                    <img src="~/Assets/images/flag-english.jpg" />
+                                </span>
+                                <input id="op-english" type="text" name="EnglishName" value="" placeholder="English Name" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <button id="btn-save-option" form="form-option" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Save"><i class="fa fa-save"></i></button>
+                </form>
+                @*<input id="optionIdTemp" type="hidden" name="optionId" value="" />*@
+                <div id="option-val">
+                        <form id="option-value-form" method="post">
+                            <input id="optionId" type="hidden" name="optionId" value="" />
+                            <div id="values-div">
+                                @{
+                                    Html.RenderPartial("_AddOptionValue", new List<EShop.WEB.Models.OptionValueManagerVM>());
+                                }
+                            </div>
+                         </form>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#option-value').addClass('hidden');
+            $('#btn-save-option').on('click', function (e) {
+                e.preventDefault();
+                var form = $("#form-option");
+                //form.validate({
+                //    ignore: ":hidden"
+                //});
+                if (form.valid() == false) {
+                    generateFlash('error', "يرجى التحقق من القيم المدخلة أو ادخال الحقول المطلوبة");
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("Add","manageOption")',
+                    method: 'post',
+                    data: $('#form-option').serialize(),
+                    success: function (data) {
+                        if (data.Succedeed == true) {
+                            generateFlash('success', data.message);
+                            $('#optionId').val(data.prop);
+                            $('#option-value').removeClass('hidden');
+                            $('#btn-save-option').addClass('hidden');
+                            $('#op-arabic,#op-english').attr('disabled', '');
+                        }
+                        else {
+                            generateFlash('error', data.message);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</div>

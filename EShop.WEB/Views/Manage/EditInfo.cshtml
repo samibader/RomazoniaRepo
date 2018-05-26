@@ -1,0 +1,78 @@
+﻿@model EShop.WEB.Models.EditInfoViewModel
+@{
+    ViewBag.Title = "تعديل البيانات الشخصية";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-12">
+        <h2>@ViewBag.Title</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="@Url.Action("Index", "Dashboard")">الرئيسية</a>
+            </li>
+            <li class="active">
+                <strong>@ViewBag.Title</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content  animated fadeInRight">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>تعديل بياناتك الشخصية</h5>
+                </div>
+                <div class="ibox-content">
+                    @using (Html.BeginForm("EditInfo", "Manage", FormMethod.Post, new { @class = "form-horizontal" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName, new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-9">
+            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName, new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-9">
+            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email, new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-9">
+            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+        </div>
+    </div>
+                        @*<div class="form-group">
+                            @Html.LabelFor(m => m.CountryId, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.DropDownListFor(m => m.CountryId, StaticHelper.CountrySelectList(Model.CountryId), new { @class = "form-control", @style = "font-family: 'Droid Arabic Naskh', 'Montserrat', sans-serif;" })
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.City, new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-9">
+                                @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        
+
+                        <div class="hr-line-dashed"></div>
+                        <div class="form-group">
+                            <div class="col-sm-4 col-sm-offset-3">
+                                <button class="btn btn-primary" type="submit">حفظ التعديلات</button>
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/DashAssets/Scripts/ValidateBootstrap.js"></script>

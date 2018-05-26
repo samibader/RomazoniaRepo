@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "_Manage";
+}
+
+<div class="row" style="margin-top: 10px;">
+    @Html.Partial("_ManageSidebar")
+    <div id="ParentDiv" class="col-md-9">
+        @RenderBody()
+
+    </div>
+</div>
+
+@if (IsSectionDefined("scripts"))
+{@RenderSection("scripts", required: false)}
+
+
+<script src="@Url.Content("~/Scripts/jquery.validate.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
+<script type="text/javascript">
+    
+    function OnBeginMethod() {
+
+    }
+
+    function OnFailtureMethod(error) {
+        debugger
+        isError = true;
+        //generateFlash('error', error.responseJSON.Message);
+    }
+
+    function OnSuccessMethod(data) {
+        debugger
+        //if(IsValid)
+        //    generateFlash('success', 'ssss');
+        //else
+        //    generateFlash('error', 'ssss');
+
+    }
+
+    function OnCompleteMethod(data, status) {
+        //if (!isError) {
+        //    $("#labelAjaxStatus").text("COMPLETED METHOD: " +
+        //    status);
+        //}
+    }
+
+
+
+</script>

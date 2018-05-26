@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+    AjaxOptions options = new AjaxOptions
+    {
+        //Confirm = "Are you sure to save record?",
+        OnBegin = "OnBeginMethod",
+        OnFailure = "OnFailtureMethod",
+        OnSuccess = "OnSuccessMethod",
+        OnComplete = "OnCompleteMethod"
+    };
+    ViewContext.Controller.ViewBag.AjaxOptions = options;
+
+    AjaxOptions options2 = new AjaxOptions
+    {
+        UpdateTargetId = "ParentDiv",
+        OnBegin = "OnBeginMethod",
+        OnFailure = "OnFailtureMethod",
+        OnSuccess = "OnSuccessMethod",
+        OnComplete = "OnCompleteMethod"
+    };
+    ViewContext.Controller.ViewBag.AjaxOptions2 = options2;
+    
+    if (Request.IsAjaxRequest())
+    {
+        Layout = null;
+    }
+}

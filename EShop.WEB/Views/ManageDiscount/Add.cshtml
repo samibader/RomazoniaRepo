@@ -1,0 +1,208 @@
+﻿@model EShop.WEB.Models.DiscountVM
+@{
+    ViewBag.Title = "إضافة تخفيض";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+
+                <a href="@Url.Action("Index", "ManageDiscount")" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a>
+            </div>
+            <h1>التخفيضات</h1>
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index","DashBoard")">الرئيسية</a></li>
+                <li><a href="@Url.Action("Add", "ManageDiscount")">إضافة تخفيض</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> إضافة تخفيض</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" id="form-option" class="form-horizontal">
+                    <div class="form-group ">
+                        @Html.ValidationSummary("يرجى تصحيح الاخطاء التالية:")
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label class="col-md-4 control-label">الاسم العربي</label>
+                                    <div class="col-md-8 input-group">
+                                        <span class="input-group-addon">
+                                            <img src="~/Assets/images/flag-arabic.jpg" />
+                                        </span>
+                                        <input id="op-arabic" type="text" name="ArabicName" value="" placeholder="الاسم العربي" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="col-md-4 control-label">الاسم الانكليزي</label>
+                                    <div class="col-md-8 input-group">
+                                        <span class="input-group-addon">
+                                            <img src="~/Assets/images/flag-english.jpg" />
+                                        </span>
+                                        <input id="op-english" type="text" name="EnglishName" value="" placeholder="English Name" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="col-md-4 control-label">النوع</label>
+                                    <div class="col-md-8 input-group">
+                                        
+                                        <select id="type-select" class="form-control" name="IsPercentage">
+                                            <option value="False">$</option>
+                                            <option value="True">%</option>
+                                        </select> 
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            <div class="col-md-6">
+                                <div class="col-md-12">
+                                    <label class="col-md-4 control-label">تاريخ البدء</label>
+                                    <div class="col-md-8 input-group date">
+                                        
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </span>
+                                        <input id="op-start-date" type="text" name="StartDate" value="" placeholder="تاريخ البدء" class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <label class="col-md-4 control-label">تاريخ الانتهاء</label>
+                                    <div class="col-md-8 input-group date">
+                                        <span class="input-group-addon">
+                                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        </span>
+                                        <input id="op-end-date" type="text" name="EndDate" value="" placeholder="تاريخ الانتهاء" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <label class="col-md-4 control-label">القيمة</label>
+                                    <div class="col-md-8 input-group">
+                                        <input id="op-value" type="text" name="Value" value="" placeholder="Value" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+
+                            </div>
+                    </div>
+                    <button id="btn-save-option" form="form-option" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Save"><i class="fa fa-save"></i></button>
+                </form>
+                @*<input id="optionIdTemp" type="hidden" name="optionId" value="" />*@
+                <div id="option-val">
+                    <form id="option-value-form" method="post">
+                        <input id="optionId" type="hidden" name="discountId" value="" />
+                        <div id="values-div">
+                            @{
+                                Html.RenderPartial("_AddProductDiscount", new List<EShop.WEB.Models.DiscountVM>());
+                            }
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('#search-text-box').autocomplete({
+                minLength: 1,
+                source: function (request, response) {
+                    $.ajax({
+                        url: '@Url.Action("Search","Search")',
+                        method: 'post',
+                        data: {SearchText:$("#search-text-box").val(),categoryId:'-1'},
+                        dataType: 'json',
+                        async:true,
+                        global: false,
+                        success: function (data) {
+                            console.log(data);
+                            response(data);
+                        },
+                        error: function (err) { alert(err); }
+                    });
+                },
+                focus: updateTextBox,
+                select: updateTextBox2,
+                highlightClass: "text-bold"
+            }).autocomplete('instance')._renderItem = function (ul, item) {
+
+                console.log(item);
+                return $('<li>').append('<i class="auto-complete"><img style="margin:5px" class="imageClass" src=/uploads/' + item.ImageUrl + ".ashx?height=60 alt=" + item.Name + '/>' + item.Name + '</i>').appendTo(ul);
+            };
+            function updateTextBox(event, ui) {
+                $(this).val(ui.item.Name);
+               return false;
+            }
+            function updateTextBox2(event, ui) {
+                $(this).val(ui.item.Name);
+                var value = ui.item.Link;
+                var prodId = ui.item.Id;
+                $.ajax({
+                    url:'@Url.Action("GetProductSkusForDiscount", "ManageDiscount")',
+                    method:'post',
+                    data: { ProductId: prodId },
+                    dataType: 'json',
+                    async: true,
+                    success: function (data) {
+                        console.log(data);
+                        //$(data).each(function (idx, el) {
+                        //    console.log(idx + "-" + el.Id + "-" + el.CategoryId);
+                        //});
+                        loadSkuTable(data);
+                        $('#products').removeClass('hidden');
+                        //alert(JSON.stringify(data));
+                    }
+                });
+                return false;
+            }
+        });
+    </script>
+    <script>
+        $('.date').datepicker({
+            format: "dd/mm/yyyy",
+            language: "en-GB",
+            autoclose: true,
+            todayHighlight: true
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#option-value').addClass('hidden');
+            $('#products').addClass('hidden');
+            $('#btn-save-option').on('click', function (e) {
+                e.preventDefault();
+                var form = $("#form-option");
+                //form.validate({
+                //    ignore: ":hidden"
+                //});
+                if (form.valid() == false) {
+                    generateFlash('error', "يرجى التحقق من القيم المدخلة أو ادخال الحقول المطلوبة");
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("Add","ManageDiscount")',
+                    method: 'post',
+                    data: $('#form-option').serialize(),
+                    success: function (data) {
+                        if (data.Succedeed == true) {
+                            generateFlash('success', data.message);
+                            $('#optionId').val(data.prop);
+                            $('#option-value').removeClass('hidden');
+                            $('#btn-save-option').addClass('hidden');
+                            $('#op-arabic,#op-english,#op-start-date,#op-end-date,#op-value,#type-select').attr('disabled', '');
+                        }
+                        else {
+                            generateFlash('error', data.message);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</div>

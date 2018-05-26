@@ -1,0 +1,103 @@
+﻿@model EShop.WEB.Models.RegisterVM
+<!-- Breadcrumbs -->
+@using Resx = EShop.Resources.Views.EShopResource
+@{
+    ViewBag.Title = Resx.Register;
+}
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home Page" href="@Url.Action("Index","Home")">الرئيسية</a><span>&raquo;</span></li>
+                    <li><strong>الحساب</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Main Container -->
+<section class="main-container col1-layout">
+    <div class="main container">
+
+
+        <div class="page-content">
+
+            <div class="account-login">
+
+
+
+                @*<div class="box-authentication">
+                @{Html.RenderAction("Login","Account");}
+                </div>*@
+
+                <div class="box-authentication">
+
+                    <h4>تسجيل حساب</h4>
+                    @using (@Html.BeginForm("Register", "Account", FormMethod.Post))
+                    {
+                        @Html.ValidationSummary()
+                        @Html.AntiForgeryToken()
+
+                        <p>قم بإنشاء حسابك الخاص</p>
+
+                        <div class="form-group">
+
+                            @Html.LabelFor(m => m.Email) <span class="red2">*</span>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger  small" })
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(m => m.FirstName) <span class="red2">*</span>
+
+
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger small" })
+
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(m => m.LastName) <span class="red2">*</span>
+
+
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger small" })
+
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(m => m.Password) <span class="red2">*</span>
+
+
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger small" })
+
+                        </div>
+                        <div class="form-group">
+
+                            @Html.LabelFor(m => m.ConfirmPassword) <span class="red2">*</span>
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger small" })
+
+                        </div>
+                        <button type="submit" class="button"><i class="fa fa-user"></i>&nbsp; <span>@Resx.Register</span></button>
+                    }
+                    <div class="register-benefits">
+                        <h5>سجل حسابك اليوم وسكتون قادر على:</h5>
+                        <ul>
+                            <li>تسريع عملية الدفع</li>
+                            <li>تتبع طلبياتك بسهولة</li>
+                            <li>الحفاظ على سجل بجميع مشترياتك</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Main Container End --> 
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

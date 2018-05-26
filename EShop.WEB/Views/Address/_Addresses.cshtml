@@ -1,0 +1,199 @@
+﻿
+<div id="addressPage" class="container">
+    <div class="row equal">
+        <div id="existingAddress" class="col-md-9">
+            <div class="checkbox alert info-back text-center" style="margin-bottom: 0px;">
+                <label for="shipping_check">
+                    <input type="checkbox" name="xshipping_address_check" value="1" id="shipping_check" style=" margin-right: 0px; ">
+                    <label for="shipping_check">اريد استخدام نفس العنوان من أجل الشحن والدفع</label>
+                </label>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center pull-right">
+                        <a style="cursor: pointer;" data-toggle="modal" data-target="#addressModal" id="aaa">
+                            <span class="glyphicon glyphicon-plus"></span>اضافة عنوان
+                        </a>
+                    </h4>
+                </div>
+                <div class="clearfix visible-xs">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading selected">
+                            <div class="radio">
+                                <label for="p-1289">
+                                    <input id="p-1289" type="radio" name="address_id" value="1289">
+                                    <span class="padd">Payment Address</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="panel-body highlight">
+                            <p class="text-justified">
+                                66 66<br>jujjjjj<br>66 - 66<br>United Kingdom - CLACK<br>Mobile: 11111
+                            </p>
+                            <span class="pull-left">Default Address</span>
+                            <span class="pull-right"><a class="editAddress" href="http://demo.xtensions.in/best/index.php?route=xcheckout/xpayment_address/editAddress&amp;address_id=1289" alt="Edit Address"><i class="fa fa-edit"></i>Edit Address</a></span>
+                        </div>
+                        <div class="panel-footer selected" style="display: block;">
+                            <div class="radio">
+                                <label for="s-1289">
+                                    <input id="s-1289" checked="checked" type="radio" name="saddress_id" value="1289">
+                                    Shipping Address
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-heading selected">
+                            <div class="radio">
+                                <label for="p-1288">
+                                    <input id="p-1288" checked="checked" type="radio" name="address_id" value="1288">
+                                    <span class="padd">Payment Address</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="panel-body highlight">
+                            <p class="text-justified">
+                                66 66<br>jujjjjj<br>66 - 66<br>United Kingdom - CLACK<br>Mobile: 11111
+                            </p>
+                            <span class="pull-left">Default Address</span>
+                            <span class="pull-right"><a class="editAddress" href="http://demo.xtensions.in/best/index.php?route=xcheckout/xpayment_address/editAddress&amp;address_id=1289" alt="Edit Address"><i class="fa fa-edit"></i>Edit Address</a></span>
+                        </div>
+                        <div class="panel-footer selected" style="display: block;">
+                            <div class="radio">
+                                <label for="s-1288">
+                                    <input id="s-1288" type="radio" name="saddress_id" value="1288">
+                                    Shipping Address
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="clearfix visible-xs">
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-12 lborder" style="float: left;">
+            <div id="sLoader" class="loader"></div>
+            <div id="shipping_method">
+                <div id="shipping_method" class="panel panel-green1">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">طريقة الشحن المطلوبة</div>
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="80%">شحن مجاني</th>
+                                <th width="20%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="free.free">
+                                        <input type="radio" name="shipping_method" value="free.free" id="free.free" checked="checked">
+                                        شحن مجاني
+                                    </label>
+                                </td>
+                                <td class="text-right"><label for="free.free">$0.00</label></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th width="80%">باستخدام شركات الشحن</th>
+                                <th width="20%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="flat.flat">
+                                        <input type="radio" name="shipping_method" value="flat.flat" id="flat.flat">
+                                       تكلفة الشحن
+                                    </label>
+                                </td>
+                                <td class="text-right"><label for="flat.flat">$30.00</label></td>
+                            </tr>
+                        </tbody>
+                        <thead>
+                            <tr>
+                                <th width="80%">التوصيل يد بيد </th>
+                                <th width="20%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <label for="pickup.pickup">
+                                        <input type="radio" name="shipping_method" value="pickup.pickup" id="pickup.pickup">
+                                        التوصيل يد بيد
+                                    </label>
+                                </td>
+                                <td class="text-right"><label for="pickup.pickup">$0.00</label></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="addressRight">
+                <div id="agreeText" class="text-center" style="font-size: 20px; margin-bottom: 20px;">
+                    <a class="agree" href="http://demo.xtensions.in/best/index.php?route=information/information/agree&amp;information_id=5" alt="Terms &amp; Conditions"><b>Terms &amp; Conditions</b></a> <input type="checkbox" name="agree" value="1">
+                </div>
+                <div class="progress" id="progress-continue-disabled" style="display: block">
+                    <div data-trigger="focus" tabindex="0" data-placement="bottom" data-toggle="popover" title="" data-content="To proceed to payment, You must agree to Terms &amp; Conditions." class="progress-bar" role="progressbar" id="button-payment-disabled" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="background-color: #ccc; width: 100%" data-original-title="Terms &amp; Conditions">
+                        <span>Continue to payment</span>
+                    </div>
+                </div>
+                <div class="progress" id="progress-continue" style="display: none">
+                    <div class="progress-bar progress-bar-success" role="progressbar" id="button-payment" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span>Continue to payment</span>
+                    </div>
+                </div>
+
+            </div>
+            <div id="totals" style="direction: rtl;">
+                <div class="panel panel-green1">
+                    <div class="panel-heading">الإجمالي</div>
+                    <table class="table">
+                        <tbody>
+                            <tr><td>السعر الجزئي:</td><td class="text-right">$100.00</td></tr>
+                            <tr><td>السعر الكلي:</td><td class="text-right">$100.00</td></tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="options">
+                <div class="panel panel-green1">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">معلومات الكوبون</div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td> كودالكوبون</td>
+                            <td class="text-right"><span style="cursor: pointer;"><a data-toggle="modal" data-target="#couponModal">تفعيل كوبون</a></span></td>
+                        </tr>
+                            <tr>
+                                <td> قيمة الكوبون</td>
+                                <td class="text-right"><span style="cursor: pointer;"><a data-toggle="modal" data-target="#couponModal">تفعيل كوبون</a></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>

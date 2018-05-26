@@ -1,0 +1,91 @@
+﻿@model List<EShop.BLL.DTO.ProductDTO>
+<!-- category area start -->
+<div class="jtv-category-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="jtv-single-cat">
+                    <div class="page-header" style="    padding-top: 10px; margin:10px;">
+                        <h2>منتجات مميزة</h2>
+                    </div>
+                    @for (int i = 0; i < 4; i++)
+                    {
+                        if (Model.Count > i)
+                        {
+                            var m = @Model[i];
+
+                            <div class="jtv-product">
+                                <div class="product-img">
+                                    <a href="@Url.Action("Browse", "Product", new {id = m.Id})">
+                                        <img class="" src="@(m.Images[0]).ashx?height=75" alt="@m.Name">
+                                        @*<img class="secondary-img" src="@(m.Images[0]).ashx?height=75" alt="@m.Name">*@
+                                    </a>
+                                </div>
+                                <div class="jtv-product-content">
+                                    <h3 style="height:35px;text-overflow: ellipsis;    overflow: hidden;"><a href="@Url.Action("Browse", "Product", new {id = m.Id})">@m.Name</a></h3>
+                                    <div class="price-box"> <span class="regular-price"> <span class="price">@m.TotalPriceDisplay</span> </span> </div>
+                                    <div class="jtv-product-action">
+                                        <div class="jtv-extra-link">
+                                            <div class="button-cart">
+                                                <button><i class="fa fa-shopping-cart"></i></button>
+                                            </div>
+                                            @if (m.Colors != null && m.Colors.Any())
+                                            {
+                                                <a style="cursor:pointer" onclick="quickView(@m.Id,'@m.Colors[0].ColorNameEnglish')"><i class="fa fa-search"></i></a>
+                                            }
+                                            else
+                                            {
+                                                <a style="cursor:pointer" onclick="quickView(@m.Id,'')"><i class="fa fa-search"></i></a>
+                                            }
+                                            <a href="#" onclick="addToFav(@m.Id)"><i class="fa fa-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                    @for (int i = 0; i < 4; i++)
+                    {
+                        if (Model.Count > i+4)
+                        {
+                            var m = @Model[i + 4];
+                            <div class="jtv-product jtv-cat-margin">
+                                <div class="product-img">
+                                    <a href="@Url.Action("Browse", "Product", new {id = m.Id})">
+                                        <img class="" src="@(m.Images[0]).ashx?height=75" alt="@m.Name">
+                                        @*<img class="secondary-img" src="@(m.Images[0]).ashx?height=75" alt="@m.Name">*@
+                                    </a>
+                                </div>
+                                <div class="jtv-product-content">
+                                    <h3 style="height:35px;text-overflow: ellipsis;    overflow: hidden;"><a href="@Url.Action("Browse", "Product", new {id = m.Id})">@m.Name</a></h3>
+
+                                    <div class="price-box"> <span class="regular-price"> <span class="price">@m.TotalPriceDisplay</span> </span> </div>
+                                    <div class="jtv-product-action">
+                                        <div class="jtv-extra-link">
+                                            <div class="button-cart">
+                                                <button><i class="fa fa-shopping-cart"></i></button>
+                                            </div>
+                                           @if (m.Colors != null && m.Colors.Any())
+                                           {
+                                            <a style="cursor:pointer" onclick="quickView(@m.Id,'@m.Colors[0].ColorNameEnglish')"><i class="fa fa-search"></i></a>
+                                           }
+                                           else
+                                           {
+                                            <a style="cursor:pointer" onclick="quickView(@m.Id,'')"><i class="fa fa-search"></i></a>
+                                           }
+                                        <a href="#" onclick="addToFav(@m.Id)"><i class="fa fa-heart"></i></a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- category-area end --> 

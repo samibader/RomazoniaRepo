@@ -1,0 +1,49 @@
+﻿@model IEnumerable<Eshop.web.models.favoriteitem>
+    @using Resx = EShop.Resources.Views.EShopResource
+    @{
+        ViewBag.Title = "Browse";
+    }
+
+    <div class="row">
+        <div class="col-main col-sm-9 col-xs-12">
+            <div class="my-account">
+                <div class="page-title">
+                    <h2>@Resx.Favorite</h2>
+                </div>
+                @if (@Model.ToList().Count > 0)
+                {
+                    <div class="wishlist-item table-responsive">
+                        <table class="col-md-12">
+                            <thead>
+                                <tr>
+                                    <th class="th-delate">حذف</th>
+                                    <th class="th-product">صورة المنتج</th>
+                                    <th class="th-details">اسم المنتج</th>
+                                    <th class="th-price">السعر</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var favoriteItem in @Model)
+                                {
+                                    <tr>
+                                        <td class="th-delate"><a href="#" onclick="del(@favoriteItem.SkuId, @favoriteItem.Id)">x</a></td>
+                                        <td class="th-product"><a href="@Url.Action("Browse", "Product", new {skuId = favoriteItem.SkuId})"><img src="@(favoriteItem.Images[0]).ashx?height=100" alt="@favoriteItem.Name"></a></td>
+                                        <td class="th-details">
+                                            <h2>
+                                                <a href="@Url.Action("Browse", "Product", new {skuId = favoriteItem.SkuId})">@favoriteItem.Name</a>
+                                            </h2>
+                                        </td>
+                                        <td class="th-price">@favoriteItem.TotalPrice</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <div> <p>لا يوجد منتجات في المفضلة </p></div>
+                }
+            </div>
+        </div>
+    </div>

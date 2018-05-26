@@ -1,0 +1,27 @@
+﻿<!--start sidebar-->
+<div class="col-lg-3 col-md-3 col-sm-4">
+    <div class="widget account-details">
+        <h2 class="widget-title">قائمة العمليات</h2>
+        <ul>
+            <li>@Html.ActionLink("معلومات الحساب", "Index", "Manage")</li>
+
+            <li>
+                @if (true)
+                {
+                    @Html.ActionLink("تغيير كلمة المرور", "ChangePassword")
+                }
+                else
+                {
+                    @Html.ActionLink("تعيين كلمة مرور", "SetPassword")
+                }
+            </li>
+            <li>@Html.ActionLink("إدارة حساب الانستغرام", "ManageLogins")</li>
+            <li>@Html.ActionLink("استعراض بوستات الانستغرام", "MyFeed")</li>
+            <li><a href="order-history.html">Order History</a></li>
+            <li><a href="review-rating.html">Reviews and Ratings</a></li>
+            <li><a href="return.html">Returns Requests</a></li>
+            <li><a href="newsletter.html">Newsletter</a></li>
+        </ul>
+    </div>
+</div>
+<!--end sidebar-->

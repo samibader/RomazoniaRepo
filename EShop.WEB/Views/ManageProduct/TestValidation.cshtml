@@ -1,0 +1,27 @@
+﻿@model EShop.WEB.Models.TestValidationVM
+@{
+    ViewBag.Title = "TestValidation";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>TestValidation</h2>
+
+<form id="form" action="" method="post">
+    <div class="form-group text-left">
+        <div class="form-control">
+           @* <input type="text" name="Id" value="@Model.Id" />*@
+            @Html.TextBoxFor(c => c.Id, new  { @class="form-control"})
+            @Html.ValidationMessageFor(c=>c.Id)
+        </div>
+        <div class="form-control">
+            <input type="text" name="Name" value="@Model.Name" data-val="true" data-val-required="Name is required" aria-required="true"  aria-describedby="Name-error" aria-invalid="false"/>
+           @* @Html.TextBoxFor(c => c.Name, new { @class = "form-control" })*@
+            @Html.ValidationMessageFor(c => c.Name)
+        </div>
+        <button type="submit">submit</button>
+    </div>
+</form>
+<script>
+    var s = $('#form');
+    $.validator.unobtrusive.parse(s);
+</script>

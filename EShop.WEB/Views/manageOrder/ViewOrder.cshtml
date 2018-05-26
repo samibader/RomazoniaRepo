@@ -1,0 +1,594 @@
+﻿@model EShop.WEB.Models.OrderVM
+@using EShop.Common
+@{
+    ViewBag.Title = "تفاصيل الطلب";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                @*<a href="#" target="_blank" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="Print Invoice"><i class="fa fa-print"></i></a>
+                <a href="#" target="_blank" data-toggle="tooltip" title="" class="btn btn-info" data-original-title="Print Shipping List"><i class="fa fa-truck"></i></a>*@
+                <a href="#" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Edit"><i class="fa fa-pencil"></i></a> <a href="@Url.Action("Index", "ManageOrder")" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a>
+            </div>
+            <h1>الطلبات</h1>
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index", "DashBoard")">الرئيسية</a></li>
+                <li><a href="@Url.Action("Index", "ManageOrder")">الطلبات</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-list"></i> الطلبات</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab-order" data-toggle="tab">تفاصيل الطلب</a></li>
+                    <li class=""><a href="#tab-payment" data-toggle="tab">تفاصيل الدفع</a></li>
+                    <li class=""><a href="#tab-shipping" data-toggle="tab">تفاصيل الشحن</a></li>
+                    <li class=""><a href="#tab-product" data-toggle="tab">المنتجات</a></li>
+                    <li class=""><a id="histo" href="#tab-history" data-toggle="tab">تاريخ الطلب</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab-order">
+                        @*<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> Warning: You do not have permission to modify orders!
+                            </div>*@
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>معرف الطلب:</td>
+                                    <td>@Model.Id</td>
+                                </tr>
+                                <tr>
+                                    <td>رقم الفاتورة</td>
+                                    <td id="invoice-num">
+                                        <button id="btn-generate" class='btn btn-success btn-xs @(!String.IsNullOrEmpty(Model.InvoiceId) ? "hidden" : "")'><i class="fa fa-cog"></i> توليد</button>
+                                        @(String.IsNullOrEmpty(Model.InvoiceId) ? "" : Model.InvoiceId.ToString())
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>الزبون</td>
+                                    <td><a href="@Url.Action("ViewUser", "ManageUser", new { Id = Model.UserId })">@Model.UserName</a> </td>
+                                </tr>
+                                <tr>
+                                    <td>البريد الالكتروني</td>
+                                    <td><a href="#">@Model.Email</a></td>
+                                </tr>
+                                <tr>
+                                    <td>الهاتف</td>
+                                    <td>@Model.Phone</td>
+                                </tr>
+                                <tr>
+                                    <td>المجموع</td>
+                                    <td><label class="label label-success">@Model.TotalDisplay</label> </td>
+                                </tr>
+                                <tr>
+                                    <td>حالة الطلب</td>
+                                    <td id="order-status" >
+                                        <label class="label @(Model.Status == OrderStates.complete ? "label-success" : "") @(Model.Status == OrderStates.canceled ? "label-danger" : "") @(Model.Status == OrderStates.pending ? "label-default" : "") @(Model.Status == OrderStates.paid ? "label-info" : "") @(Model.Status == OrderStates.pendingShipping ? "label-warning" : "") @(Model.Status == OrderStates.shipped ? "label-primary" : "") ">@(Utils.getOrderStateByLang(Model.Status))</label>
+                                    </td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td>عنوان IP</td>
+                                    <td id="ip-td">@Model.UserIpAddress</td>
+                                </tr>
+                                <tr>
+                                    <td>User Agent:</td>
+                                    <td>@Model.UserAgent</td>
+                                </tr>
+                                <tr>
+                                    <td>Accept Language:</td>
+                                    <td>hu-HU,hu;q=0.8,en-US;q=0.6,en;q=0.4</td>
+                                </tr>
+                                <tr>
+                                    <td>تاريخ الإضافة:</td>
+                                    <td class="text-right">@(Model.CreationDate.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture))</td>
+                                </tr>
+                                <tr>
+                                    <td>تاريخ التعديل:</td>
+                                    <td class="text-right">@(Model.CreationDate.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture))</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tab-payment">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>الاسم الأول:</td>
+                                    <td>@Model.BillingAddress.FirstName</td>
+                                </tr>
+                                <tr>
+                                    <td>الاسم الأخير</td>
+                                    <td>@Model.BillingAddress.LastName</td>
+                                </tr>
+                                <tr>
+                                    <td>الهاتف</td>
+                                    <td>@Model.BillingAddress.Phone</td>
+                                </tr>
+                                <tr>
+                                    <td>العنوان:</td>
+                                    <td>@Model.BillingAddress.Address1</td>
+                                </tr>
+                                <tr>
+                                    <td>المدينة:</td>
+                                    <td>@Model.BillingAddress.City</td>
+                                </tr>
+                                <tr>
+                                    <td>رمز المدينة:</td>
+                                    <td>@Model.BillingAddress.PostCode</td>
+                                </tr>
+                                <tr>
+                                    <td>الدولة:</td>
+                                    <td>@Model.BillingAddress.Country</td>
+                                </tr>
+                                <tr>
+                                    <td>طريقة الدفع:</td>
+                                    <td><label class="label label-success">@Model.BillingMethod.Name</label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tab-shipping">
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr>
+                                    <td>الاسم الأول:</td>
+                                    <td>@Model.ShippingAddress.FirstName</td>
+                                </tr>
+                                <tr>
+                                    <td>الاسم الأخير</td>
+                                    <td>@Model.ShippingAddress.LastName</td>
+                                </tr>
+                                <tr>
+                                    <td>الهاتف</td>
+                                    <td>@Model.ShippingAddress.Phone</td>
+                                </tr>
+                                <tr>
+                                    <td>العنوان:</td>
+                                    <td>@Model.ShippingAddress.Address1</td>
+                                </tr>
+                                <tr>
+                                    <td>المدينة:</td>
+                                    <td>@Model.ShippingAddress.City</td>
+                                </tr>
+                                <tr>
+                                    <td>رمز المدينة:</td>
+                                    <td>@Model.ShippingAddress.PostCode</td>
+                                </tr>
+                                <tr>
+                                    <td>الدولة:</td>
+                                    <td>@Model.ShippingAddress.Country</td>
+                                </tr>
+                                <tr>
+                                    <td>طريقة الشحن:</td>
+                                    <td><label class="label label-success">@Model.ShippingMethod.Name</label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tab-product">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <td class="text-center">الصورة</td>
+                                    <td class="text-center">المنتج</td>
+                                    <td class="text-center">الكمية</td>
+                                    <td class="text-center">سعرالواحدة</td>
+                                    <td class="text-center">المجموع</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.OrderItems)
+                                {
+                                    <tr>
+
+                                        <td class="center" width="1">
+
+                                            <img class="img-thumbnail" src='@(item.ImageUrl + ".ashx?height=150&width=150")' title="iPhone" style="padding: 1px; border: 1px solid #DDDDDD;">
+
+                                        </td>
+
+                                        <td class="text-right">
+                                            @item.Name<br />
+                                            @(!String. IsNullOrEmpty(item.ColorEnglish)?"اللون : "+item.ColorEnglish:"")<br />
+                                            @(!String.IsNullOrEmpty(item.SizeEnglish) ? "القياس : " + item.SizeEnglish : "")
+                                        </td>
+                                        <td class="text-center">@item.Quantity</td>
+                                        <td class="text-center">@item.UnitPriceDisplay</td>
+                                        <td class="text-center">@item.TotalPriceDisplay</td>
+                                    </tr>
+                                }
+                                <tr>
+
+                                    <td colspan="4" class="text-right">المجموع الجزئي</td>
+
+
+                                    <td class="text-center">@Model.SubTotalDisplay</td>
+                                </tr>
+                                <tr>
+
+                                    <td colspan="4" class="text-right">@(Model.ShippingMethod.Id != (long)ShippingMethods.WithCompany ? Model.ShippingMethod.Name : Model.ShippingCompany.Name)</td>
+
+
+                                    <td class="text-center">@Model.ShippingCostDisplay</td>
+                                </tr>
+                                @if (!String.IsNullOrEmpty(Model.CouponCode))
+                                {
+                                    <tr>
+
+
+                                        <td colspan="4" class="text-right">كوبون(@Model.CouponCode)</td>
+
+
+                                        <td class="text-center">@(Model.CouponCurrency == "%" ? Model.CouponCurrency + Model.CouponValue : Model.CouponValueDisplay)</td>
+
+                                    </tr>
+                                }
+                                <tr>
+
+                                    <td colspan="4" class="text-right">المجموع الكلي</td>
+
+
+                                    <td class="text-center"><label class="label label-success">@Model.TotalDisplay</label></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="tab-pane" id="tab-history">
+                        <div id="history">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <td class="text-center">الحالة</td>
+                                        <td class="text-center">التعليق</td>
+                                        <td class="text-center">تاريخ الإضافة</td>
+                                        <td class="text-center">تنبيه المستخدم</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.OrderHistories.Count == 0)
+                                    {
+                                        <tr>
+                                            <td colspan="5" class="text-center">لايوجد تاريخ للطلب</td>
+                                        </tr>
+                                    }
+                                    else
+                                    {
+                                        foreach (var history in Model.OrderHistories)
+                                        {
+                                            <tr>
+                                                <td class="text-center">
+                                                    <label class="label @(history.State == OrderStates.complete ? "label-success" : "") @(history.State == OrderStates.canceled ? "label-danger" : "") @(history.State == OrderStates.pending ? "label-default" : "") @(history.State == OrderStates.paid ? "label-info" : "") @(history.State == OrderStates.pendingShipping ? "label-warning" : "") @(history.State == OrderStates.shipped ? "label-primary" : "") ">@(Utils.getOrderStateByLang(history.State))</label> 
+                                                </td>
+                                                <td class="text-center">@Html.Raw(history.Description.Replace(Environment.NewLine, "<br/>"))</td>
+                                                <td class="text-center">@(history.DateAdded.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture))</td>
+
+                                                <td class="text-center"><img src='@(history.NotifyUser ? "/Assets/images/true.png" : "/Assets/images/delete.png")' /></td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="row">
+                                <div class="col-sm-6 text-left"></div>
+                                <div class="col-sm-6 text-right"></div>
+                            </div>
+                        </div>
+                        <br>
+                        @if (!(Model.Status == OrderStates.complete) && !(Model.Status == OrderStates.canceled)){
+                        <fieldset>
+                            <legend>إضافة تأريخ للطلب</legend>
+                            <form id="add-history" class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-order-status">حالة الطلب</label>
+                                    <div class="col-sm-10">
+
+                                        <select name="state" id="input-order-status" class="form-control">
+                                            <option value="@OrderStates.pending" class="@((long)OrderStates.pending < (long)Model.Status || (long)OrderStates.pending != (long)Model.Status + 1 ? "hidden" : "")" @((long)OrderStates.pending == (long)Model.Status + 1? "selected" : "")>معلّق</option>
+                                           
+                                            <option value="@OrderStates.paid" class="@((long)OrderStates.paid < (long)Model.Status || (long)OrderStates.paid != (long)Model.Status + 1 ? "hidden" : "")" @((long)OrderStates.paid == (long)Model.Status + 1 ? "selected" : "")>مدفوع</option>
+                                            <option value="@OrderStates.pendingShipping" class="@((long)OrderStates.pendingShipping < (long)Model.Status || (long)OrderStates.pendingShipping != (long)Model.Status + 1 ? "hidden" : "")" @((long)OrderStates.pendingShipping == (long)Model.Status + 1 ? "selected" : "")>بانتظار الشحن</option>
+                                            <option value="@OrderStates.shipped" class="@((long)OrderStates.shipped < (long)Model.Status || (long)OrderStates.shipped != (long)Model.Status + 1 ? "hidden" : "")" @((long)OrderStates.shipped == (long)Model.Status + 1 ? "selected" : "")>تم الشحن</option>
+                                            <option value="@OrderStates.complete" class="@((long)OrderStates.complete < (long)Model.Status || (long)OrderStates.complete != (long)Model.Status + 1 ? "hidden" : "")" @((long)OrderStates.complete == (long)Model.Status + 1 ? "selected" : "")>منتهي</option>
+                                            <option value="@OrderStates.canceled" class="@((long)OrderStates.canceled < (long)Model.Status || Model.Status == OrderStates.complete ? "hidden" : "")" @((long)OrderStates.canceled == (long)Model.Status + 1 ? "selected" : "")>ملغي</option>
+
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-notify">تنبيه المستخدم</label>
+                                    <div class="col-sm-10">
+                                        <input type="checkbox" name="notify" value="1" id="input-notify" checked>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-comment">تعليق</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="comment" rows="8" id="input-comment" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <input type="hidden" name="Id" value="@Model.Id" />
+                            </form>
+                            <div class="text-right">
+                                <button id="button-history" data-loading-text="جاري التحميل..." class="btn btn-primary"><i class="fa fa-plus-circle"></i> إضافة تأريخ</button>
+                            </div>
+                        </fieldset>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        //$('#input-order-status').on('change', function () {
+        //    if($(this).val().toString()=="2")
+        //    {
+        //        $("#input-comment").text("تم الدفع لقاء الطلب");
+        //    }
+        //}
+        //    );
+    </script>
+    <script type="text/javascript">
+
+        $(document).delegate('#button-invoice', 'click', function () {
+            $.ajax({
+                url: 'index.php?route=sale/order/createinvoiceno&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#button-invoice').button('loading');
+                },
+                complete: function () {
+                    $('#button-invoice').button('reset');
+                },
+                success: function (json) {
+                    $('.alert').remove();
+
+                    if (json['error']) {
+                        $('#tab-order').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+                    }
+
+                    if (json['invoice_no']) {
+                        $('#button-invoice').replaceWith(json['invoice_no']);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        });
+
+        $(document).delegate('#button-reward-add', 'click', function () {
+            $.ajax({
+                url: 'index.php?route=sale/order/addreward&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+                type: 'post',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#button-reward-add').button('loading');
+                },
+                complete: function () {
+                    $('#button-reward-add').button('reset');
+                },
+                success: function (json) {
+                    $('.alert').remove();
+
+                    if (json['error']) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+                    }
+
+                    if (json['success']) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+                        $('#button-reward-add').replaceWith('<button id="button-reward-remove" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i> Remove Reward Points</button>');
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        });
+
+        $(document).delegate('#button-reward-remove', 'click', function () {
+            $.ajax({
+                url: 'index.php?route=sale/order/removereward&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+                type: 'post',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#button-reward-remove').button('loading');
+                },
+                complete: function () {
+                    $('#button-reward-remove').button('reset');
+                },
+                success: function (json) {
+                    $('.alert').remove();
+
+                    if (json['error']) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+                    }
+
+                    if (json['success']) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+                        $('#button-reward-remove').replaceWith('<button id="button-reward-add" class="btn btn-success btn-xs"><i class="fa fa-plus-circle"></i> Add Reward Points</button>');
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        });
+
+        $(document).delegate('#button-commission-add', 'click', function () {
+            $.ajax({
+                url: 'index.php?route=sale/order/addcommission&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+                type: 'post',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#button-commission-add').button('loading');
+                },
+                complete: function () {
+                    $('#button-commission-add').button('reset');
+                },
+                success: function (json) {
+                    $('.alert').remove();
+
+                    if (json['error']) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+                    }
+
+                    if (json['success']) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+                        $('#button-commission-add').replaceWith('<button id="button-commission-remove" class="btn btn-danger btn-xs"><i class="fa fa-minus-circle"></i> Remove Commission</button>');
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        });
+
+        $(document).delegate('#button-commission-remove', 'click', function () {
+            $.ajax({
+                url: 'index.php?route=sale/order/removecommission&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345',
+                type: 'post',
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#button-commission-remove').button('loading');
+
+                },
+                complete: function () {
+                    $('#button-commission-remove').button('reset');
+                },
+                success: function (json) {
+                    $('.alert').remove();
+
+                    if (json['error']) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+                    }
+
+                    if (json['success']) {
+                        $('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+
+                        $('#button-commission-remove').replaceWith('<button id="button-commission-add" class="btn btn-success btn-xs"><i class="fa fa-minus-circle"></i> Add Commission</button>');
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        });
+
+        $('#history').delegate('.pagination a', 'click', function (e) {
+            e.preventDefault();
+
+            $('#history').load(this.href);
+        });
+
+        $('#history').load('index.php?route=sale/order/history&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345');
+        $('#btn-generate').on('click', function () {
+            
+            $.ajax({
+                url: '@Url.Action("Invoice", "ManageOrder")',
+                method: 'Post',
+                data: {orderId: '@Model.Id' },
+                success: function (data) {
+                    refreshIndex();
+                    if (data.Succedeed == true) {
+
+                        generateFlash('success', data.message);
+
+                    }
+                    else {
+                        generateFlash('error', data.message);
+                    }
+                },
+                error: function (err) {
+                    alert(error);
+                }
+            });
+        });
+        function refreshIndex() {
+            $.ajax({
+                url: '@Url.Action("ViewOrder", "ManageOrder")',
+                method: 'Get',
+                data: { Id: '@Model.Id' },
+                success: function (data) {
+                    console.log(data);
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+        $('#button-history').on('click', function () {
+            $.ajax({
+                url: '@Url.Action("ViewOrder", "ManageOrder")',
+                type: 'post',
+                data: $("#add-history").serialize(),
+                beforeSend: function () {
+                   // $('#button-history').button('loading');
+                },
+                complete: function () {
+                   // $('#button-history').button('reset');
+                },
+                success: function (data) {
+
+
+                    if (data.Succedeed == true) {
+                        refreshIndex();
+                        jQuery('body,html').fadeOut(0).fadeIn(1500);
+                        generateFlash('success', data.message);
+                        setTimeout(function () {
+                            $('#histo').click();
+                        }, 500);
+                    }
+                    else {
+                        jQuery('body,html').fadeOut(0).fadeIn(1500);
+                        generateFlash('error', data.message);
+                    }
+
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+                }
+            });
+        });
+
+        function changeStatus() {
+            var status_id = $('select[name="order_status_id"]').val();
+
+            $('#openbay-info').remove();
+
+            $.ajax({
+                url: 'index.php?route=extension/openbay/getorderinfo&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345&status_id=' + status_id,
+                dataType: 'html',
+                success: function (html) {
+                    $('#history').after(html);
+                }
+            });
+        }
+
+        function addOrderInfo() {
+            var status_id = $('select[name="order_status_id"]').val();
+
+            $.ajax({
+                url: 'index.php?route=extension/openbay/addorderinfo&token=98afb38c3e9238de7f1b9619140bd13e&order_id=2345&status_id=' + status_id,
+                type: 'post',
+                dataType: 'html',
+                data: $(".openbay-data").serialize()
+            });
+        }
+
+        $(document).ready(function () {
+            changeStatus();
+        });
+
+        $('select[name="order_status_id"]').change(function () { changeStatus(); });
+        //--></script>
+</div>

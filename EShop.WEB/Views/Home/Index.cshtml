@@ -1,0 +1,59 @@
+﻿
+
+@{Html.RenderAction("WebsiteSlider","Home");}
+<!-- main container -->
+
+<div class="main-container col2-left-layout">
+    <div class="container">
+        <div class="row">
+            <div class="col-main col-md-9 col-sm-8 col-xs-12 col-sm-push-4 col-md-push-3">
+                <!-- Home Tabs  -->
+                @{ Html.RenderAction("GetMainPageProducts", "Home");}
+
+
+            </div>
+            <aside class="sidebar col-md-3 col-sm-4 col-xs-12 col-sm-pull-8 col-md-pull-9">
+                @*@{Html.RenderAction("GetTopProducts","Product",new {id=5,main=true});}
+                
+*@
+                @{ Html.RenderAction("GetLatestProducts", "Product");}
+            </aside>
+        </div>
+       
+    </div>
+</div>
+@{Html.RenderAction("GetMostPopularProducts", "Product");}
+<script>
+
+    function selectColor(productId, valueId) {
+        var prod = document.getElementById("prod-" + productId);
+        var className = "product-item-photo";
+        $("#prod-" + productId + " .btn-quickview")
+            .each(function () {
+                if (!$(this).hasClass('Hidden'))
+                    $(this).addClass('Hidden');
+            });
+        $('#q-d-' + productId + '-' + valueId).removeClass('Hidden');
+
+        var elems = prod.getElementsByClassName(className);
+        for (var i = 0; i < elems.length; i++) {
+            elems[i].className += elems[i].className ? ' Hidden' : 'Hidden';
+        }
+        //var colorElems = prod.getElementsByClassName("selectedColor");
+        //for (var ii = 0; ii < colorElems.length; ii++) {
+        //    colorElems[ii].className = "";
+        //    colorElems[ii].className = "colorClass";
+        //}
+        // el.className += el.className == "" ? 'selectedColor' : ' selectedColor';
+        // alert("#prod-" + productId);
+        $("#prod-" + productId + " .selectedColor").removeClass("selectedColor");
+        $('#' + productId.toString() + "--" + valueId.toString()).addClass("selectedColor");
+
+        // alert(elems);
+        document.getElementById(productId.toString() + '-' + valueId.toString()).className = "";
+        document.getElementById(productId.toString() + '-' + valueId.toString()).className = className;
+        return false;
+    }
+</script>
+<div id="quick"></div>
+<!-- end main container --> 

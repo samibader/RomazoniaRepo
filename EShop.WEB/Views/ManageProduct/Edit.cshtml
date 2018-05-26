@@ -1,0 +1,1928 @@
+﻿@model EShop.WEB.Models.AddProductVM
+@{
+    ViewBag.Title = "تعديل منتج";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                <button id="btn-save" type="button" form="form-product" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Save"><i class="fa fa-save"></i></button>
+                <a href="@Url.Action("Index","ManageProduct")" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="Cancel"><i class="fa fa-reply"></i></a>
+            </div>
+            <h1>المنتجات</h1>
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index","DashBoard")">الرئيسية</a></li>
+                <li><a href="@Url.Action("Index","ManageProduct")">تعديل منتج</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> تعديل منتج</h3>
+            </div>
+            <div class="panel-body">
+                <form method="post" enctype="multipart/form-data" id="form-product" class="form-horizontal">
+                    @Html.ValidationSummary("يرجى تصحيح الاخطاء التالية:")
+                    @Html.HiddenFor(c => c.HasColor)
+                    @Html.HiddenFor(c => c.HasSize)
+                    @Html.HiddenFor(c => c.SizeCategoryId)
+                    <input id="hasColor" type="hidden" name="" value="@(Model.HasColor?"1":"0")" />
+                    <input id="hasSize" type="hidden" name="" value="@(Model.HasSize?"1":"0")" />
+                    <input id="" type="hidden" name="HasColor" value="@(Model.HasColor?"True":"False")" />
+                    <input id="" type="hidden" name="HasSize" value="@(Model.HasSize ? "True" : "False")" />
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab-general" data-toggle="tab">عام</a></li>
+                        <li class=""><a href="#tab-data" data-toggle="tab">البيانات</a></li>
+                        @*<li><a href="#tab-links" data-toggle="tab">Links</a></li>*@
+                        <li class=""><a href="#tab-attribute" data-toggle="tab">الواصفات</a></li>
+                        <li id="option-tab" class=""><a href="#tab-option" data-toggle="tab">الخيارات</a></li>
+                        @*<li class=""><a href="#tab-recurring" data-toggle="tab">Recurring</a></li>*@
+                        @*<li class=""><a href="#tab-discount" data-toggle="tab">الحسم</a></li>*@
+                        @*<li class=""><a href="#tab-special" data-toggle="tab">Special</a></li>*@
+                        <li class=""><a href="#tab-image" data-toggle="tab">الصور</a></li>
+                        <li id="size-tab" class=""><a href="#tab-size" data-toggle="tab">واصفات القياسات</a></li>
+                        <li id="comment-tab" class=""><a href="#tab-comment" data-toggle="tab">التعليق</a></li>
+
+                        @*<li class=""><a href="#tab-reward" data-toggle="tab">Reward Points</a></li>
+                            <li class=""><a href="#tab-design" data-toggle="tab">Design</a></li>*@
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-general">
+                            <ul class="nav nav-tabs" id="language">
+                                <li class="active"><a href="#language2" data-toggle="tab"><img src="/Assets/images/flag-arabic.jpg" title="العربية"> العربية</a></li>
+                                <li class=""><a href="#language1" data-toggle="tab"><img src="/Assets/images/flag-english.jpg" title="English"> English</a></li>
+
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane " id="language1">
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-name1">Product Name</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(c => c.EnglishName, new { @class = "form-control", id = "input-name1", placeholder = "Product Name" })
+                                            @*<input type="text" name="EnglishName" value="@Model.EnglishName" placeholder="Product Name" id="input-name1" class="form-control">*@
+                                            @Html.ValidationMessageFor(c => c.EnglishName)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-eng-desc">Description</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextAreaFor(c => c.EnglishDescription, new { @class = "summer-en", id = "input-english-description" })
+                                            @Html.ValidationMessageFor(c => c.EnglishDescription)
+                                            @*<textarea name="EnglishDescription" placeholder="Description" id="input-english-description" class="summer-en">@Model.EnglishDescription</textarea>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-description1">Meta Tag Description</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="EnglishMetaTagDescription" rows="5" placeholder="Meta Tag Description" id="input-meta-description1" class="form-control">@Model.EnglishMetaTagDescription</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-keyword1">Meta Tag Keywords</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="EnglishMetaTagKeywords" rows="5" placeholder="Meta Tag Keywords" id="input-meta-keyword1" class="form-control">@Model.EnglishMetaTagKeywords</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-tag1"><span data-toggle="tooltip" title="" data-original-title="comma separated">Product Tags</span></label>
+                                        <div class="col-sm-10">
+                                            @foreach (var tag in Model.EnglishProductTags)
+                                            {
+                                                <input type="hidden" class="eng-prod-tags" name="" value="@tag" />
+                                            }
+                                            <input type="text" name="EnglishProductTags" value="" placeholder="Product Tags" id="input-tag-english" class="form-control">
+                                            @*<input type="text" name="term" value="" placeholder="Product Tags" id="input-tag1"  class="form-control">*@
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="language2" class="tab-pane active">
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-name2">الاسم العربي</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(c => c.ArabicName, new { @class = "form-control", id = "input-name2", placeholder = "Product Name" })
+                                            @*<input type="text" name="ArabicName" value="@Model.ArabicName" placeholder="Product Name" id="input-name2" class="form-control">*@
+                                            @Html.ValidationMessageFor(c => c.ArabicName)
+
+
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-description2">الوصف</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextAreaFor(c => c.ArabicDescription, new { @class = "summer-ar", id = "input-arabic-description" })
+                                            @*<textarea name="ArabicDescription" placeholder="Description" id="input-arabic-description" class="summer-ar">@Model.ArabicDescription</textarea>*@
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-description2">Meta Tag Description</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextAreaFor(c => c.ArabicMetaTagDescription, new { @class = "form-control", id = "input-meta-description2" })
+                                            @*<textarea name="ArabicMetaTagDescription" rows="5" placeholder="Meta Tag Description" id="input-meta-description2" class="form-control">@Model.ArabicMetaTagDescription</textarea>*@
+                                            @Html.ValidationMessageFor(c => c.ArabicDescription)
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-keyword2">Meta Tag Keywords</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextAreaFor(c => c.ArabicMetaTagKeywords, new { @class = "form-control", id = "input-meta-keyword2" })
+                                            @*<textarea name="ArabicMetaTagKeywords" rows="5" placeholder="Meta Tag Keywords" id="input-meta-keyword2" class="form-control">@Model.ArabicMetaTagKeywords</textarea>*@
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-tag1"><span data-toggle="tooltip" title="" data-original-title="comma separated">تاغات المنتج</span></label>
+                                        <div class="col-sm-10">
+
+                                            @foreach (var tag in Model.ArabicProductTags)
+                                            {
+
+                                                <input type="hidden" class="ar-prod-tags" name="" value="@tag" />
+                                            }
+                                            <input type="text" name="ArabicProductTags" value="" placeholder="تاغات المنتج" id="input-tag-arabic" class="form-control">
+                                            @*<input type="text" name="term" value="" placeholder="Product Tags" id="input-tag1"  class="form-control">*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-data">
+                            @*<div class="form-group">
+                                <label for="cat-id" class="col-sm-2 control-label">الفئةالرئيسية</label>
+                                <select id="primary-cat-id" name="" class="form-control col-sm-2">
+                                    <option value="">اختر فئة</option>
+                                    @foreach (var cat in Model.BaseCategories)
+                                    {
+                                          <option value="@cat.Id" @(Model.BaseCategoryId == cat.Id ? "selected" : "")>@cat.Name
+                                    </option>
+                                    }
+                                   
+
+                                </select>
+                            </div>
+                            <div id="sub-cat-div" class="form-group">
+                                <label for="cat-id" class="col-sm-2 control-label">الفئة الفرعية الاولى</label>
+                                <select id="sub-cat-id" name="" class="form-control col-sm-2">
+                                    <option value="">
+                                        اختر فئة فرعية
+                                    </option>
+                                    @foreach (var sub in Model.SubCategories)
+                                    {
+                                        <option value="@sub.Id" @(Model.SubCategoryId == sub.Id ? "selected" : "")>
+                                            @sub.Name
+                                        </option>
+                                    }
+                                </select>
+                            </div>*@
+                            <div id="prod-cat-div" class="form-group ">
+                                <label for="cat-id" class="col-sm-2 control-label">فئة المنتج</label>
+                                <select id="prod-cat-id" name="CategoryId" data-val="true" data-val-required="يرجى اختيار فئة للمنتج" aria-required="true" aria-describedby="CategoryId-error" aria-invalid="true" class="form-control col-sm-2 ">
+                                    <option value="">
+                                        اختر فئة المنتج
+                                    </option>
+                                    @foreach (var cat in Model.BaseCategories)
+                                    {
+                                        <option value="@cat.CategoryId" @(Model.CategoryId == cat.CategoryId ? "selected" : "")>
+                                            @cat.PathStr
+                                        </option>
+                                    }
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="des-id" class="col-sm-2 control-label">المصمم</label>
+                                @Html.DropDownListFor(c => c.DesignerId, new SelectList(Model.Designers, "DesignerId", "DesignerName"), "أختر مصمم", new { @class = "form-control col-sm-2", id = "des-id" })
+                                @*<select id="des-id" name="DesignerId" class="form-control col-sm-2">
+                                    @foreach (var designer in Model.Designers)
+                                    {
+                                        <option value="@designer.DesignerId" @(Model.DesignerId == designer.DesignerId ? "selected" : "")>
+                                            @designer.DesignerName
+                                        </option>
+                                    }
+                                </select>*@
+                                @Html.ValidationMessageFor(c => c.DesignerId)
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-price">السعر</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(c => c.Price, new { @class = "form-control", id = "input-price", placeholder = "السعر" })
+                                    @*<input type="text" name="Price" value="@Model.Price" placeholder="السعر" id="input-price" class="form-control  ">*@
+                                    @Html.ValidationMessageFor(c => c.Price)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-min-qty">الكمية الصغرى</label>
+                                <div class="col-sm-10">
+                                    @Html.TextBoxFor(c => c.MinimumQty, new { @class = "form-control", id = "input-min-qty", placeholder = "الكمية الصغرى" })
+                                    @*<input type="text" name="MinimumQty" value="@Model.MinimumQty" placeholder="الكمية الصغرى" id="input-min-qty" class="form-control">*@
+                                    @Html.ValidationMessageFor(c => c.MinimumQty)
+                                </div>
+                            </div>
+                            @if (!Model.HasColor && !Model.HasSize)
+                            {
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="input-qty">الكمية</label>
+                                    <div class="col-sm-10">
+                                        @Html.TextBoxFor(c => c.Quantity, new { @class = "form-control", id = "input-qty", placeholder = "الكمية" })
+                                        @*<input type="text" name="Quantity" value="@Model.Quantity" placeholder="الكمية" id="input-qty" class="form-control">*@
+                                        @Html.ValidationMessageFor(c => c.Quantity)
+                                    </div>
+                                </div>
+                            }
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-status">الحالة</label>
+                                <div class="col-sm-10">
+                                    <select name="Status" id="input-status" class="form-control">
+                                        <option value="True" @(Model.Status ? "selected" : "")>فعال</option>
+                                        <option value="False" @(!Model.Status ? "selected" : "")>غير فعال</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="tab-pane" id="tab-attribute">
+                            <div class="table-responsive">
+                                <select id="select-attribute" class="form-control hidden" name="">
+                                    @foreach (var attrGroups in Model.AttributesGroups)
+                                    {
+                                        <optgroup label="@attrGroups.Name">
+                                            @foreach (var attr in attrGroups.Attributes)
+                                            {
+                                                <option value="@attr.Id">
+                                                    @attr.Name
+                                                </option>
+                                            }
+                                        </optgroup>
+                                    }
+
+                                </select>
+
+                                <table id="attribute" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-left">الواصفات</td>
+                                            <td class="text-left">النص</td>
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @for (int i = 0; i < Model.Attributes.Count; i++)
+                                        {
+                                            <tr id='@("attribute-row-"+i)'>
+
+                                                <td class="text-left" style="width: 20%">
+                                                    <select id="attr-select-id-@i" class="form-control" name="@("Attributes[" + i + "][Id]")">
+                                                        @foreach (var attrGroups in Model.AttributesGroups)
+                                                        {
+                                                            <optgroup label="@attrGroups.Name">
+                                                                @foreach (var attr in attrGroups.Attributes)
+                                                                {
+                                                                    <option value="@attr.Id" @(attr.Id == Model.Attributes[i].Id ? "selected" : "")>
+                                                                        @attr.Name
+                                                                    </option>
+                                                                }
+                                                            </optgroup>
+                                                        }
+                                                    </select>
+                                                    
+                                                </td>
+
+                                                <td class="text-left">
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <img src="/Assets/images/flag-english.jpg" title="English" />
+                                                        </span>
+                                                        <textarea id="attr-english-desc-@i" name="@("Attributes[" + i + "][EnglishName]")" rows="5" placeholder="Description" class="form-control">@Model.Attributes[i].EnglishName</textarea>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">
+                                                            <img src="/Assets/images/flag-arabic.jpg" title="العربية" />
+                                                        </span>
+                                                        <textarea id="attr-arabic-desc-@i" name='@("Attributes[" + i + "][ArabicName]")' rows="5" placeholder="الوصف بالعربي" class="form-control">@Model.Attributes[i].ArabicName</textarea>
+                                                    </div>'
+                                                </td>
+                                                <td class="text-left"><a  onclick='return removeAttribute1(@i)' data-toggle="tooltip" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></a></td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td class="text-left"><button type="button" onclick="addAttribute()" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Add Attribute"><i class="fa fa-plus-circle"></i></button></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-option">
+                            <div class="row">
+                                @*<div class="col-sm-2">
+                                        <ul class="nav nav-pills nav-stacked" id="option">
+                                            <li class="active"><a href="#tab-option0" data-toggle="tab"><i class="fa fa-minus-circle" onclick="$('a[href=\'#tab-option0\']').parent().remove(); $('#tab-option0').remove(); $('#option a:first').tab('show')"></i> Checkbox</a></li>
+                                            <li>
+                                                <input type="text" name="option" value="" placeholder="Option" id="input-option" class="form-control" autocomplete="off"><ul class="dropdown-menu" style="top: 36px; left: 0px; display: none;"><li class="dropdown-header">Choose</li><li data-value="2"><a href="#">&nbsp;&nbsp;&nbsp;Checkbox</a></li><li class="dropdown-header">Date</li><li data-value="8"><a href="#">&nbsp;&nbsp;&nbsp;Date</a></li><li data-value="10"><a href="#">&nbsp;&nbsp;&nbsp;Date &amp; Time</a></li><li data-value="12"><a href="#">&nbsp;&nbsp;&nbsp;Delivery Date</a></li><li class="dropdown-header">File</li><li data-value="7"><a href="#">&nbsp;&nbsp;&nbsp;File</a></li></ul>
+                                            </li>
+                                        </ul>
+                                    </div>*@
+                                <div class="col-sm-12">
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="tab-option0">
+                                            <input type="hidden" name="product_option[0][product_option_id]" value="">
+                                            <input type="hidden" name="product_option[0][name]" value="Checkbox">
+                                            <input type="hidden" name="product_option[0][option_id]" value="2">
+                                            <input type="hidden" name="product_option[0][type]" value="checkbox">
+
+                                            <div class="table-responsive">
+                                                <table id="option-values" class="table table-striped table-bordered table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            @if (Model.HasColor)
+                                                            {
+                                                            <td class="text-left col-md-1">اللون</td>
+                                                            }
+                                                            @if (Model.HasSize)
+                                                            {
+                                                            <td class="text-left col-md-1">القياس</td>
+                                                            }
+                                                            <td class="text-right col-md-1">الكمية</td>
+                                                            <td class="text-right col-md-1">السعر</td>
+                                                            <td class="text-right col-md-4">Tags</td>
+                                                            @if (Model.HasColor) { 
+                                                            <td class="text-right col-md-3">تحميل صور</td>
+                                                            }
+                                                            <td class="col-md-1"></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr style="display:none">
+                                                            <td>
+                                                                <select style="display:none" id="option-values1" name="" class="form-control">
+                                                                    <option value="" selected>اختر لون</option>
+                                                                    @foreach (var color in Model.Colors)
+                                                                    {
+                                                                    <option value="@color.ValueId">@color.ColorName</option>
+                                                                    }
+                                                                </select>
+
+                                                                <select style="display:none" id="option-values2" name="" class="form-control">
+                                                                    <option value="" selected>اختر قياس</option>
+                                                                    @foreach (var size in Model.Sizes)
+                                                                    {
+                                                                    <option value="@size.ValueId">@size.Name</option>
+                                                                    }
+                                                                </select>
+                                                            </td>
+                                                        </tr>
+                                                        @if (Model.HasColor || Model.HasSize)
+                                                        {
+                                                            for (int i = 0; i < Model.ProductOptionValues.Count; i++)
+                                                            {
+                                                                <tr class="option" id="@("option-value-row-" + i)">
+                                                                    @if (Model.HasColor) { 
+                                                                    <td class="text-left">
+                                                                        @*@Html.DropDownListFor(c => c.ProductOptionValues[i].ColorValueId, new SelectList(Model.Colors, "ValueId", "ColorName"), "اختر لون", new { @class = "form-control color",id="option-color-values"+i })*@
+                                                                        <select id="@("option-color-values"+i)" name="ProductOptionValues[@i][ColorValueId]" onchange="checkSize(@i)" class="form-control color">
+                                                                            <option value="">اختر لون</option>
+                                                                            @foreach (var color in Model.Colors)
+                                                                        {
+                                                                        <option value="@color.ValueId" @(Model.ProductOptionValues[i].ColorValueId == color.ValueId ? "selected" : "")>@color.ColorName</option>
+                                                                        }
+                                                                        </select>
+
+                                                                    </td>
+                                                                        }
+                                                                        @if (Model.HasSize) { 
+                                                                    <td class="text-left">
+                                                                        @*@Html.DropDownListFor(c => c.ProductOptionValues[i].SizeValueId, new SelectList(Model.Sizes, "ValueId", "Name"), "اختر قياس", new { @class = "form-control size", id = "option-size-values" + i })*@
+                                                                        <select id="@("option-size-values"+i)" name="ProductOptionValues[@i][SizeValueId]" onchange="checkColor(@i)" class="form-control size">
+                                                                            <option value="">اختر قياس</option>
+                                                                            @foreach (var size in Model.Sizes)
+                                                                        {
+                                                                        <option value="@size.ValueId" @(Model.ProductOptionValues[i].SizeValueId == size.ValueId ? "selected" : "")>@size.Name</option>
+                                                                        }
+                                                                        </select>
+
+                                                                    </td>
+                                                                            }
+                                                                    <td class="text-right">
+                                                                        @Html.TextBoxFor(c => c.ProductOptionValues[i].Quantity, new { @class = "form-control", placeholder = "الكمية", id = "prod-quantity-"+i })
+                                                                        @*<input id="prod-quantity-@i" type="text" name="ProductOptionValues[@i][Quantity]" value="@Model.ProductOptionValues[i].Quantity" placeholder="الكمية" class="form-control">*@
+                                                                    </td>
+
+                                                                    <td class="text-right">
+                                                                        <select id="prefix-select-@i" name="ProductOptionValues[@i][PricePrefix]" class="form-control">
+                                                                            <option value="+" @(Model.ProductOptionValues[i].PricePrefix == "+" ? "selected" : "")>+</option>
+                                                                            <option value="-" @(Model.ProductOptionValues[i].PricePrefix == "-" ? "selected" : "")>-</option>
+                                                                        </select>
+                                                                        @Html.TextBoxFor(c => c.ProductOptionValues[i].Price, new { @class = "form-control", placeholder = "السعر", id = "prod-price-" + i })
+                                                                        @*<input id="prod-price-@i" type="text" name="ProductOptionValues[@i][Price]" value="@Model.ProductOptionValues[i].Price" placeholder="Price" class="form-control">*@
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group ">
+                                                                            <div style="min-width:100%" class="input-group">
+
+                                                                                <span class="input-group-addon">
+                                                                                    <img src="/Assets/images/flag-arabic.jpg" title="العربية">
+                                                                                </span>
+                                                                                @foreach (var tag in Model.ProductOptionValues[i].ArabicTags)
+                                                                              {
+
+                                                                            <input type="hidden" class="ar-sku-tags-@i" name="" value="@tag" />
+                                                                              }
+                                                                                <input id='@("sku-ar-tags-"+i)' type="text" name="ProductOptionValues[@i][ArabicTags]" value="" placeholder="" class="form-control tags" />
+
+                                                                            </div>
+
+                                                                        </div>
+
+
+                                                                        <div class="form-group ">
+                                                                            <div style="min-width:100%" class="input-group">
+                                                                                <span class="input-group-addon">
+                                                                                    <img src="/Assets/images/flag-english.jpg" title="English">
+                                                                                </span>
+                                                                                @foreach (var tag in Model.ProductOptionValues[i].EnglishTags)
+                              {
+
+                            <input type="hidden" class="en-sku-tags-@i" name="" value="@tag" />
+                              }
+                                                                                <input id="@("sku-en-tags-"+i)" type="text" name="ProductOptionValues[@i][EnglishTags]" value="" placeholder="" class="form-control tags" />
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </td>
+                                                                    @if (Model.ProductOptionValues[i].ImagesUrls != null) {
+                                                                <td id="td-sku-images-@i" class="text-right">
+                                                                    @for (int j = 0; j < Model.ProductOptionValues[i].ImagesUrls.Count; j++)
+                                                                    {
+                                                                    <input id="@("hid-"+i+"-"+j)" type="hidden" name="ProductOptionValues[@i][ImagesUrls][@j]" value="@Model.ProductOptionValues[i].ImagesUrls[j]" />
+                                                                    }
+                                                                    <div id="my-awesome-dropzone-@i" class="dropzone img-drop">
+                                                                        <div class="dropzone-previews"></div>
+                                                                        <div class="text-center">
+                                                                            <div style="margin-bottom: 10px">
+                                                                                <button id="btn-add-image-@i" class="btn btn-primary btn-block">
+                                                                                    <i class="fa fa-upload"></i> &nbsp;
+                                                                                    رفع الصور المختارة
+
+                                                                                </button>
+                                                                                @*<span>الرجاء النقر على اي مكان في المربع لاختيار الصور</span>*@
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    @*<input id="@("SKUFileToUpload"+i)" type="file" name="ProductOptionValues[@i][ImagesUrls][@Model.ProductOptionValues[i].ImagesUrls.Count]" value="" placeholder="تحميل صور" class="form-control">
+                                                                        <button id="@("AddImage"+i)" onclick="AddImage(@i)" class="btn btn-primary">تحميل</button>*@
+                                                                </td>
+                                                                }
+
+                                                                    <td class="text-left">
+                                                                        <button type="button" onclick="removeOptionValue1(@i)" data-toggle="tooltip" rel="tooltip" title="" class="btn btn-danger" data-original-title="Remove">
+                                                                            <i class="fa fa-minus-circle"></i>
+                                                                        </button>
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            @{
+                                                                int colSpan = 0;
+                                                                if (Model.HasSize && Model.HasColor)
+                                                                {
+                                                                    colSpan = 6;
+                                                                }
+                                                                else if ((Model.HasColor && !Model.HasSize))
+                                                                {
+                                                                    colSpan = 5;
+                                                                }
+                                                                else if ((!Model.HasColor && Model.HasSize))
+                                                                {
+                                                                    colSpan = 4;
+                                                                }
+                                                                else
+                                                                {
+                                                                    colSpan = 3;
+                                                                }
+                                                            }
+                                                            <td colspan="@colSpan"></td>
+
+                                                            <td class="text-left">
+                                                                <button type="button" onclick="addOptionValue(@Model.ProductOptionValues.Count);" data-toggle="tooltip" title="Add Option Value" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tab-comment">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title"><i class="fa fa-list"></i>التعليق</h3>
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="well">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <label class="control-label" for="input-comment-id">التعليق</label>
+                                                    @Html.TextAreaFor(c => c.Comment, new { @class = "form-control summer-comment", placeholder = "التعليق", id = "input-comment-id" })
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane" id="tab-image">
+                            <div id="prod-imgs" class="table-responsive">
+                                
+                                @for (int j = 0; j < Model.ImagesUrls.Count; j++)
+                                                                    {
+                                            <input id="hid-prod-img-@j" type="hidden" name="ImagesUrls[@j]" value="@Model.ImagesUrls[j]" />
+                                                                    }
+                                <div id="my-awesome-dropzone-product" class="dropzone">
+                                    <div class="dropzone-previews"></div>
+                                    <div class="text-center">
+                                        <div style="margin-bottom: 10px">
+                                            <button id="btn-add-prod-image" class="btn btn-primary btn-block">
+                                                <i class="fa fa-upload"></i> &nbsp;
+                                                رفع الصور المختارة
+
+                                            </button>
+                                            @*<span>الرجاء النقر على اي مكان في المربع لاختيار الصور</span>*@
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*<table id="images" class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-left">الصورة</td>
+
+                                            <td></td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @for (int i = 0; i < Model.ImagesUrls.Count; i++)
+                                        {
+                                            <tr id="image-row-@i">
+                                                <td class="text-left">
+                                                    <img id="@("thumb-image" + i)" src='@(Model.ImagesUrls[i]+".ashx?height=100&width=100")' class="img-thumbnail" alt="" title="" />
+                                                    <input type="hidden" name="ImagesUrls[@i]" value="@Model.ImagesUrls[i]" id="@("input-image" + i )" />
+                                                    <input id="@("FileToUpload" + i)" type="file" value="" />
+                                                    <a class="btn btn-primary" onclick="addImageToProduct(@i)">إضافة</a>
+                                                </td>
+                                                <td class="text-left">
+                                                    <button type="button" onclick="$('#image-row' + @i  ).remove();" data-toggle="tooltip" title="Remove" class="btn btn-danger">
+                                                        <i class="fa fa-minus-circle"></i>
+                                                    </button>
+                                                </td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="1"></td>
+                                            <td class="text-left">
+                                                <button type="button" onclick="addProductImage();" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="Add Image">
+                                                    <i class="fa fa-plus-circle">
+                                                    </i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>*@
+                            </div>
+                        </div>
+                        @if (Model.HasSize)
+                        {
+                            <div class="tab-pane" id="tab-size">
+                                <div class="table-responsive">
+                                    <table id="" class="table table-striped table-bordered table-hover">
+                                        <thead>
+                                            <tr>
+                                                <td></td>
+
+                                                @foreach (var sizeAttribute in Model.AllSizeAttributes)
+                                                {
+                                                    <td class="text-center">@sizeAttribute.Name</td>
+                                                }
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @for (int i = 0; i < Model.Sizes.Count; i++)
+                                            {
+                                                <tr>
+
+                                                    <td class="text-center">@Model.Sizes[i].Name</td>
+                                                    @for (int j = 0; j < Model.AllSizeAttributes.Count; j++)
+                                                    {
+                                                        @*<td class="text-center">
+                                                            <input type="hidden" name='@("SizeAttributes[" + (i * Model.AllSizeAttributes.Count + j) + "][SizeAttributeId]")' value="@Model.SizeAttributes[(i*Model.AllSizeAttributes.Count)+j].SizeAttributeId" />
+
+                                                            <input type="hidden" name='@("SizeAttributes[" + (i * Model.AllSizeAttributes.Count + j) + "][SizeValueId]")' value="@Model.SizeAttributes[(i*Model.AllSizeAttributes.Count)+j].SizeValueId" />
+                                                            <div class="form-group">
+                                                                <div class="col-md-6 text-center">
+                                                                    <input id='@("cm-" + i+"-"+j)' type="number" name='@("SizeAttributes[" + (i * Model.AllSizeAttributes.Count + j) + "][Value]")' value="@Model.SizeAttributes[(i * Model.AllSizeAttributes.Count) + j].Value" placeholder="سنتيمتر" onchange="changeInche('@i','@j')" class="form-control  cms">
+                                                                </div>
+                                                                <div class="col-md-6 text-center">
+                                                                    <input id='@("inche-" + i + "-" + j)' type="number" name="" value="" placeholder="إنش" onchange="changeCM('@i','@j')" class="form-control  inches">
+                                                                </div>
+
+                                                            </div>
+                                                        </td>*@
+
+                                                    }
+                                                </tr>
+                                            }
+                                        </tbody>
+                                        <tfoot>
+
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content" style="padding: 5px;">
+                @*<div class="modal-header" style="background-color:rgba(255, 0, 0,0.3)">
+                    <h4>تنبيه</h4>
+                </div>*@
+                <div class="modal-body">
+                    <img style="width:100%" id="img-full-size" class="" src="" alt="Alternate Text" />
+                </div>
+                @*<div class="modal-footer">
+                    <button id="confirm" data-dismiss="modal" class="btn btn-danger">حذف</button>
+                    <button id="cancel" data-dismiss="modal" class="btn btn-continue">إلغاء</button>
+                </div>*@
+            </div>
+        </div>
+    </div>
+    <script>
+        $('.summer-comment').summernote({
+            focus: true,
+            direction: 'rtl',
+            fontNames: ['DroidArabicNaskh', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+            fontNamesIgnoreCheck: ['DroidArabicNaskh']
+        });
+    </script>
+    <script>
+        function AddImageToSku(i, response) {
+            console.log(response);
+            var td = $('#td-sku-images-' + i);
+            var currentImages = td.find("input[type='hidden']");
+            var j = currentImages.length;
+            debugger;
+            var newImage = "<input id='hid-" + i + "-" + j + "' type='hidden' name='ProductOptionValues[" + i + "][ImagesUrls][" + j + "]' value='/uploads/" + response.name + "' />";
+            td.append($(newImage));
+        }
+        function DeleteImageFromSku(i, name) {
+            var td = $('#td-sku-images-' + i);
+            var image = td.find('input[value="/uploads/' + name + '"]');
+            console.log(image);
+            debugger;
+            image.remove();
+            var images = td.find('input[type="hidden"]');
+            images.each(function (idx, el) {
+                var name1 = "ProductOptionValues[" + i + "][ImagesUrls][" + idx + "]"
+                $(this).attr('name', name1);
+            });
+
+        }
+        Dropzone.autoDiscover = false;
+        $('.img-drop').each(function (index, el) {
+            console.log(index);
+            var i = $(this).attr('id').split('-')[3];
+            $(this).dropzone({
+                url: '@Url.Action("UploadFiles","Base")',
+                autoProcessQueue: false,
+                parallelUploads: 100,
+                maxFiles: 5,
+                maxFilesize: 2,
+                paramName: "files",
+                addRemoveLinks: true,
+                acceptedFiles: "image/*",
+                dictRemoveFile: "إلغاء",
+                dictFileTooBig: "حجم الملف أكبر من الحد المطلوب",
+                dictMaxFilesExceeded: "لا يمكنك تحميل أكثر من 5 ملفات إضافية",
+                // Dropzone settings
+                success: function (file, response) {
+                    file.previewElement.classList.add("dz-success");
+                    file.serverId = response;
+                    console.log(response);
+                    //alert(file.name);
+                    file.previewElement.addEventListener("click", function () {
+                        $('#img-full-size').attr("src", "/uploads/" + response.name);
+                        $('#myModal').modal('show');
+                        //var win = window.open("/uploads/" + response.name, '_blank');
+                        //win.focus();
+                    });
+                    AddImageToSku(i, response);
+                },
+                removedfile: function (file) {
+                    console.log(file);
+                    //debugger;
+                    var image = file.serverId;
+                    if (image == null || typeof (image) === "undefined") {
+                        image = file;
+                    }
+                    console.log(image);
+                    debugger;
+
+                    var rawname = image.name.substring(9);
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteUploadedImage", "Base")',
+                        data: { name: rawname },
+                        dataType: 'html',
+                        success: function (data) {
+
+                        }
+
+                    });
+                    DeleteImageFromSku(i, rawname);
+                    var _ref;
+                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+                },
+                init: function () {
+
+                    var myDropzone = this;
+                    var $this = $(this);
+                    var i = this.element.attributes["0"].nodeValue.split('-')[3];
+                    this.element.querySelector("button").addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+
+                    $('#td-sku-images-' + i).find('input[type="hidden"]').each(function () {
+                        // Create the mock file:
+                        var fileName = $(this).val();
+                        var mockFile = { name: fileName, size: 12345 };
+                        console.log("mock file = " + mockFile);
+
+                        // Call the default addedfile event handler
+                        myDropzone.emit("addedfile", mockFile);
+
+                        // And optionally show the thumbnail of the file:
+                        myDropzone.emit("thumbnail", mockFile, fileName);
+                        // Or if the file on your server is not yet in the right
+                        // size, you can let Dropzone download and resize it
+                        // callback and crossOrigin are optional.
+                        // myDropzone.createThumbnailFromUrl(file, imageUrl, callback, crossOrigin);
+
+                        // Make sure that there is no progress bar, etc...
+                        myDropzone.emit("complete", mockFile);
+
+
+
+                        mockFile.previewElement.addEventListener("click", function () {
+                            $('#img-full-size').attr("src", mockFile.name);
+                            $('#myModal').modal('show');
+                        });
+
+                        // If you use the maxFiles option, make sure you adjust it to the
+                        // correct amount:
+                        var existingFileCount = 1; // The number of files already uploaded
+                        myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
+                    });
+
+                    this.on("sendingmultiple", function () {
+                    });
+                    this.on("successmultiple", function (files, response) {
+                      //  alert(response);
+                    });
+                    this.on("errormultiple", function (files, response) {
+                    });
+
+                }
+            })
+        });
+    </script>
+    <script>
+        function AddImageToProd(response)
+        {
+            
+            var imgs = $('#prod-imgs');
+            var currentImages = imgs.find("input[type='hidden']");
+            var j = currentImages.length;
+            
+            var newImage = "<input id='hid-prod-img-" + j + "' type='hidden' name='ImagesUrls[" + j + "]' value='/uploads/" + response.name + "' />";
+            imgs.append($(newImage));
+        }
+
+        function DeleteImageFromProd(name) {
+            var imgs = $('#prod-imgs');
+            var image = imgs.find('input[value="' + name.name + '"]');
+            image.remove();
+            var images = imgs.find('input[type="hidden"]');
+            images.each(function (idx, el) {
+                var name1 = "ImagesUrls[" + idx + "]";
+                $(this).attr('name', name1);
+            });
+        }
+        var productDropZone = new Dropzone("#my-awesome-dropzone-product",{
+                url: '@Url.Action("UploadFiles","Base")',
+                autoProcessQueue: false,
+                parallelUploads: 100,
+                maxFiles: 5,
+                maxFilesize: 2,
+                paramName: "files",
+                thumbnailWidth:100,
+                thumbnailHeight:150,
+                addRemoveLinks: true,
+                acceptedFiles: "image/*",
+                dictRemoveFile: "إلغاء",
+                dictFileTooBig: "حجم الملف أكبر من الحد المطلوب",
+                dictMaxFilesExceeded: "لا يمكنك تحميل أكثر من 5 ملفات إضافية",
+                // Dropzone settings
+                success: function (file, response) {
+                    file.previewElement.classList.add("dz-success");
+                    file.serverId = response;
+                    console.log(response);
+                    //alert(file.name);
+                    debugger;
+                    if (!file.type.match(/image.*/)) {
+                        my.emit("thumbnail", file, "/uploads/"+response.name);
+                    }
+                    file.previewElement.addEventListener("click", function () {
+                        var win = window.open("/uploads/"+response.name, '_blank');
+                        win.focus();
+                    });
+                    AddImageToProd(response);
+                },
+                removedfile: function (file) {
+                    console.log(file);
+                    debugger;
+                    var image = file.serverId;
+                    if (image == null || typeof (image) === "undefined") {
+                        image = file;
+                    }
+                    console.log(image);
+                    debugger;
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("DeleteUploadedImage", "Base")',
+                        data: { name: image.name },
+                        dataType: 'html',
+                        success: function (data) {
+
+                        }
+
+                    });
+                    DeleteImageFromProd(image);
+                    var _ref;
+                    return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+                },
+                init: function () {
+
+                    var myDropzone = this;
+                    var $this = $(this);
+                    //var i = this.element.attributes["0"].nodeValue.split('-')[3];
+                    this.element.querySelector("button").addEventListener("click", function (e) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        myDropzone.processQueue();
+                    });
+
+                    $('#prod-imgs').find('input[type="hidden"]').each(function () {
+                        // Create the mock file:
+                        var fileName = $(this).val();
+                        var mockFile = { name: fileName, size: 12345 };
+                        console.log("mock file = " + mockFile);
+
+                        // Call the default addedfile event handler
+                        myDropzone.emit("addedfile", mockFile);
+
+                        // And optionally show the thumbnail of the file:
+                        var res = myDropzone.emit("thumbnail", mockFile, fileName);
+                        console.log(res);
+                        // Or if the file on your server is not yet in the right
+                        // size, you can let Dropzone download and resize it
+                        // callback and crossOrigin are optional.
+                        // myDropzone.createThumbnailFromUrl(file, imageUrl, callback, crossOrigin);
+
+                        // Make sure that there is no progress bar, etc...
+                        myDropzone.emit("complete", mockFile);
+                        
+                        mockFile.previewElement.addEventListener("click", function () {
+                            var win = window.open(mockFile.name, '_blank');
+                            win.focus();
+                        });
+
+                        // If you use the maxFiles option, make sure you adjust it to the
+                        // correct amount:
+                        var existingFileCount = 1; // The number of files already uploaded
+                        myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
+                    });
+
+                    this.on("sendingmultiple", function () {
+                    });
+                    this.on("successmultiple", function (files, response) {
+                      //  alert(response);
+                    });
+                    this.on("errormultiple", function (files, response) {
+                    });
+
+                }
+            });
+
+    </script>
+    <script>
+        function deleteSkuImage(i, j) {
+            $("#hid" + i + "-" + j).remove();
+            $("#span" + i + "-" + j).remove();
+            var hiddens = $("#td-sku-images").find("input[type='hidden']");
+            var spans = $("#td-sku-images").find("span");
+            $(hiddens).each(function (idx, el) {
+                var hidId = 'hid-' + i + '-' + idx;
+                var spanId = 'span-' + i + '-' + idx;
+                var currentId = $(this).attr('id').split('-')[2];
+                $(this).attr('id', hidId);
+                $('#span-' + i + currentId).attr('id', spanId);
+                $(this).attr('name', 'ProductOptionValues[' + i + '][ImagesUrls][' + idx + ']');
+            });
+        }
+    </script>
+    <script>
+        var hasColor = $('#hasColor').val();
+        var hasSize = $('#hasSize').val();
+        if (hasColor == "0" && hasSize == "0") {
+            $('#size-tab,#tab-size,#option-tab,#tab-option').addClass('hidden');
+        } else if (hasSize == "0") {
+            $('#size-tab,#tab-size').addClass('hidden');
+        }
+
+    </script>
+    <script>
+        function changeInche(i, j) {
+            var cmVal = parseInt($('#cm-' + i + "-" + j).val());
+            $('#inche-' + i + "-" + j).val((cmVal * 0.393701).toFixed(2));
+        }
+        function changeCM(i, j) {
+            var incheVal = parseInt($('#inche-' + i + "-" + j).val());
+            $('#cm-' + i + "-" + j).val((incheVal * 2.54).toFixed(2));
+        }
+        $('#sub-cat-id').on('change', function () {
+            var procemessage = "<option value='0'> Please wait...</option>";
+            var prodSelect = $('#prod-cat-id');
+            var prodDiv = $('#prod-cat-div');
+            $("#prod-cat-id").html(procemessage).show();
+            if ($(this).val() == "") {
+                var prodSelect = $('#prod-cat-id');
+
+                prodSelect.val("");
+                if (!prodDiv.hasClass("hidden"))
+                    prodDiv.addClass("hidden");
+            } else {
+                prodDiv.removeClass('hidden');
+                var url = '@Url.Action("GetSubCategories", "ManageProduct")';
+                var CatId = $(this).val();
+                $.ajax({
+                    url: url,
+                    data: { Id: CatId },
+                    cache: false,
+                    type: "POST",
+                    success: function (data) {
+                        var markup = "<option value=''>اختر فئة المنتج</option>";
+                        for (var x = 0; x < data.length; x++) {
+                            markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                        }
+                        $("#prod-cat-id").html(markup).show();
+                    },
+                    error: function (reponse) {
+                        alert("error : " + reponse);
+                    }
+                });
+            }
+        });
+        $('#primary-cat-id').on('change', function () {
+            var procemessage = "<option value='0'> Please wait...</option>";
+            var subDiv = $('#sub-cat-div');
+            var prodDiv = $('#prod-cat-div');
+
+            if ($(this).val() == "") {
+                var subSelect = $('#sub-cat-id');
+
+                subSelect.val("");
+                if (!subDiv.hasClass("hidden"))
+                    subDiv.addClass("hidden");
+
+                var prodSelect = $('#prod-cat-id');
+
+                prodSelect.val("");
+                if (!prodDiv.hasClass("hidden"))
+                    prodDiv.addClass("hidden");
+            }
+            else {
+                subDiv.removeClass("hidden");
+                $("#sub-cat-id").html(procemessage).show();
+                var url = '@Url.Action("GetSubCategories", "ManageProduct")';
+                var CatId = $(this).val();
+                $.ajax({
+                    url: url,
+                    data: { Id: CatId },
+                    cache: false,
+                    type: "POST",
+                    success: function (data) {
+                        var markup = "<option value=''>اختر الفئة الفرعية</option>";
+                        for (var x = 0; x < data.length; x++) {
+                            markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                        }
+                        $("#sub-cat-id").html(markup).show();
+                    },
+                    error: function (reponse) {
+                        alert("error : " + reponse);
+                    }
+                });
+            }
+        });
+        function split(val) {
+            return val.split(/,\s*/);
+        }
+        function extractLast(term) {
+            return split(term).pop();
+        }
+        function getData() {
+            var Term = $('#input-tag-arabic,#input-tag-english').val();
+            var sug;
+            Term = extractLast(Term);
+            $.ajax({
+                url: '@Url.Action("GetTags","ManageProduct")',
+                method: 'get',
+                success: function (data) {
+                    console.log(data);
+
+                    sug = data;
+                }
+            });
+            console.log(sug);
+            return sug;
+        }
+        var Term = $('#input-tag-arabic,#input-tag-englsih').val();
+        Term = extractLast(Term);
+        var arabicTags = $('#input-tag-arabic').magicSuggest({
+            ajaxConfig: {
+                global: false
+            },
+            useCommaKey: false,
+            allowDuplicates: false,
+            noSuggestionText: 'لم يتم العثور على منائح للبحث عن {{query}}',
+            useTabKey: true,
+            data: '@Url.Action("GetTags","ManageProduct")',
+            valueField: 'Name',
+            displayField: 'Name',
+            renderer: function (data) {
+                return data.Name;
+            },
+            resultAsString: true
+        });
+        var englishTags = $('#input-tag-english').magicSuggest({
+            ajaxConfig: {
+                global: false
+            },
+            useCommaKey: false,
+            allowDuplicates: false,
+            noSuggestionText: 'There is no results for this word: {{query}}',
+            useTabKey: true,
+            data: '@Url.Action("GetTags","ManageProduct")',
+            valueField: 'Name',
+            displayField: 'Name',
+            renderer: function (data) {
+                return data.Name;
+            },
+            resultAsString: true
+        });
+        $('.ar-prod-tags').each(function () {
+            console.log($(this).val());
+            var c = { Name: $(this).val() };
+            arabicTags.addToSelection(c);
+        });
+        $('.eng-prod-tags').each(function () {
+            console.log($(this).val());
+            var c = { Name: $(this).val() };
+            englishTags.addToSelection(c);
+        });
+
+    </script>
+    <script type="text/javascript">
+<!--
+        $('#input-arabic-description,#input-english-description').summernote({
+            focus: true,
+            direction: 'ltr',
+            fontNames: ['DroidArabicNaskh', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', 'Merriweather'],
+            fontNamesIgnoreCheck: ['DroidArabicNaskh']
+        });
+//--></script>
+    <script>
+        $(document).ready(function () {
+            var form = $("#form-product");
+            debugger;
+            //form.validate();
+            $.validator.unobtrusive.parse(form);
+            form.data("validator").settings.ignore = "";
+
+
+            $(".color").each(function () {
+                $(this).rules("add", {
+                    required: true,
+                    messages: {
+                        required: "يجب اختيار لون للخيار المضاف"
+                    }
+                });
+            });
+            $(".size").each(function () {
+                $(this).rules("add", {
+                    required: true,
+                    messages: {
+                        required: "يجب اختيار لون للخيار المضاف"
+                    }
+                });
+            });
+        });
+
+        function checkOptionsValidation() {
+            var hasColor = $('#hasColor').val();
+            var hasSize = $('#hasSize').val();
+            if (hasColor == "1" || hasSize == "1") {
+                var optionsCount = $('#option-values tbody tr[id*="option-value-row"').length;
+                if (optionsCount == 0) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            else {
+                return true;
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        function refreshPage() {
+            $.ajax({
+                url: '@Url.Action("Edit","ManageProduct")',
+                method: 'Get',
+                data: { Id: '@Model.Id' },
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+        $('#btn-save').on('click', function (e) {
+            e.preventDefault();
+            var form = $("#form-product");
+            //form.validate({
+            //    ignore: ":hidden"
+            //});
+            if (form.valid() == false) {
+                generateFlash('error', "يرجى التحقق من القيم المدخلة أو ادخال الحقول المطلوبة");
+                return;
+            }
+            if (checkOptionsValidation() == false) {
+                generateFlash('error', "يرجى إضافة خيارات للمنتج");
+                return;
+            }
+            debugger;
+            var englishHtml = $('.summer-en').summernote('code'); //save HTML If you need(aHTML: array).
+            $('#input-english-description').text(englishHtml);
+            var commentHtml = $('.summer-comment').summernote('code'); //save HTML If you need(aHTML: array).
+            $('#input-comment-id').text(commentHtml);
+
+            //var englishMetaHtml = $('.summer-meta-en').summernote('code'); //save HTML If you need(aHTML: array).
+            //$('#input-meta-description-en').text(englishMetaHtml);
+
+            //var arabicMetaHtml = $('.summer-meta-ar').summernote('code'); //save HTML If you need(aHTML: array).
+            //$('#input-meta-description-ar').text(arabicMetaHtml);
+
+
+            var arabicHtml = $('.summer-ar').summernote('code'); //save HTML If you need(aHTML: array).
+
+            $('#input-arabic-description').text(arabicHtml);
+            //$('#form-product').submit();
+            $.ajax({
+                url: '@Url.Action("Edit","ManageProduct")',
+                method: 'POST',
+                data: $('#form-product').serialize(),
+                success: function (data) {
+                    if (data.Succedeed != null) {
+                        // refreshPage();
+
+                        jQuery('body,html').fadeOut(0).fadeIn(1500);
+                        if (data.Succedeed == true) {
+                            generateFlash('success', data.message);
+                            refreshPage();
+                        }
+                        else {
+                            generateFlash('error', data.message);
+                        }
+                    } else {
+
+                        $('#content').html($(data).find('#content').html());
+                        jQuery('body,html').fadeOut(0).fadeIn(1000);
+                        generateFlash('error', 'الرجاء تعبئة جميع الحقول المطلوبة');
+                    }
+                }
+            });
+        });
+    </script>
+    <script>
+        if (hasSize == "1") {
+            $(".cms").each(function (idx, el) {
+                var id = $(this).attr("id").split("-");
+                var i = id[1];
+                var j = id[2];
+                changeInche(i, j);
+            });
+
+        }
+    </script>
+    <script>
+        function removeOptionValue1(i)
+        {
+            debugger;
+            $('#option-values #option-value-row-' + i).remove();
+            $('#option-values select[id*="option-color-values"]').each(function (idx, el) {
+                $(this).attr('name', 'ProductOptionValues[' + idx + '][ColorValueId]');
+                $(this).attr('id', 'option-color-values' + idx);
+            });
+            $('#option-values select[id*="option-size-values"]').each(function (idx, el) {
+                $(this).attr('name', 'ProductOptionValues[' + idx + '][SizeValueId]');
+                $(this).attr('id', 'option-size-values' + idx);
+            });
+            $('#option-values input[id*="prod-quantity-"]').each(function (idx, el) {
+                $(this).attr('name', 'ProductOptionValues[' + idx + '][Quantity]');
+                $(this).attr('id', 'prod-quantity-' + idx);
+            });
+            $('#option-values select[id*="prefix-select-"]').each(function (idx, el) {
+                $(this).attr('name', 'ProductOptionValues[' + idx + '][PricePrefix]');
+                $(this).attr('id', 'prefix-select-' + idx);
+            });
+           
+             $('#option-values input[id*="prod-price-"]').each(function (idx, el) {
+                 $(this).attr('name', 'ProductOptionValues[' + idx + '][Price]');
+                 $(this).attr('id', 'prod-price-' + idx);
+             });
+             $('#option-values div[id*="sku-ar-tags-').each(function (idx, el) {
+                 $(this).attr('id', 'sku-ar-tags-' + idx);
+                 $this = $(this);
+                 $this.find('.ms-sel-ctn input[type="hidden"]').each(function (index,element) {
+                     $(this).attr('name', 'ProductOptionValues[' + idx + '][ArabicTags][' + index + ']');
+                 });
+             });
+             $('#option-values div[id*="sku-en-tags-').each(function (idx, el) {
+                 $(this).attr('id', 'sku-en-tags-' + idx);
+                 $this = $(this);
+                 $this.find('.ms-sel-ctn input[type="hidden"]').each(function (index, element) {
+                     $(this).attr('name', 'ProductOptionValues[' + idx + '][EnglishTags][' + index + ']');
+                 });
+             });
+             $('#option-values td[id*="td-sku-images-').each(function (idx, el) {
+                 $(this).attr('id', 'td-sku-images-' + idx);
+                 $this = $(this);
+                 $this.find('input[type="hidden"]').each(function (index, element) {
+                     $(this).attr('id', 'hid-' + idx + '-' + index);
+                     $(this).attr('name', 'ProductOptionValues[' + idx + '][ImagesUrls][' + index + ']');
+                 });
+             });
+
+        }
+    </script>
+    <script>
+        function removeAttribute1(i)
+        {
+           // alert('hi');
+            debugger;
+            $('#attribute-row-' + i).remove();
+            $('#attribute select[id*="attr-select-id-"]').each(function (idx,el) {
+                $(this).attr('name', 'Attributes[' + idx + '][Id]');
+                $(this).attr('id', 'attr-select-id-' + idx);
+            });
+            $('#attribute textarea[id*="attr-arabic-desc-"]').each(function (idx, el) {
+                $(this).attr('name', 'Attributes[' + idx + '][ArabicName]');
+                $(this).attr('id', 'attr-arabic-desc-' + idx);
+            });
+            $('#attribute textarea[id*="attr-english-desc-"]').each(function (idx, el) {
+                $(this).attr('name', 'Attributes[' + idx + '][EnglishName]');
+                $(this).attr('id', 'attr-english-desc-' + idx);
+            });
+
+        }
+    </script>
+    <script type="text/javascript">
+<!--
+        var attribute_row = 0;
+
+
+        function addAttribute() {
+            attribute_row = $("#attribute tbody tr").length;
+    html  = '<tr id="attribute-row-' + attribute_row + '">';
+    html += '  <td class="text-left" style="width: 20%;"><select id="attr-select-id-'+attribute_row +'" class="form-control" name="Attributes[' + attribute_row + '][Id]">';
+    html += $('#select-attribute').html();
+    html+='</select></td>';
+	html += '  <td class="text-left">';
+	html += '<div class="input-group"><span class="input-group-addon"><img src="/Assets/images/flag-english.jpg" title="English" /></span><textarea id="attr-arabic-desc-'+attribute_row+'" name="Attributes[' + attribute_row + '][EnglishName]" rows="5" placeholder="Description" class="form-control"></textarea></div>';
+	html += '<div class="input-group"><span class="input-group-addon"><img src="/Assets/images/flag-arabic.jpg" title="العربية" /></span><textarea id="attr-english-desc-'+attribute_row+'" name="Attributes[' + attribute_row + '][ArabicName]" rows="5" placeholder="الوصف بالعربي" class="form-control"></textarea></div>';
+    	html += '  </td>';
+	html += '  <td class="text-left"><button type="button" onclick="removeAttribute1(' + attribute_row + ')" data-toggle="tooltip" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+    html += '</tr>';
+
+	$('#attribute tbody').append(html);
+
+	attributeautocomplete(attribute_row);
+
+	//attribute_row++;
+}
+
+function attributeautocomplete(attribute_row) {
+	$('input[name=\'product_attribute[' + attribute_row + '][name]\']').autocomplete({
+		'source': function(request, response) {
+			$.ajax({
+				url: 'index.php?route=catalog/attribute/autocomplete&token=ff42fe9c0749caf3ee9ea70bdc4ec4e7&filter_name=' +  encodeURIComponent(request),
+				dataType: 'json',
+				success: function(json) {
+					response($.map(json, function(item) {
+						return {
+							category: item.attribute_group,
+							label: item.name,
+							value: item.attribute_id
+						}
+					}));
+				}
+			});
+		},
+		'select': function(item) {
+			$('input[name=\'product_attribute[' + attribute_row + '][name]\']').val(item['label']);
+			$('input[name=\'product_attribute[' + attribute_row + '][attribute_id]\']').val(item['value']);
+		}
+	});
+}
+
+$('#attribute tbody tr').each(function(index, element) {
+	attributeautocomplete(index);
+});
+//--></script>
+    <script type="text/javascript">
+<!--
+
+//--></script>
+    <script type="text/javascript">
+<!--
+var option_value_row = 0;
+
+function addOptionValue(option_row) {
+    option_value_row = $('#option-values tbody tr').length-1;
+    //debugger;
+    html = '<tr class="option" id="option-value-row-' + option_value_row + '">';
+    if ($('#hasColor').val() != "0") {
+        html += '  <td id="td-sku-images-' + option_value_row + '" class="text-left "><select id="option-color-values' + option_value_row + '" onchange="checkSize(' + option_value_row + ');" name="ProductOptionValues[' + option_value_row + '][ColorValueId]" class="form-control color">';
+
+        html += $('#option-values1').html();
+
+        html += '  </select></td>';
+    }
+    if ($('#hasSize').val() != "0") {
+        html += '  <td class="text-left"><select id="option-size-values' + option_value_row + '"  onchange="checkColor(' + option_value_row + ');"  name="ProductOptionValues[' + option_value_row + '][SizeValueId]" class="form-control size">';
+        html += $('#option-values2').html();
+        html += '  </select></td>';
+    }
+    html += '  <td class="text-right"><input id="prod-quantity-' + option_value_row + '" type="text" name="ProductOptionValues[' + option_value_row + '][Quantity]" value="" placeholder="Quantity" class="form-control skuQty" /></td>';
+
+    html += '  <td class="text-right"><select id="prefix-select-'+option_value_row+'"   name="ProductOptionValues[' + option_value_row + '][PricePrefix]" class="form-control ">';
+	html += '    <option value="+">+</option>';
+	html += '    <option value="-">-</option>';
+	html += '  </select>';
+	html += '  <input id="prod-price-'+option_value_row+'" type="text" name="ProductOptionValues[' + option_value_row + '][Price]" value="" placeholder="Price" class="form-control skuPrice" /></td>';
+	html += '<td class="text-center">';
+	html += '<div class="form-group ">'+
+                        '  <div style="min-width:100%" class="input-group">' +
+                             ' <span class="input-group-addon"><img src="/Assets/images/flag-arabic.jpg" title="العربية"></span>'+
+                              '<input id="sku-ar-tags-'+option_value_row+'" type="text"  name="ProductOptionValues[' + option_value_row + '][ArabicTags]" value="" placeholder="" class="form-control tags"/>' +
+                          '</div>'+
+                      '</div>'+
+                  '</div>'+
+                  '<div class="form-group ">' +
+                        '  <div style="min-width:100%" class="input-group">' +
+                             ' <span class="input-group-addon"><img src="/Assets/images/flag-english.jpg" title="English"></span>' +
+                              '<input  id="sku-en-tags-'+option_value_row+'" type="text" name="ProductOptionValues[' + option_value_row + '][EnglishTags]" value="" placeholder="" class="form-control tags"/>' +
+                          '</div>' +
+                      '</div>' +
+                  '</div>' +
+                  '</div>';
+
+	html += '  <td id="td-sku-images-'+option_value_row+'" class="text-right"><div id="my-awesome-dropzone-'+option_value_row+'" class="dropzone">'+
+                                                                        '<div class="dropzone-previews"></div>'+
+                                        '<div class="text-center">'+
+                                             '<div style="margin-bottom: 10px">'+
+                                                       '<button id="btn-add-image-'+option_value_row+'"  class="btn btn-primary btn-block">'+
+                                      '<i class="fa fa-upload"></i> &nbsp;رفع الصور المختارة '+
+'</button>'+
+'</div>'+
+'</div>'+
+'</div></td>';
+
+	html += '  <td class="text-left"><button type="button" onclick="removeOptionValue1('+ option_value_row +');" data-toggle="tooltip" rel="tooltip" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+	html += '</tr>';
+
+	$('#option-values tbody').append(html);
+        //$('[rel=tooltip]').tooltip();
+
+        $(".skuQty").each(function () {
+            $(this).rules("add", {
+                required: true,
+                number: true,
+                messages: {
+                    required: "يجب إدخال قيمة في حقل الكمية للخيار",
+                    number: "يجب ان تكون القيمة المدخلة في حقل الكمية للخيار هي قيمة رقمية"
+                }
+            });
+        });
+
+        $(".skuPrice").each(function () {
+            $(this).rules("add", {
+                required: true,
+                number: true,
+                messages: {
+                    required: "يجب إدخال قيمة في حقل الكمية للخيار",
+                    number: "يجب ان تكون القيمة المدخلة في حقل الكمية للخيار هي قيمة رقمية"
+                }
+            });
+        });
+
+        $("#color" + option_value_row).each(function () {
+            $(this).rules("add", {
+                required: true,
+                messages: {
+                    required: "يجب اختيار لون للخيار المضاف"
+                }
+            });
+        });
+        $("#size" + option_value_row).each(function () {
+            $(this).rules("add", {
+                required: true,
+                messages: {
+                    required: "يجب اختيار قياس للخيار المضاف"
+                }
+            });
+        });
+
+        $('#my-awesome-dropzone-'+option_value_row).dropzone({
+            url: '@Url.Action("UploadFiles","Base")',
+            autoProcessQueue: false,
+            parallelUploads: 100,
+            maxFiles: 5,
+            maxFilesize: 2,
+            paramName: "files",
+            addRemoveLinks: true,
+            acceptedFiles: "image/*",
+            dictRemoveFile: "إلغاء",
+            dictFileTooBig: "حجم الملف أكبر من الحد المطلوب",
+            dictMaxFilesExceeded: "لا يمكنك تحميل أكثر من 5 ملفات إضافية",
+            // Dropzone settings
+            success: function (file, response) {
+                var i = this.element.attributes["0"].nodeValue.split('-')[3];
+                debugger;
+                file.previewElement.classList.add("dz-success");
+                file.serverId = response;
+                console.log(response);
+               // alert(file.name);
+                file.previewElement.addEventListener("click", function () {
+                    $('#img-full-size').attr("src", "/uploads/" + response.name);
+                    $('#myModal').modal('show');
+                    //var win = window.open("/uploads/" + response.name, '_blank');
+                    //win.focus();
+                });
+                AddImageToSku(i, response);
+            },
+            removedfile: function (file) {
+                console.log(file);
+                var i = this.element.attributes["0"].nodeValue.split('-')[3];
+                debugger;
+                var image = file.serverId;
+                if (image == null || typeof (image) === "undefined") {
+                    image = file;
+                }
+                console.log(image);
+                debugger;
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("DeleteUploadedImage", "Base")',
+                    data: { name: image.name },
+                    dataType: 'html',
+                    success: function (data) {
+
+                    }
+
+                });
+                DeleteImageFromSku(i, image);
+                var _ref;
+                return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            },
+            init: function () {
+
+                var myDropzone = this;
+                var $this = $(this);
+                var i = this.element.attributes["0"].nodeValue.split('-')[3];
+                this.element.querySelector("button").addEventListener("click", function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    myDropzone.processQueue();
+                });
+
+                $('#td-sku-images-' + i).find('input[type="hidden"]').each(function () {
+                    // Create the mock file:
+                    var fileName = $(this).val();
+                    var mockFile = { name: fileName, size: 12345 };
+                    console.log("mock file = " + mockFile);
+
+                    // Call the default addedfile event handler
+                    myDropzone.emit("addedfile", mockFile);
+
+                    // And optionally show the thumbnail of the file:
+                    myDropzone.emit("thumbnail", mockFile, fileName);
+                    // Or if the file on your server is not yet in the right
+                    // size, you can let Dropzone download and resize it
+                    // callback and crossOrigin are optional.
+                    // myDropzone.createThumbnailFromUrl(file, imageUrl, callback, crossOrigin);
+
+                    // Make sure that there is no progress bar, etc...
+                    myDropzone.emit("complete", mockFile);
+
+                    // If you use the maxFiles option, make sure you adjust it to the
+                    // correct amount:
+                    var existingFileCount = 1; // The number of files already uploaded
+                    myDropzone.options.maxFiles = myDropzone.options.maxFiles - existingFileCount;
+                });
+
+                this.on("sendingmultiple", function () {
+                });
+                this.on("successmultiple", function (files, response) {
+                   // alert(response);
+                });
+                this.on("errormultiple", function (files, response) {
+                });
+
+            }
+        });
+
+    if ($('#hasColor').val() == '0') {
+        $('td[id*="td-sku-images-"]').addClass('hidden');
+    }
+        //option_value_row++;
+        $('.tags').each(function () {
+            var url = '@Url.Action("GetTags","ManageProduct")';
+
+            $(this).magicSuggest({
+                useCommaKey: false,
+                ajaxConfig: {
+                    global: false
+                },
+
+                width: 250,
+                allowDuplicates: false,
+                noSuggestionText: 'No result matching the term {{query}}',
+                useTabKey: true,
+                data: url,
+                valueField: 'Name',
+                displayField: 'Name',
+                renderer: function (data) {
+                    return data.Name;
+                },
+                resultAsString: true
+            });
+        });
+}
+//--></script>
+    <script>
+        $('.tags').each(function () {
+            var url = '@Url.Action("GetTags","ManageProduct")';
+
+            var $this = $(this).magicSuggest({
+                ajaxConfig: {
+                    global: false
+                },
+                useCommaKey: false,
+                width: 250,
+                allowDuplicates: false,
+                noSuggestionText: 'No result matching the term {{query}}',
+                useTabKey: true,
+                data: url,
+                valueField: 'Name',
+                displayField: 'Name',
+                renderer: function (data) {
+                    return data.Name;
+                },
+                resultAsString: true
+            });
+            var id = $(this).attr('id').split('-');
+            var i = id[3];
+            var lang = id[1];
+
+            //debugger;
+            var arr = addSkuTagsValues(i, lang);
+            for (var m = 0; m < arr.length; m++) {
+                $this.addToSelection(arr[m]);
+            }
+        });
+        function addSkuTagsValues(i, lang) {
+            var arr = [];
+            $("." + lang + "-sku-tags-" + i).each(function () {
+
+                var c = { Name: $(this).val() };
+                arr.push(c);
+                //arabicTags.addToSelection(c);
+            });
+            return arr;
+        }
+
+    </script>
+    <script>
+        function checkSize(id) {
+
+            var size = $('#option-size-values' + id);
+
+            var color = $('#option-color-values' + id);
+            var colorVal = $('#option-color-values' + id).val();
+            console.log(colorVal);
+            if (typeof (size.val()) !== "undefined") {
+                var counter = 0;
+                var sizeVal = size.val();
+
+                $('.option').each(function (index, element) {
+                    var elSize = $(this).find('.size');
+
+                    var elColor = $(this).find('.color');
+                    if (elSize.val() == sizeVal && elColor.val() == colorVal && sizeVal != "") {
+                        counter++;
+                    }
+                });
+                if (counter > 1) {
+                    generateFlash('error', "يوجد خيار آخر له نفس اللون والقياس ، يرجى اختيار لون آخر او تغيير القياس");
+                    // size.val("");
+                    color.val("");
+                }
+            } else {
+
+                var counter = 0;
+                $('.option').each(function (index, element) {
+
+                    var elColor = $(this).find('.color');
+                    if (elColor.val() == colorVal) {
+                        counter++;
+                    }
+                });
+                if (counter > 1 && colorVal != "") {
+                    generateFlash('error', "يوجد خيار آخر له نفس اللون ، يرجى اختيار لون آخر");
+                    color.val("");
+                }
+            }
+
+        }
+
+        function checkColor(id) {
+
+            var size = $('#option-size-values' + id);
+
+            var color = $('#option-color-values' + id);
+            var sizeVal = $('#option-size-values' + id).val();
+            // console.log(colorVal);
+            if (typeof (color.val()) !== "undefined") {
+                var counter = 0;
+                var colorVal = color.val();
+
+                $('.option').each(function (index, element) {
+                    var elSize = $(this).find('.size');
+                    var elColor = $(this).find('.color');
+                    if (elSize.val() == sizeVal && elColor.val() == colorVal && colorVal != "") {
+                        counter++;
+                    }
+                });
+                if (counter > 1) {
+                    // alert('another option has this color and size');
+                    generateFlash('error', "يوجد خيار آخر له نفس اللون والقياس ، يرجى اختيار قياس آخر او تغيير اللون");
+                    size.val("");
+                    // color.val("");
+                }
+            } else {
+
+
+                var counter = 0;
+                $('.option').each(function (index, element) {
+
+                    var elSize = $(this).find('.size');
+                    if (elSize.val() == sizeVal) {
+                        counter++;
+                    }
+                });
+                if (counter > 1 && sizeVal != "") {
+                    generateFlash('error', "يوجد خيار آخر له نفس اللون ، يرجى اختيار قياس آخر");
+
+                    size.val("");
+                }
+            }
+
+        }
+    </script>
+    <script type="text/javascript">
+<!--
+var discount_row = 0;
+
+function addDiscount() {
+	html  = '<tr id="discount-row' + discount_row + '">';
+    html += '  <td class="text-left"><select name="product_discount[' + discount_row + '][customer_group_id]" class="form-control">';
+        html += '    <option value="1">Default</option>';
+        html += '  </select></td>';
+    html += '  <td class="text-right"><input type="text" name="product_discount[' + discount_row + '][quantity]" value="" placeholder="Quantity" class="form-control" /></td>';
+    html += '  <td class="text-right"><input type="text" name="product_discount[' + discount_row + '][priority]" value="" placeholder="Priority" class="form-control" /></td>';
+	html += '  <td class="text-right"><input type="text" name="product_discount[' + discount_row + '][price]" value="" placeholder="Price" class="form-control" /></td>';
+    html += '  <td class="text-left"><div class="input-group date"><input type="text" name="product_discount[' + discount_row + '][date_start]" value="" placeholder="Date Start" data-date-format="YYYY-MM-DD" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></td>';
+	html += '  <td class="text-left"><div class="input-group date"><input type="text" name="product_discount[' + discount_row + '][date_end]" value="" placeholder="Date End" data-date-format="YYYY-MM-DD" class="form-control" /><span class="input-group-btn"><button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button></span></div></td>';
+	html += '  <td class="text-left"><button type="button" onclick="$(\'#discount-row' + discount_row + '\').remove();" data-toggle="tooltip" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+	html += '</tr>';
+
+	$('#discount tbody').append(html);
+
+	$('.date').datetimepicker({
+		pickTime: false
+	});
+
+	discount_row++;
+}
+//--></script>
+    <script type="text/javascript">
+
+        //--></script>
+    <script type="text/javascript">
+<!--
+var image_row = 0;
+
+function addProductImage() {
+	html  = '<tr id="image-row' + image_row + '">';
+	html += '  <td class="text-left"><img id="thumb-image' + image_row + '" src="http://demo.xtensions.in/best/image/cache/no_image-100x100.png" alt="" title=""  /><input type="hidden" name="ImagesUrls[' + image_row + ']" value="" id="input-image' + image_row + '" /><input id="FileToUpload' + image_row + '" type="file" value=""/><a class="btn btn-primary" onclick="addImageToProduct(' + image_row + ')" >إضافة</a></td>';
+
+	html += '  <td class="text-left"><button type="button" onclick="$(\'#image-row' + image_row  + '\').remove();" data-toggle="tooltip" title="Remove" class="btn btn-danger"><i class="fa fa-minus-circle"></i></button></td>';
+	html += '</tr>';
+
+	$('#images tbody').append(html);
+
+	image_row++;
+}
+//--></script>
+    <script type="text/javascript">
+        function addImageToProduct(id) {
+
+            //  e.preventDefault();
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+
+                var fileUpload = $("#FileToUpload" + id).get(0);
+                var files = fileUpload.files;
+                if (files.length <= 0) {
+                    generateFlash('error', "الرجاء اختيار صورة ليتم تحميلها");
+
+                    return false;
+                }
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Adding one more key to FormData object
+                fileData.append('username', 'Manas');
+
+                $.ajax({
+                    url: '@Url.Action("UploadFiles","Base")',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        generateFlash('success', "تم تحميل الصورة بنجاح");
+                        $('#input-image' + id).val("/uploads/" + result.name);
+                        $('#thumb-image' + id).attr('src', '/uploads/' + result.name + ".ashx?width=100&height=100");
+                    },
+                    error: function (err) {
+                        generateFlash('error', "حدث خطأ في تحميل الصورة");
+
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+
+
+        }
+        //--></script>
+    <script>
+        function addImage(id) {
+
+            //  e.preventDefault();
+            // Checking whether FormData is available in browser
+            if (window.FormData !== undefined) {
+
+                var fileUpload = $("#SKUFileToUpload" + id).get(0);
+                var files = fileUpload.files;
+                if (files.length <= 0) {
+                    generateFlash('error', "الرجاء اختيار صورة ليتم تحميلها");
+
+                    return false;
+                }
+                // Create FormData object
+                var fileData = new FormData();
+
+                // Looping over all files and add it to FormData object
+                for (var i = 0; i < files.length; i++) {
+                    fileData.append(files[i].name, files[i]);
+                }
+
+                // Adding one more key to FormData object
+                fileData.append('username', 'Manas');
+
+                $.ajax({
+                    url: '@Url.Action("UploadFilesMultiple", "Base")',
+                    type: "POST",
+                    contentType: false, // Not to set any content header
+                    processData: false, // Not to process data
+                    data: fileData,
+                    success: function (result) {
+                        generateFlash('success', "تم تحميل الصورة بنجاح");
+                        // console.log(result.name);
+                        var hid = $("#SKUFileToUpload" + id);
+                        var hidParent = hid.parent();
+                        var numOfhids = hidParent.find(':input[type="hidden"]').length;
+                        console.log('num of hiddens =' + numOfhids);
+                        var hidd = '<input type="hidden" name="ProductOptionValues[' + id + '][ImagesUrls][' + numOfhids + ']" value="/uploads/' + result.name + '" />';
+                        console.log('New hid =' + hidd);
+                        hidParent.append($(hidd));
+
+                        //$('#input-image' + id).val("/uploads/" + result.name);
+                        //$('#thumb-image' + id).attr('src', '/uploads/' + result.name);
+                    },
+                    error: function (err) {
+                        generateFlash('error', "حدث خطأ أثناء تحميل الصورة");
+
+                        //alert(err.statusText);
+                    }
+                });
+            } else {
+                alert("FormData is not supported.");
+            }
+
+
+        }
+    </script>
+    <link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript">
+<!--
+$('.date').datetimepicker({
+	pickTime: false
+});
+
+$('.time').datetimepicker({
+	pickDate: false
+});
+
+$('.datetime').datetimepicker({
+	pickDate: true,
+	pickTime: true
+});
+//--></script>
+    <script type="text/javascript">
+<!--
+$('#language a:first').tab('show');
+$('#option a:first').tab('show');
+//--></script>
+</div>

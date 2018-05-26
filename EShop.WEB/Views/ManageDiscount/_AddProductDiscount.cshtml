@@ -1,0 +1,79 @@
+﻿@model List<EShop.WEB.Models.DiscountVM>
+
+<br />
+<div id="option-value">
+    <label for="type-select" class="col-md-4 control-label">البحث عن منتجات</label>
+    <input class="form-control" id="search-text-box" type="text" name="" value="" placeholder="البحث عن منتج" />
+    <br />
+    <table id="products" class="table table-striped table-bordered table-hover">
+        <thead>
+            <tr>
+                <td class="text-center">الاسم</td>
+                <td class="text-center">الصورة</td>
+                <td class="text-center">اللون</td>
+                <td class="text-center">القياس</td>
+                <td class="text-center">السعر</td>
+                <td class="text-center">
+                    تطبيق التخفيض
+                </td>
+
+            </tr>
+        </thead>
+        <tbody>
+           
+
+        </tbody>
+        <tfoot>
+          <tr>
+              <td colspan="6">
+                  <a id="add-op-value" class="btn btn-success">إضافة تخفيض للمنتجات المحددة</a>
+              </td>
+          </tr>
+        </tfoot>
+    </table>
+    
+</div>
+<script>
+    function loadSkuTable(skus)
+    {
+        var html = '';
+        $(skus).each(function (idx, el) {
+            html +='<tr>';
+            html += '<td class="text-center">'+el.Name+'</td>'+
+             '<td class="text-center"><img src="' + el.Images[0] + '.ashx?height=60&width=60" class="img-thumbnail" /></td>' +
+                '<td class="text-center">' + el.Colors[el.SelectedColor].ColorName + '</td>' +
+                '<td class="text-center">' + el.Sizes[el.SelectedSize].Name + '</td>' +
+               '<td class="text-center">' + el.OrginalPriceDisplay + '</td>' +
+               '<td class="text-center"><input type="checkbox" value="' + el.SKUId + '" name="SkuIds" /></td></tr>';
+
+        });
+        $('#products').find('tbody').html(html);
+    }
+
+</script>
+    <script>
+        $(document).ready(function () {
+            $('#add-op-value').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("AddDiscountToSkus", "ManageDiscount")',
+                    method: 'post',
+                    data: $('#option-value-form').serialize(),
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Succedeed == true) {
+                            generateFlash('success', data.message);
+                            $('#products').find('tbody').html("");
+                            $('#products').addClass('hidden');
+                            $('#search-text-box').val("");
+
+                        }
+                        else {
+                            generateFlash('error', data.message);
+                        }
+
+                    }
+                });
+            });
+        });
+    </script>

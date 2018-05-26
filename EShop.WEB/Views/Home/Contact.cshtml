@@ -1,0 +1,167 @@
+﻿@model EShop.WEB.Models.ContactUsVM
+
+@using Resx = EShop.Resources.Views.EShopResource
+@{
+    ViewBag.Title = Resx.ContactUs;
+}
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<div class="b-inner-page-header f-inner-page-header b-bg-header-inner-page">
+    <div class="b-inner-page-header__content">
+        <div class="container" style="text-align: center;">
+            <h2 style="margin-top: 5px;" >التواصل مع رومازونيا</h2>
+        </div>
+    </div>
+</div>
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home" href="@Url.Action("Index","Home")">الرئيسية</a><span>&raquo;</span></li>
+                    <li><strong>تواصل معنا </strong></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="b-desc-section-container">
+    <section class="container b-welcome-box">
+        <div class="row">
+            <div class="col-md-offset-2 col-md-8" style="margin-top: 5px; background-color: aliceblue; border-radius: 5px;">
+                <h1 class="text-center" style="margin-top: 5px;">يسر فريق عوالم رومازنيا أن تتواصل معه</h1>
+                <p class="text-center">يرجى تعبئة الحقول على اليمين بالبيانات الشخصية وعلى اليسار مالذي تريد اخبار رومازونيا عنه  </p>
+            </div>
+        </div>
+    </section>
+    <section class="container">
+        <div class="row">
+            <div class="col-sm-12 b-contact-form-box">
+              
+                <div class="row">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary()
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Name, new { @class = "b-form-vertical__label" })
+                                <div class="b-form-vertical__input">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger  small" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Email, new { @class = "b-form-vertical__label" })
+                                <div class="b-form-vertical__input">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger  small" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Phone, new { @class = "b-form-vertical__label" })
+                                <div class="b-form-vertical__input">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Website, new { @class = "b-form-vertical__label" })
+                                <div class="b-form-vertical__input">
+                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group b-form--contact-size">
+                                @Html.LabelFor(m => m.ContactMessage, new { @class = "b-form-vertical__label" })
+                                @Html.TextAreaFor(m => m.ContactMessage, new { rows = "5", @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.ContactMessage, "", new { @class = "text-danger  small" })
+                            </div>
+                            <div class="form-group">
+                                <div class="b-form-vertical__input">
+                                    <div class="g-recaptcha" data-sitekey="6Lf3RhQUAAAAAFS9sUo7mggiL4vWEw2M_IG0ABh8"></div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button class="button subscribe" type="submit" title="Subscribe">إرسال الرسالة </button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(function () {
+            // any validation summary items should be encapsulated by a class alert and alert-danger
+            $('.validation-summary-errors').each(function () {
+                $(this).addClass('alert');
+                $(this).addClass('alert-danger');
+            });
+
+            // update validation fields on submission of form
+            $('form').submit(function () {
+                if ($(this).valid()) {
+                    $(this).find('div.control-group').each(function () {
+                        if ($(this).find('span.field-validation-error').length == 0) {
+                            $(this).removeClass('has-error');
+                            $(this).addClass('has-success');
+                        }
+                    });
+                }
+                else {
+                    $(this).find('div.control-group').each(function () {
+                        if ($(this).find('span.field-validation-error').length > 0) {
+                            $(this).removeClass('has-success');
+                            $(this).addClass('has-error');
+                        }
+                    });
+                    $('.validation-summary-errors').each(function () {
+                        if ($(this).hasClass('alert-danger') == false) {
+                            $(this).addClass('alert');
+                            $(this).addClass('alert-danger');
+                        }
+                    });
+                }
+            });
+
+            // check each form-group for errors on ready
+            $('form').each(function () {
+                $(this).find('div.form-group').each(function () {
+                    if ($(this).find('span.field-validation-error').length > 0) {
+                        $(this).addClass('has-error');
+                    }
+                });
+            });
+        });
+
+        var page = function () {
+            //Update the validator
+            $.validator.setDefaults({
+                highlight: function (element) {
+                    $(element).closest(".form-group").addClass("has-error");
+                    $(element).closest(".form-group").removeClass("has-success");
+                },
+                unhighlight: function (element) {
+                    $(element).closest(".form-group").removeClass("has-error");
+                    $(element).closest(".form-group").addClass("has-success");
+                }
+            });
+        }();
+    </script>
+    <script>
+        (function ($) {
+            $.validator.unobtrusive.adapters.addBool("booleanrequired", "required");
+        }(jQuery));
+    </script>
+    @if (ViewBag.flag != null && ViewBag.flag == true) { 
+        <script>
+            generateFlash('success',"شكراً لك, لقد تم إرسال الرسالة بنجاح !")
+        </script>}
+}

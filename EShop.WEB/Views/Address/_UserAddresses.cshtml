@@ -1,0 +1,277 @@
+﻿
+@using EShop.Common
+@model EShop.WEB.Models.CheckoutVM
+<style>
+    .copun-link:hover {
+        cursor: pointer;
+    }
+</style>
+<!-- Modal -->
+<div id="addressModal" class="modal fixed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog" style="z-index:2000;">
+        <div class="modal-content">
+            <div id="modalLoader" class="loader"></div>
+            <div class="modal-header" style="padding-bottom: 30px;">
+                <button type="button" class="close left" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title pull-right">بيانات العنوان </h4>
+            </div>
+            <div class="modal-body">
+                <div id="addressfields" class="row">
+                    @*@{Html.RenderAction("Add", "Address");}*@
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="modal-footer">
+                <div class="progress" id="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" id="addAdress" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span>حفظ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- /model ends -->
+
+<div id="addressPage" class="container">
+    <div class="row equal">
+        <div id="existingAddress" class="col-md-9">
+            <div class="checkbox alert info-back text-center" style="margin-bottom: 0px;">
+                <label for="shipping_check">
+                    <input type="checkbox" name="IsSameAddresses" value="1" @(Model.IsSameAddresses ? "checked" : "") id="shipping_check" style=" margin-right: 0px; ">
+                    <label for="shipping_check">اريد استخدام نفس العنوان من أجل الشحن والدفع</label>
+                </label>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center pull-right">
+                        <a style="cursor: pointer;" data-toggle="modal" data-target="#addressModal" id="aaa">
+                            <span class="glyphicon glyphicon-plus"></span>اضافة عنوان
+                        </a>
+                    </h4>
+                </div>
+                <div class="clearfix visible-xs">
+                </div>
+            </div>
+            <div class="row">
+                @if (@Model.AvailableAddresses.Count > 0)
+                {
+                    foreach (var address in @Model.AvailableAddresses)
+                    {
+                        <div class="col-sm-6 col-md-4">
+                            <div class="panel panel-default">
+                                <div class="panel-heading @(address.Id==Model.SelectedBillingAddressId?"selected":"")">
+                                    <div class="radio">
+                                        <label for="p-@address.Id">
+                                            <input id="p-@address.Id" type="radio" name="SelectedBillingAddress" @(address.Id == Model.SelectedBillingAddressId ? "checked" : "") value="@address.Id">
+                                            <span class="padd">@(Model.IsSameAddresses ? "عنوان الدفع & عنوان الشحن" : "عنوان الدفع")</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="panel-body highlight">
+                                    <p class="text-justified">
+                                        @address.FirstName<br />
+                                        @address.LastName<br />
+                                        @address.Address1<br />
+                                        @address.Phone<br />
+                                        @address.City<br />
+                                        @address.Country<br />
+                                        @address.PostCode<br />
+                                    </p>
+                                    @if (address.IsDefault)
+                                    {
+                                        <span class="pull-left">العنوان الافتراضي</span>}
+                                    else
+                                    { <span id="d-@address.Id" class="pull-left delete-address">حذف </span>}
+                                    <span class="pull-right">
+                                        <a class="editAddress" id="e-@address.Id" href="#" alt="Edit Address">
+                                            <i class="fa fa-edit"> </i> تعديل
+                                        </a>
+                                    </span>
+                                </div>
+                                @if (!Model.IsSameAddresses)
+                                {
+                                    <div class="panel-footer @(address.Id == Model.SelectedShippingAddressId ? "selected" : "")" style="display: block;">
+                                        <div class="radio">
+                                            <label for="s-@address.Id">
+                                                <input id="s-@address.Id" @(address.Id == Model.SelectedShippingAddressId ? "checked" : "") type="radio" name="SelectedShippingAddress" value="@address.Id">
+                                                عنوان الشحن
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                }
+                            </div>
+                        </div>}
+                }
+                <div class="clearfix visible-xs">
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-3 col-xs-12 lborder" style="float: left;">
+            <div id="sLoader" class="loader"></div>
+            @*  <div id="options">
+                    <div class="panel panel-green1">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">معلومات الكوبون</div>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>الكوبون</td>
+                                <td class="text-left">@Model.Coupon.Value @(Model.Coupon.IsPercentage?"%":"")</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>*@
+            <div id="shipping_method">
+                <div id="shipping_method" class="panel panel-green1">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading">طريقة الشحن المطلوبة</div>
+                    <table class="table table-hover">
+                        @foreach (var modelShippingMethod in @Model.ShippingMethods)
+                        {
+
+                            <thead>
+                                <tr>
+                                    <th width="80%">@modelShippingMethod.Name</th>
+                                    <th width="20%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (@modelShippingMethod.Id == (long)ShippingMethods.Free)
+                                {
+                                    <tr>
+                                        <td>
+                                            <label for="sm-0">
+                                                <input type="radio" name="shippingCompany" value="0" id="sm-0" @(Model.ShippingMethod == ShippingMethods.Free ? "checked" : "")>
+                                                @modelShippingMethod.MetaDescription
+                                            </label>
+                                        </td>
+                                        <td class="text-right"><label for="sm-@modelShippingMethod.Id">@ViewBag.NoCost</label></td>
+                                    </tr>
+                                }
+                                else if (@modelShippingMethod.Id == (long)ShippingMethods.ByHand)
+                                {
+                                    <tr>
+                                        <td>
+                                            <label for="sm-00">
+                                                <input type="radio" name="shippingCompany" value="-1" id="sm-00" @(Model.ShippingMethod == ShippingMethods.ByHand ? "checked" : "")>
+                                                @modelShippingMethod.MetaDescription
+                                            </label>
+                                        </td>
+                                        <td class="text-right"><label for="sm-@modelShippingMethod.Id">@ViewBag.NoCost</label></td>
+                                    </tr>
+                                }
+                                else
+                                {
+                                    foreach (var modelShippingCompany in @Model.ShippingCompanies)
+                                    {
+
+
+                                        <tr>
+                                            <td>
+                                                <label for="sm-@modelShippingCompany.Id">
+                                                    <input type="radio" name="shippingCompany" value="@modelShippingCompany.Id" id="sm-@modelShippingCompany.Id" @(Model.ShippingMethod == ShippingMethods.WithCompany && Model.SelectShippingCompany.Id == modelShippingCompany.Id ? "checked" : "")>
+                                                    @modelShippingCompany.Name
+                                                </label>
+                                            </td>
+                                            <td class="text-right"><label for="sm-@modelShippingCompany.Id">@modelShippingCompany.ShippingCostDisplay</label></td>
+
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        }
+                        @*<thead>
+                            <tr>
+                                <th width="80%">باستخدام شركات الشحن</th>
+                                <th width="20%"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <label for="flat.flat">
+                                        <input type="radio" name="shipping_method" value="flat.flat" id="flat.flat">
+                                        تكلفة الشحن
+                                    </label>
+                                </td>
+                                <td class="text-right"><label for="flat.flat">$30.00</label></td>
+                            </tr>
+                            </tbody>
+                            <thead>
+                            <tr>
+                                <th width="80%">التوصيل يد بيد </th>
+                                <th width="20%"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <label for="pickup.pickup">
+                                        <input type="radio" name="shipping_method" value="pickup.pickup" id="pickup.pickup">
+                                        التوصيل يد بيد
+                                    </label>
+                                </td>
+                                <td class="text-right"><label for="pickup.pickup">$0.00</label></td>
+                            </tr>
+                            </tbody>*@
+                    </table>
+                </div>
+            </div>
+            <div id="addressRight">
+                <div id="agreeText" class="text-center" style="font-size: 20px; margin-bottom: 20px;">
+                    <a class="agree" href="@Url.Action("Conditions","Privacy")" alt="Terms &amp; Conditions"><b> الشروط&amp;سياسةالدفع </b></a> <input type="checkbox" name="agree" value="1">
+                </div>
+                <div class="progress" id="progress-continue-disabled" style="display: block">
+                    <div data-trigger="focus" tabindex="0" data-placement="bottom" data-toggle="popover" title="" data-content="للمتابعة يجب الموافقة على الشروط وسياسة الدفع" class="progress-bar" role="progressbar" id="button-payment-disabled" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="background-color: #ccc; width: 100%" data-original-title="Terms &amp; Conditions">
+                        <span>المتابعة للدفع</span>
+                    </div>
+                </div>
+                <div class="progress" id="continue-to-payment" style="display: none">
+                    <div class="progress-bar progress-bar-success" role="progressbar" id="button-payment" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+                        <span>المتابعة للدفع</span>
+                    </div>
+                </div>
+
+            </div>
+            <div id="totals" style="direction: rtl;">
+                <div class="panel panel-green1">
+                    <div class="panel-heading">الإجمالي</div>
+                    <table class="table">
+                        <tbody>
+                        <tr><td>السعر الجزئي:</td><td class="text-right">@Model.SubTotalCostDisplay</td></tr>
+                        <tr>
+                            
+                            <td id="coupon-actions-display">@if (Model.Coupon.Value > 0)
+                                {
+                                    <a href="#" onclick="return delCoupon();" class="copun-link"><i class='fa fa-trash-o'></i></a>
+                                }الكوبون:<a data-toggle="modal" data-target="#couponModal" role="button" class="copun-link">@(Model.Coupon.Value > 0 ? "(تغيير)" : "(إضافة)")</a></td>
+
+                            <td class="text-right" id="coupon-value-display">@(Model.Coupon.Value > 0 ? (Model.Coupon.IsPercentage ? Model.Coupon.Value + "%" : "- " + Model.Coupon.ValueDisplay) : "")</td>
+                        </tr>
+                            @if (Model.ShippingMethod == ShippingMethods.WithCompany)
+                            {
+                                <tr><td>@Model.SelectShippingCompany.Name</td><td class="text-right">@Model.SelectShippingCompany.ShippingCostDisplay</td></tr>
+
+                            }
+                              
+                            <tr><td>السعر الكلي:</td><td id="total-value-display" class="text-right">@Model.TotalCostDisplay</td></tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+@*<script>
+    bind();
+</script>*@

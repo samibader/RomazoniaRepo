@@ -1,0 +1,251 @@
+﻿@using EShop.Common
+@model EShop.WEB.Models.OrderVM
+@{
+    ViewBag.Title = "معلومات الطلب";
+    Layout = "../Shared/_Manage.cshtml";
+
+}
+<div id="content" class="col-sm-12" style="
+    background-color: white;
+">
+    <h2>معلومات الطلب</h2>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td colspan="2">بيانات الطلب</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="width: 50%;">
+                    <b>الرقم:</b> @(String.IsNullOrWhiteSpace(Model.InvoiceId)?"سيتم عرض رقم الفاتورة عندما يتم قبول الطلب":Model.InvoiceId)<br>
+                    <b>تاريخ الاضافة:</b> @Model.CreationDate.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture)
+                </td>
+                <td>
+                    <b>طريقة الدفع:</b> @Model.BillingMethod.Name<br>
+                    <b>طريقة الشحن:</b> @Model.ShippingMethod.Name
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td style="width: 50%;">عنوان الدفع</td>
+                <td>عنوان الشحن</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+
+                <td>
+                    <p class="text-justified">
+                        @Model.BillingAddress.FirstName<br />
+                        @Model.BillingAddress.LastName<br />
+                        @Model.BillingAddress.Address1<br />
+                        @Model.BillingAddress.Phone<br />
+                        @Model.BillingAddress.City<br />
+                        @Model.BillingAddress.Country<br />
+                        @Model.BillingAddress.PostCode<br />
+                    </p>
+                </td>
+                <td>
+                    <p class="text-justified">
+                        @Model.ShippingAddress.FirstName<br />
+                        @Model.ShippingAddress.LastName<br />
+                        @Model.ShippingAddress.Address1<br />
+                        @Model.ShippingAddress.Phone<br />
+                        @Model.ShippingAddress.City<br />
+                        @Model.ShippingAddress.Country<br />
+                        @Model.ShippingAddress.PostCode<br />
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+
+                    <td>صورة المنتج</td>
+
+
+                    <td colspan="2">اسم المنتج</td>
+
+                    <td>الكمية</td>
+                    <td>السعر</td>
+                    <td>الاجمالي</td>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model.OrderItems)
+                {
+                    <tr>
+
+                        <td class="text-center" width="100"><img src="@(product.ImageUrl).ashx?height=100" title="@product.Name" style="padding: 1px; border: 1px solid #DDDDDD;"></td>
+
+                        <td colspan="2">
+                            @product.Name
+                            <br/>
+                            @if (!String.IsNullOrWhiteSpace(product.ColorEnglish))
+                            {
+                                <br />
+                                <text>اللون:</text>
+                                @product.ColorEnglish
+
+                            }
+                            @if (!String.IsNullOrWhiteSpace(product.SizeEnglish))
+                            {<br />
+                            <text>القياس:</text> @product.SizeEnglish
+                            }
+                        </td>
+
+                        <td class="text-right">@product.Quantity</td>
+                        <td class="text-right">@product.UnitPriceDisplay</td>
+                        <td class="text-right">@product.TotalPriceDisplay</td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr class="hidden-xs">
+
+                    <td colspan="5" class="text-right"><strong>المجموع الجزئي:</strong></td>
+
+
+                    <td class="text-right">@Model.SubTotalDisplay</td>
+                </tr>
+                <tr class="hidden-sm hidden-md hidden-lg">
+                    <td colspan="3" class="text-right"><strong>المجموع الجزئي:</strong></td>
+                    <td class="text-right">@Model.SubTotalDisplay</td>
+                </tr>
+                @*<tr class="hidden-xs">
+
+                        <td colspan="5" class="text-right"><strong>Bank Transfer Charges $5:</strong></td>
+
+
+                        <td class="text-right">$5.00</td>
+                    </tr>*@
+                @*<tr class="hidden-sm hidden-md hidden-lg">
+                        <td colspan="3" class="text-right"><strong>Bank Transfer Charges $5:</strong></td>
+                        <td class="text-right">$5.00</td>
+                    </tr>*@
+                @if (Model.ShippingMethod.Id != (long)ShippingMethods.WithCompany)
+                {
+                    <tr class="hidden-xs">
+
+                        <td colspan="5" class="text-right"><strong>@Model.ShippingMethod.Name:</strong></td>
+
+
+                        <td class="text-right">@Model.ShippingCostDisplay</td>
+                    </tr>
+                    <tr class="hidden-sm hidden-md hidden-lg">
+                        <td colspan="3" class="text-right"><strong>@Model.ShippingMethod.Name:</strong></td>
+                        <td class="text-right">@Model.ShippingCostDisplay</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="hidden-xs">
+
+                        <td colspan="5" class="text-right"><strong>@Model.ShippingCompany.Name:</strong></td>
+
+
+                        <td class="text-right">@Model.ShippingCompany.ShippingCostDisplay</td>
+                    </tr>
+                    <tr class="hidden-sm hidden-md hidden-lg">
+                        <td colspan="3" class="text-right"><strong>@Model.ShippingCompany.Name:</strong></td>
+                        <td class="text-right">@Model.ShippingCompany.ShippingCostDisplay</td>
+                    </tr>
+                }
+                @if (!String.IsNullOrWhiteSpace(@Model.CouponCode))
+                {
+                    <tr class="hidden-xs">
+
+                        <td colspan="5" class="text-right"><strong>الكوبون(@Model.CouponCode):</strong></td>
+
+
+                        <td class="text-right">@(Model.CouponCurrency == "%" ? Model.CouponCurrency +Model.CouponValue: Model.CouponValueDisplay)</td>
+                    </tr>
+                    <tr class="hidden-sm hidden-md hidden-lg">
+                        <td colspan="3" class="text-right"><strong>الكوبون(@Model.CouponCode):</strong></td>
+                        <td  class="text-right">@(Model.CouponCurrency == "%" ? Model.CouponValue + Model.CouponCurrency : Model.CouponValueDisplay)</td>
+                    </tr>
+                   
+                }
+                <tr class="hidden-xs">
+
+                    <td colspan="5" class="text-right"><strong>المجموع الكلي:</strong></td>
+
+
+                    <td class="text-right">@Model.TotalDisplay</td>
+                </tr>
+                <tr class="hidden-sm hidden-md hidden-lg">
+                    <td colspan="3" class="text-right"><strong>المجموع الكلي:</strong></td>
+                    <td class="text-right">@Model.TotalDisplay</td>
+                </tr>
+            </tfoot>
+
+            @*<tfoot>
+                    <tr>
+
+                        <td colspan="4"></td>
+
+
+                        <td class="text-right"><b>Sub-Total</b></td>
+                        <td class="text-right">$3,800.99</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+
+
+                        <td class="text-right"><b>COD Charges 10%</b></td>
+                        <td class="text-right">$380.10</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+
+
+                        <td class="text-right"><b>Free Shipping</b></td>
+                        <td class="text-right">$0.00</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+
+                        <td colspan="4"></td>
+
+
+                        <td class="text-right"><b>Total</b></td>
+                        <td class="text-right">$4,181.09</td>
+                        <td></td>
+                    </tr>
+                </tfoot>*@
+        </table>
+    </div>
+    <h3>تاريخ الطلب</h3>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td style="width: 25%;">تاريخ الاضافة</td>
+                <td style="width: 25%;">حالة الطلب</td>
+                <td>تعليق</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var history in @Model.OrderHistories)
+            {
+                <tr>
+                    <td>@(history.DateAdded.Value.Date.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture))</td>
+                    <td>@Utils.getOrderStateByLang(history.State)</td>
+                    <td>@Html.Raw(history.Description)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

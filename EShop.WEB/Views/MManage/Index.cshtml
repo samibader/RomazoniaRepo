@@ -1,0 +1,149 @@
+﻿@using EShop.Common
+@{
+    ViewBag.Title = "معلومات الحساب";
+    if (!Request.IsAjaxRequest())
+    {
+        Layout = "~/Views/Shared/_Manage.cshtml";
+    }
+}
+
+<h4>معلومات الحساب</h4>
+<hr />
+<style>
+    .huge {
+        font-size: 40px;
+        padding: 2px;
+    }
+    /*Green*/
+    .panel-green {
+        border-color: dimgrey;
+    }
+
+        .panel-green > .panel-heading {
+            border-color: dimgrey;
+            color: #fff;
+            background-color: dimgrey;
+        }
+
+        .panel-green > a {
+            color: dimgrey;
+        }
+
+            .panel-green > a:hover {
+                color: #524f4f;
+            }
+    /*Blue*/
+    .panel-Blue {
+        border-color: cadetblue;
+    }
+
+        .panel-Blue > .panel-heading {
+            border-color: cadetblue;
+            color: #fff;
+            background-color: cadetblue;
+        }
+
+        .panel-Blue > a {
+            color: cadetblue;
+        }
+
+            .panel-Blue > a:hover {
+                color: #1a7375;
+            }
+
+    /*Blue*/
+    .panel-Red {
+        border-color: indianred;
+    }
+
+        .panel-Red > .panel-heading {
+            border-color: indianred;
+            color: #fff;
+            background-color: indianred;
+        }
+
+        .panel-Red > a {
+            color: indianred;
+        }
+
+            .panel-Red > a:hover {
+                color: indianred;
+            }
+</style>
+<div class="row">
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-Blue">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="huge">@ViewBag.Active</div>
+                        <div>الطلبات الفعالة</div>
+                    </div>
+                    <div class="col-xs-2">
+                        <i class="fa fa-tasks fa-3x"></i>
+                    </div>
+
+                </div>
+            </div>
+            <a href="@Url.Action("Order", new { state = OrderStates.Active.ToString() })">
+                <div class="panel-footer">
+                    <span class="pull-right">عرض التفاصيل</span>
+                    <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
+
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-Red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="huge">@ViewBag.Canceled</div>
+                        <div>الطلبات الملغاة</div>
+                    </div>
+                    <div class="col-xs-2">
+                        <i class="fa fa-tasks fa-3x"></i>
+                    </div>
+
+                </div>
+            </div>
+            <a href="@Url.Action("Order",new {state=OrderStates.canceled.ToString()})">
+                <div class="panel-footer">
+                    <span class="pull-right">عرض التفاصيل</span>
+                    <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
+
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="huge">@ViewBag.Archived</div>
+                        <div>الطلبات المؤرشفة</div>
+                    </div>
+                    <div class="col-xs-2">
+                        <i class="fa fa-tasks fa-3x"></i>
+                    </div>
+
+                </div>
+            </div>
+            <a href="@Url.Action("Order",new {state=OrderStates.complete.ToString()})">
+                <div class="panel-footer">
+                    <span class="pull-right">عرض التفاصيل</span>
+                    <span class="pull-left"><i class="fa fa-arrow-circle-left"></i></span>
+
+
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

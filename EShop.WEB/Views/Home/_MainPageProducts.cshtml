@@ -1,0 +1,388 @@
+﻿@using EShop.BLL.DTO
+@model EShop.BLL.DTO.MainPageProductsDTO
+<div class="home-tab">
+    <div class="tab-info">
+        <h3 class="new-product-title pull-right">فئات المنتجات</h3>
+        <ul class="nav home-nav-tabs home-product-tabs">
+            @for (int i = 0; i < Model.MainCategories.Count; i++)
+            {
+                var cat = Model.MainCategories[i];
+                <li @(i == 0 ? "class=active" : "")> <a href="#cat-@(cat.Id)" data-toggle="tab" aria-expanded="false">@cat.Name</a> </li>
+            }
+            @*<li> <a href="#men" data-toggle="tab" aria-expanded="false">رجالي</a> </li>
+                <li> <a href="#kids" data-toggle="tab" aria-expanded="false">أطفال</a> </li>*@
+        </ul>
+        <!-- /.nav-tabs -->
+    </div>
+    <div id="productTabContent" class="tab-content">
+        @for (int i = 0; i < Model.MainCategories.Count; i++)
+        {
+            var cls = i == 0 ? "active in" : "fade";
+            <div class="tab-pane @cls" id="cat-@Model.MainCategories[i].Id">
+                <div class="slider-items-products">
+                    <div id="cat-@Model.MainCategories[i].Id-slider" class="product-flexslider hidden-buttons">
+                        <div class="slider-items slider-width-col4">
+
+                            @foreach (ProductDTO product in Model.Products[i])
+                            {
+                                Html.RenderPartial("_SingleProduct", product);
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+        }
+        @*<div class="tab-pane fade" id="men">
+                        <div class="slider-items-products">
+                            <div id="men-slider" class="product-flexslider hidden-buttons">
+                                <div class="slider-items slider-width-col4">
+                                    @*<div class="product-item">
+                                            <div class="item-inner">
+                                                <div class="product-thumbnail">
+                                                    <div class="icon-sale-label sale-left">حسم</div>
+                                                    <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                                    <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img11.jpg" alt=""></a>
+                                                </div>
+                                                <div class="pro-box-info">
+                                                    <div class="item-info">
+                                                        <div class="info-inner">
+                                                            <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                            <div class="item-content">
+                                                                <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                                <div class="item-price">
+                                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span> </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="box-hover">
+                                                        <div class="product-item-actions">
+                                                            <div class="pro-actions">
+                                                                <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                            </div>
+                                                            <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-item">
+                                            <div class="item-inner">
+                                                <div class="product-thumbnail">
+                                                    <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                                    <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img12.jpg" alt=""></a>
+                                                </div>
+                                                <div class="pro-box-info">
+                                                    <div class="item-info">
+                                                        <div class="info-inner">
+                                                            <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                            <div class="item-content">
+                                                                <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                                <div class="item-price">
+                                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$175.88</span> </span> </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="box-hover">
+                                                        <div class="product-item-actions">
+                                                            <div class="pro-actions">
+                                                                <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                            </div>
+                                                            <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-item">
+                                            <div class="item-inner">
+                                                <div class="product-thumbnail">
+                                                    <div class="icon-new-label new-left">جديد</div>
+                                                    <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                                    <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img13.jpg" alt=""></a>
+                                                </div>
+                                                <div class="pro-box-info">
+                                                    <div class="item-info">
+                                                        <div class="info-inner">
+                                                            <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                            <div class="item-content">
+                                                                <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                                                                <div class="item-price">
+                                                                    <div class="price-box">
+                                                                        <p class="special-price"> <span class="price-label">عرض خاص</span> <span class="price"> $299.00 </span> </p>
+                                                                        <p class="old-price"> <span class="price-label">السعر النطامي</span> <span class="price"> $399.00 </span> </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="box-hover">
+                                                        <div class="product-item-actions">
+                                                            <div class="pro-actions">
+                                                                <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                            </div>
+                                                            <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-item">
+                                            <div class="item-inner">
+                                                <div class="product-thumbnail">
+                                                    <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                                    <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img14.jpg" alt=""></a>
+                                                </div>
+                                                <div class="pro-box-info">
+                                                    <div class="item-info">
+                                                        <div class="info-inner">
+                                                            <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                            <div class="item-content">
+                                                                <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                                <div class="item-price">
+                                                                    <div class="price-box"> <span class="regular-price"> <span class="price">$125.99</span> </span> </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="box-hover">
+                                                        <div class="product-item-actions">
+                                                            <div class="pro-actions">
+                                                                <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                            </div>
+                                                            <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="product-item">
+                                            <div class="item-inner">
+                                                <div class="product-thumbnail">
+                                                    <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                                    <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img15.jpg" alt=""></a>
+                                                </div>
+                                                <div class="pro-box-info">
+                                                    <div class="item-info">
+                                                        <div class="info-inner">
+                                                            <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                            <div class="item-content">
+                                                                <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                                <div class="item-price">
+                                                                    <div class="price-box">
+                                                                        <p class="special-price"> <span class="price-label">Special Price</span> <span class="price"> $188.80 </span> </p>
+                                                                        <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price"> $299.00 </span> </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="box-hover">
+                                                        <div class="product-item-actions">
+                                                            <div class="pro-actions">
+                                                                <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                            </div>
+                                                            <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                    @foreach (EShop.BLL.DTO.ProductDTO product in @Model.Men)
+            {
+                Html.RenderPartial("_SingleProduct", product);
+            }
+                </div>
+            </div>
+                        </div>
+                    </div>
+            <div class="tab-pane fade" id="kids">
+                <div class="slider-items-products">
+                    <div id="kids-slider" class="product-flexslider hidden-buttons">
+                        <div class="slider-items slider-width-col4">
+                            @*<div class="product-item">
+                                    <div class="item-inner">
+                                        <div class="product-thumbnail">
+                                            <div class="icon-sale-label sale-left">حسم</div>
+                                            <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                            <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img16.jpg" alt=""></a>
+                                        </div>
+                                        <div class="pro-box-info">
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box"> <span class="regular-price"> <span class="price">$125.00</span> </span> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-hover">
+                                                <div class="product-item-actions">
+                                                    <div class="pro-actions">
+                                                        <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                    </div>
+                                                    <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-item">
+                                    <div class="item-inner">
+                                        <div class="product-thumbnail">
+                                            <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                            <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img17.jpg" alt=""></a>
+                                        </div>
+                                        <div class="pro-box-info">
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box"> <span class="regular-price"> <span class="price">$175.88</span> </span> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-hover">
+                                                <div class="product-item-actions">
+                                                    <div class="pro-actions">
+                                                        <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                    </div>
+                                                    <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-item">
+                                    <div class="item-inner">
+                                        <div class="product-thumbnail">
+                                            <div class="icon-new-label new-left">جديد</div>
+                                            <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                            <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img18.jpg" alt=""></a>
+                                        </div>
+                                        <div class="pro-box-info">
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box">
+                                                                <p class="special-price"> <span class="price-label">عرض خاص</span> <span class="price"> $299.00 </span> </p>
+                                                                <p class="old-price"> <span class="price-label">السعر النظامي</span> <span class="price"> $399.00 </span> </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-hover">
+                                                <div class="product-item-actions">
+                                                    <div class="pro-actions">
+                                                        <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                    </div>
+                                                    <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-item">
+                                    <div class="item-inner">
+                                        <div class="product-thumbnail">
+                                            <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                            <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img19.jpg" alt=""></a>
+                                        </div>
+                                        <div class="pro-box-info">
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box"> <span class="regular-price"> <span class="price">$125.99</span> </span> </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-hover">
+                                                <div class="product-item-actions">
+                                                    <div class="pro-actions">
+                                                        <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                    </div>
+                                                    <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="product-item">
+                                    <div class="item-inner">
+                                        <div class="product-thumbnail">
+                                            <div class="btn-quickview"> <a href="quick_view.html"><span>نظرة سريعة</span></a></div>
+                                            <a href="single_product.html" class="product-item-photo"> <img class="product-image-photo" src="images/products/img20.jpg" alt=""></a>
+                                        </div>
+                                        <div class="pro-box-info">
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="وصف المنتج .." href="single_product.html">وصف المنتج .. </a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box">
+                                                                <p class="special-price"> <span class="price-label">عرص خاص </span> <span class="price"> $188.80 </span> </p>
+                                                                <p class="old-price"> <span class="price-label">السعر النظامي</span> <span class="price"> $299.00 </span> </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="box-hover">
+                                                <div class="product-item-actions">
+                                                    <div class="pro-actions">
+                                                        <button class="action add-to-cart" type="button" title="إضافة إلى السلة"> <span>إضافة إلى السلة</span> </button>
+                                                    </div>
+                                                    <div class="add-to-links" data-role="add-to-links"> <a href="wishlist.html" class="action add-to-wishlist" title="إضافة إلى المفضلة"> <span>Wishlist</span> </a> <a href="compare.html" class="action add-to-compare" title="إضافة إلى المقارنة"> <span>Compare</span> </a> </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @foreach (EShop.BLL.DTO.ProductDTO product in @Model.Babe)
+                                    {
+                                        Html.RenderPartial("_SingleProduct", product);
+                                    }
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+</div>
+@foreach (var cat in Model.MainCategories)
+{
+                <script>
+                $(document).ready(function() {
+                    jQuery("#cat-@cat.Id-slider .slider-items")
+                        .owlCarousel({
+                            items: 3,
+                            itemsDesktop: [1024, 3],
+                            itemsDesktopSmall: [980, 2],
+                            itemsTablet: [640, 2],
+                            itemsMobile: [390, 1],
+                            navigation: !0,
+                            navigationText: ['<a class="flex-prev"></a>', '<a class="flex-next"></a>'],
+                            slideSpeed: 500,
+                            pagination: !1,
+                            autoPlay: false
+                        });
+                });
+            </script>
+}

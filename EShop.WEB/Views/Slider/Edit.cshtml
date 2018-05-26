@@ -1,0 +1,196 @@
+﻿@model EShop.WEB.Models.SlideVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    ViewBag.Title = "تعديل شريحة";
+}
+
+<div id="content">
+
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                <button id="save-slide" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="حفظ"><i class="fa fa-save"></i></button>
+                <a id="cancel" href="@Url.Action("Index","Slider")" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="إالغاء"><i class="fa fa-reply"></i></a>
+            </div>
+
+            <h1>الشرائح</h1>
+            <ul class="breadcrumb">
+                <li><a href="@Url.Action("Index","DashBoard")">الرئيسية</a></li>
+                <li><a href="@Url.Action("Index","Slider")">الشرائح</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> تعديل شريحة</h3>
+                @Html.ValidationSummary("", new { @class = "val-error" })
+            </div>
+            <div class="panel-body">
+                <form method="post" id="form-slide" class="form-horizontal">
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">الصورة</label>
+                        <div class="col-sm-10">
+                            @Html.HiddenFor(c => c.WebSite)
+                            @Html.HiddenFor(c => c.Id, new {Id = "slide-id"})
+                            <img id="slideImg" src="@(Model.ImageUrl + ".ashx?width=200&height=200")" alt="Alternate Text" class="img "/>
+                            <label style="margin: 7px; margin-left: 26px;" title="Upload image file" for="fileToUpload" class="btn btn-primary">
+                                <input id="fileToUpload" type="file" accept="image/*" name="ImageUrl" class="hide">
+                                اضف صورة
+                            </label>
+
+                            @*<input id="img-hid" type="hidden" name="ImageUrl" value="@Model.Category.ImageUrl" />*@
+                            @Html.HiddenFor(c => c.ImageUrl, new {id = "img-hid"})
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label" for="input-url">الرابط</label>
+                        <div class="col-sm-10">
+                            @*<input type="text" name="SortOrder" value="@Model.Category.SortOrder" placeholder="Sort Order" id="input-sort-order" class="form-control">*@
+                            @Html.TextBoxFor(c => c.Url, new { id = "input-url", placeholder = "الرابط", @class = "form-control" })
+                            @Html.ValidationMessageFor(c => c.Url, "", new { @class = "val-error" })
+                        </div>
+                        @Html.HiddenFor(c => c.WebSite)
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        //$('#input-description-en,#input-description-ar').summernote({
+        //    height: 300
+        //});
+    </script>
+    <script>
+        function refreshPage() {
+            $.ajax({
+                url: '@Url.Action("Edit","Slider")',
+                method: 'Get',
+                data:{Id:$("#slide-id").val()},
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+        $(document).ready(function () {
+
+
+            ////////////////////////////////////
+            $('#save-slide').on('click', function (e) {
+                e.preventDefault();
+                var form = $("#form-slide");
+                //form.validate({
+                //    ignore: ":hidden"
+                //});
+                if (form.valid() == false) {
+                    generateFlash('error', "يرجى التحقق من القيم المدخلة أو ادخال الحقول المطلوبة");
+                    return;
+                }
+                $.ajax({
+                    url: '@Url.Action("Edit","Slider")',
+                    method: 'POST',
+                    data: $('#form-slide').serialize(),
+                    success: function (data) {
+                        if (data.Succedeed != null) {
+                            refreshPage();
+                            jQuery('body,html').fadeOut(0).fadeIn(1500);
+                            if (data.Succedeed == true) {
+
+                                generateFlash('success', data.message);
+
+                            }
+                            else {
+                                generateFlash('error', data.message);
+                            }
+                        } else {
+
+                            $('#content').html($(data).find('#content').html());
+                            jQuery('body,html').fadeOut(0).fadeIn(1000);
+                            generateFlash('error', 'الرجاء تعبئة جميع الحقول المطلوبة');
+                        }
+                    }
+                });
+            });
+
+            $("#fileToUpload").on('change', function (e) {
+
+                //e.preventDefault();
+                // Checking whether FormData is available in browser
+                if (window.FormData !== undefined) {
+
+                    var fileUpload = $("#fileToUpload").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    // Adding one more key to FormData object
+                    fileData.append('username', 'Manas');
+
+                    $.ajax({
+                        url: '@Url.Action("UploadFiles","Base")',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+
+                            $('#img-hid').val("/uploads/" + result.name);
+                            $('#slideImg').attr('src', '/uploads/' + result.name + '.ashx?width=200&height=200');
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
+
+
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+
+        /*$('input[name=\'path\']').autocomplete({
+            'source': function(request, response) {
+                $.ajax({
+                    url: 'index.php?route=catalog/category/autocomplete&token=531583aef8dcf76a5065703e36e89d23&filter_name=' +  encodeURIComponent(request),
+                    dataType: 'json',
+                    success: function(json) {
+                        json.unshift({
+                            category_id: 0,
+                            name: ' --- None --- '
+                        });
+
+                        response($.map(json, function(item) {
+                            return {
+                                label: item['name'],
+                                value: item['category_id']
+                            }
+                        }));
+                    }
+                });
+            },
+            'select': function(item) {
+                $('input[name=\'path\']').val(item['label']);
+                $('input[name=\'parent_id\']').val(item['value']);
+            }
+        });*/
+    </script>
+
+    <script type="text/javascript">
+
+        $('#language a:first').tab('show');
+    </script>
+</div>

@@ -1,0 +1,24 @@
+﻿@model EShop.WEB.Models.CategoryPathVM
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home" href="@Url.Action("Index","Home")">الرئيسية</a><span>&raquo;</span></li>
+                    @foreach (var category in @Model.CategoryNames)
+                    {
+                        if (!category.Equals(@Model.CategoryNames.ToList()[@Model.CategoryNames.ToList().Count - 1]))
+                        {
+                            <li class=""> <a title="Go to Home Page" href="@Url.Action("Browse", "CategoryBase", new {categoryName = category.Item2})">@category.Item1</a><span>&raquo;</span></li>
+                        }
+                        else
+                        {
+                            <li><strong>@category.Item1</strong></li>
+                        }
+
+                    } 
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+﻿@using EShop.WEB.Models
+@model SearchVM
+
+<div class="top-search">
+    <div id="search">
+        @using (Html.BeginForm("Results", "Search", FormMethod.Get,new {@id="search-form"}))
+        {
+
+            <span>@Html.ValidationMessageFor(m=>m.SearchText)</span>
+            <div class="input-group">
+
+                <select class="cate-dropdown hidden-xs hidden-sm" name="categoryId">
+                    <option selected value="-1">جميع الفئات</option>
+                    @foreach (CategoryMenuVM cat in @Model.Categories.SubCategories)
+                    {
+                        String selected = (@Model.CategoryId == cat.Id) ? "selected" : "";
+                        <option @selected value="@cat.Id">@cat.Name</option>
+                        foreach (var catSubCategory in cat.SubCategories)
+                        {
+                            selected = (@Model.CategoryId == catSubCategory.Id) ? "selected" : "";
+                            <option @selected value="@catSubCategory.Id">&nbsp;&nbsp;&nbsp;&nbsp;@catSubCategory.Name</option>
+                            foreach (var child in catSubCategory.SubCategories)
+                            {
+                                selected = (@Model.CategoryId == child.Id) ? "selected" : "";
+                                <option @selected value="@child.Id">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;@child.Name</option>
+
+                            }
+                        }
+                    }
+
+                </select>
+                @*<input type="text" class="form-control" placeholder="بحث" name="SearchText">*@
+                @Html.TextBoxFor(m=>m.SearchText,new {@class="form-control",placeholder="بحث",name="prefix"})
+
+               @* <button class="btn-search" type="submit"><i class="fa fa-search"></i></button>*@
+            </div>
+        }
+    </div>
+</div>
+
+

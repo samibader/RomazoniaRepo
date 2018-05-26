@@ -1,0 +1,393 @@
+﻿@model EShop.WEB.Models.AddCategoryVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div id="content">
+
+    <div class="page-header">
+        <div class="container-fluid">
+            <div class="pull-left">
+                <button id="save-cat" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="حفظ"><i class="fa fa-save"></i></button>
+                <a id="cancel" href="#" data-toggle="tooltip" title="" class="btn btn-default" data-original-title="إالغاء"><i class="fa fa-reply"></i></a>
+            </div>
+
+            <h1>الفئات</h1>
+            <ul class="breadcrumb">
+                <li><a href="http://demo.xtensions.in/best/admin/index.php?route=common/dashboard&amp;token=531583aef8dcf76a5065703e36e89d23">الرئيسية</a></li>
+                <li><a href="http://demo.xtensions.in/best/admin/index.php?route=catalog/category&amp;token=531583aef8dcf76a5065703e36e89d23&amp;sort=name&amp;order=ASC">الفئات</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-pencil"></i> تعديل فئة</h3>
+                @Html.ValidationSummary("", new { @class = "val-error" })
+            </div>
+            <div class="panel-body">
+                <form method="post" id="form-category" class="form-horizontal">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab-general" data-toggle="tab">عام</a></li>
+                        <li class=""><a href="#tab-data" data-toggle="tab">البيانات</a></li>
+                        <li class=""><a href="#tab-design" data-toggle="tab">التصميم</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="tab-general">
+                            <ul class="nav nav-tabs" id="language">
+                                <li class="active"><a href="#language1" data-toggle="tab"><img src="~/Assets/images/flag-english.jpg" title="English"> English</a></li>
+                                <li class=""><a href="#language2" data-toggle="tab"><img src="~/Assets/images/flag-arabic.jpg" title="English"> العربية</a></li>
+                            </ul>
+                            <div class="tab-content ">
+                                <div style="direction:ltr" class="tab-pane active" id="language1">
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-cat-en">Category Name</label>
+                                        <div class="col-sm-10 ">
+                                            @*<input type="text" name="EnglishName" value="@Model.Category.EnglishName" placeholder="Category Name" id="input-cat-en" class="form-control">*@
+                                            @Html.TextBoxFor(c => c.Category.EnglishName, new { @class = "form-control", placeholder = "Category Name", id = "input-cat-en" })
+
+                                            @Html.ValidationMessageFor(c => c.Category.EnglishName, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-description-en">Description</label>
+                                        <div class="col-sm-10">
+                                            <div class="note-editor">
+                                                <div class="note-dropzone"><div class="note-dropzone-message"></div></div><div class="note-dialog"><div class="note-image-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" aria-hidden="true" tabindex="-1">×</button><h4 class="modal-title">Insert Image</h4></div><div class="modal-body"><div class="row-fluid"><div class="note-group-select-from-files"><h5>Select from files</h5><input class="note-image-input" type="file" name="files" accept="image/*"></div><h5>Image URL</h5><input class="note-image-url form-control span12" type="text"></div></div><div class="modal-footer"><button href="#" class="btn btn-primary note-image-btn disabled" disabled="">Insert Image</button></div></div></div></div><div class="note-link-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" aria-hidden="true" tabindex="-1">×</button><h4 class="modal-title">Insert Link</h4></div><form class="note-modal-form"><div class="modal-body"><div class="row-fluid"><div class="form-group"><label>Text to display</label><input class="note-link-text form-control span12" type="text"></div><div class="form-group"><label>To what URL should this link go?</label><input class="note-link-url form-control span12" type="text"></div><div class="checkbox"><label><input type="checkbox" checked=""> Open in new window</label></div></div></div><div class="modal-footer"><button href="#" class="btn btn-primary note-link-btn disabled" disabled="">Insert Link</button></div></form></div></div></div><div class="note-video-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" aria-hidden="true" tabindex="-1">×</button><h4 class="modal-title">Insert Video</h4></div><form class="note-modal-form"><div class="modal-body"><div class="row-fluid"><div class="form-group"><label>Video URL?</label>&nbsp;<small class="text-muted">(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)</small><input class="note-video-url form-control span12" type="text"></div></div></div><div class="modal-footer"><button href="#" class="btn btn-primary note-video-btn disabled" disabled="">Insert Video</button></div></form></div></div></div><div class="note-help-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><form class="note-modal-form"><div class="modal-body"><div class="row-fluid"><a class="modal-close pull-right" aria-hidden="true" tabindex="-1">Close</a><div class="title">Keyboard shortcuts</div><p class="text-center"><a href="http://hackerwins.github.io/summernote/" target="_blank">Summernote 0.5.8</a> · <a href="http://github.com/HackerWins/summernote" target="_blank">Project</a> · <a href="http://github.com/HackerWins/summernote/issues" target="_blank">Issues</a></p><table class="note-shortcut-layout"><tbody><tr><td><table class="note-shortcut"><thead><tr><th></th><th>Action</th></tr></thead><tbody><tr><td>Ctrl + Z</td><td>Undo</td></tr><tr><td>Ctrl + Shift + Z</td><td>Redo</td></tr><tr><td>Ctrl + ]</td><td>Indent</td></tr><tr><td>Ctrl + [</td><td>Outdent</td></tr><tr><td>Ctrl + ENTER</td><td>Insert Horizontal Rule</td></tr></tbody></table></td><td><table class="note-shortcut"><thead><tr><th></th><th>Text formatting</th></tr></thead><tbody><tr><td>Ctrl + B</td><td>Bold</td></tr><tr><td>Ctrl + I</td><td>Italic</td></tr><tr><td>Ctrl + U</td><td>Underline</td></tr><tr><td>Ctrl + Shift + S</td><td>Strikethrough</td></tr><tr><td>Ctrl + \</td><td>Remove Font Style</td></tr></tbody></table></td></tr><tr><td><table class="note-shortcut"><thead><tr><th></th><th>Document Style</th></tr></thead><tbody><tr><td>Ctrl + NUM0</td><td>Normal</td></tr><tr><td>Ctrl + NUM1</td><td>Header 1</td></tr><tr><td>Ctrl + NUM2</td><td>Header 2</td></tr><tr><td>Ctrl + NUM3</td><td>Header 3</td></tr><tr><td>Ctrl + NUM4</td><td>Header 4</td></tr><tr><td>Ctrl + NUM5</td><td>Header 5</td></tr><tr><td>Ctrl + NUM6</td><td>Header 6</td></tr></tbody></table></td><td><table class="note-shortcut"><thead><tr><th></th><th>Paragraph formatting</th></tr></thead><tbody><tr><td>Ctrl + Shift + L</td><td>Align left</td></tr><tr><td>Ctrl + Shift + E</td><td>Align center</td></tr><tr><td>Ctrl + Shift + R</td><td>Align right</td></tr><tr><td>Ctrl + Shift + J</td><td>Justify full</td></tr><tr><td>Ctrl + Shift + NUM7</td><td>Ordered list</td></tr><tr><td>Ctrl + Shift + NUM8</td><td>Unordered list</td></tr></tbody></table></td></tr></tbody></table></div></div></form></div></div></div></div><div class="note-handle"><div class="note-control-selection"><div class="note-control-selection-bg"></div><div class="note-control-holder note-control-nw"></div><div class="note-control-holder note-control-ne"></div><div class="note-control-holder note-control-sw"></div><div class="note-control-sizing note-control-se"></div><div class="note-control-selection-info"></div></div></div><div class="note-popover"><div class="note-link-popover popover bottom in" style="display: none;"><div class="arrow"></div><div class="popover-content"><a href="http://www.google.com/" target="_blank">www.google.com</a>&nbsp;&nbsp;<div class="note-insert btn-group"><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="showLinkDialog" tabindex="-1" data-original-title="Edit (CTRL+K)"><i class="fa fa-edit icon-edit"></i></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="unlink" tabindex="-1" data-original-title="Unlink"><i class="fa fa-unlink icon-unlink"></i></button></div></div></div><div class="note-image-popover popover bottom in" style="display: none;"><div class="arrow"></div><div class="popover-content"><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="resize" data-value="1" tabindex="-1" data-original-title="Resize Full"><span class="note-fontsize-10">100%</span></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="resize" data-value="0.5" tabindex="-1" data-original-title="Resize Half"><span class="note-fontsize-10">50%</span></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="resize" data-value="0.25" tabindex="-1" data-original-title="Resize Quarter"><span class="note-fontsize-10">25%</span></button></div><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="floatMe" data-value="left" tabindex="-1" data-original-title="Float Left"><i class="fa fa-align-left icon-align-left"></i></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="floatMe" data-value="right" tabindex="-1" data-original-title="Float Right"><i class="fa fa-align-right icon-align-right"></i></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="floatMe" data-value="none" tabindex="-1" data-original-title="Float None"><i class="fa fa-align-justify icon-align-justify"></i></button></div><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="removeMedia" data-value="none" tabindex="-1" data-original-title="Remove Image"><i class="fa fa-trash-o icon-trash"></i></button></div></div></div></div>
+                                                <textarea class="note-codable"></textarea><div class="note-editable" style="height: 300px;">
+
+                                                    @*<textarea placeholder="Description" name="EnglishDescription" id="input-description-en" class="form-control" style="height:100%;width:100%">@Model.Category.EnglishDescription</textarea>*@
+                                                    @Html.TextAreaFor(c => c.Category.EnglishDescription, new { @class = "form-control", placeholder = "Category Description", id = "input-description-en", style = "height:100%;width:100%" })
+                                                </div><div class="note-statusbar"><div class="note-resizebar"><div class="note-icon-bar"></div><div class="note-icon-bar"></div><div class="note-icon-bar"></div></div></div>
+                                            </div>
+                                            @Html.ValidationMessageFor(c => c.Category.EnglishDescription, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-meta-title1">Meta Tag Title</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="category_description[1][meta_title]" value="" placeholder="Meta Tag Title" id="input-meta-title1" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-description1">Meta Tag Description</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="category_description[1][meta_description]" rows="5" placeholder="Meta Tag Description" id="input-meta-description1" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-keyword1">Meta Tag Keywords</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="category_description[1][meta_keyword]" rows="5" placeholder="Meta Tag Keywords" id="input-meta-keyword1" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="language2" class="tab-pane">
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-name-ar">أسم الفئة</label>
+                                        <div class="col-sm-10">
+                                            @Html.TextBoxFor(c => c.Category.ArabicName, new { @class = "form-control", placeholder = "اسم الفئة", id = "input-cat-ar" })
+                                            @Html.ValidationMessageFor(c => c.Category.ArabicName, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-description-ar">الوصف</label>
+                                        <div class="col-sm-10">
+                                            <div class="note-editor">
+                                                <div class="note-dropzone"><div class="note-dropzone-message"></div></div><div class="note-dialog"><div class="note-image-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" aria-hidden="true" tabindex="-1">×</button><h4 class="modal-title">Insert Image</h4></div><div class="modal-body"><div class="row-fluid"><div class="note-group-select-from-files"><h5>Select from files</h5><input class="note-image-input" type="file" name="files" accept="image/*"></div><h5>Image URL</h5><input class="note-image-url form-control span12" type="text"></div></div><div class="modal-footer"><button href="#" class="btn btn-primary note-image-btn disabled" disabled="">Insert Image</button></div></div></div></div><div class="note-link-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" aria-hidden="true" tabindex="-1">×</button><h4 class="modal-title">Insert Link</h4></div><form class="note-modal-form"><div class="modal-body"><div class="row-fluid"><div class="form-group"><label>Text to display</label><input class="note-link-text form-control span12" type="text"></div><div class="form-group"><label>To what URL should this link go?</label><input class="note-link-url form-control span12" type="text"></div><div class="checkbox"><label><input type="checkbox" checked=""> Open in new window</label></div></div></div><div class="modal-footer"><button href="#" class="btn btn-primary note-link-btn disabled" disabled="">Insert Link</button></div></form></div></div></div><div class="note-video-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" aria-hidden="true" tabindex="-1">×</button><h4 class="modal-title">Insert Video</h4></div><form class="note-modal-form"><div class="modal-body"><div class="row-fluid"><div class="form-group"><label>Video URL?</label>&nbsp;<small class="text-muted">(YouTube, Vimeo, Vine, Instagram, DailyMotion or Youku)</small><input class="note-video-url form-control span12" type="text"></div></div></div><div class="modal-footer"><button href="#" class="btn btn-primary note-video-btn disabled" disabled="">Insert Video</button></div></form></div></div></div><div class="note-help-dialog modal" aria-hidden="false"><div class="modal-dialog"><div class="modal-content"><form class="note-modal-form"><div class="modal-body"><div class="row-fluid"><a class="modal-close pull-right" aria-hidden="true" tabindex="-1">Close</a><div class="title">Keyboard shortcuts</div><p class="text-center"><a href="http://hackerwins.github.io/summernote/" target="_blank">Summernote 0.5.8</a> · <a href="http://github.com/HackerWins/summernote" target="_blank">Project</a> · <a href="http://github.com/HackerWins/summernote/issues" target="_blank">Issues</a></p><table class="note-shortcut-layout"><tbody><tr><td><table class="note-shortcut"><thead><tr><th></th><th>Action</th></tr></thead><tbody><tr><td>Ctrl + Z</td><td>Undo</td></tr><tr><td>Ctrl + Shift + Z</td><td>Redo</td></tr><tr><td>Ctrl + ]</td><td>Indent</td></tr><tr><td>Ctrl + [</td><td>Outdent</td></tr><tr><td>Ctrl + ENTER</td><td>Insert Horizontal Rule</td></tr></tbody></table></td><td><table class="note-shortcut"><thead><tr><th></th><th>Text formatting</th></tr></thead><tbody><tr><td>Ctrl + B</td><td>Bold</td></tr><tr><td>Ctrl + I</td><td>Italic</td></tr><tr><td>Ctrl + U</td><td>Underline</td></tr><tr><td>Ctrl + Shift + S</td><td>Strikethrough</td></tr><tr><td>Ctrl + \</td><td>Remove Font Style</td></tr></tbody></table></td></tr><tr><td><table class="note-shortcut"><thead><tr><th></th><th>Document Style</th></tr></thead><tbody><tr><td>Ctrl + NUM0</td><td>Normal</td></tr><tr><td>Ctrl + NUM1</td><td>Header 1</td></tr><tr><td>Ctrl + NUM2</td><td>Header 2</td></tr><tr><td>Ctrl + NUM3</td><td>Header 3</td></tr><tr><td>Ctrl + NUM4</td><td>Header 4</td></tr><tr><td>Ctrl + NUM5</td><td>Header 5</td></tr><tr><td>Ctrl + NUM6</td><td>Header 6</td></tr></tbody></table></td><td><table class="note-shortcut"><thead><tr><th></th><th>Paragraph formatting</th></tr></thead><tbody><tr><td>Ctrl + Shift + L</td><td>Align left</td></tr><tr><td>Ctrl + Shift + E</td><td>Align center</td></tr><tr><td>Ctrl + Shift + R</td><td>Align right</td></tr><tr><td>Ctrl + Shift + J</td><td>Justify full</td></tr><tr><td>Ctrl + Shift + NUM7</td><td>Ordered list</td></tr><tr><td>Ctrl + Shift + NUM8</td><td>Unordered list</td></tr></tbody></table></td></tr></tbody></table></div></div></form></div></div></div></div><div class="note-handle"><div class="note-control-selection"><div class="note-control-selection-bg"></div><div class="note-control-holder note-control-nw"></div><div class="note-control-holder note-control-ne"></div><div class="note-control-holder note-control-sw"></div><div class="note-control-sizing note-control-se"></div><div class="note-control-selection-info"></div></div></div><div class="note-popover"><div class="note-link-popover popover bottom in" style="display: none;"><div class="arrow"></div><div class="popover-content"><a href="http://www.google.com/" target="_blank">www.google.com</a>&nbsp;&nbsp;<div class="note-insert btn-group"><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="showLinkDialog" tabindex="-1" data-original-title="Edit (CTRL+K)"><i class="fa fa-edit icon-edit"></i></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="unlink" tabindex="-1" data-original-title="Unlink"><i class="fa fa-unlink icon-unlink"></i></button></div></div></div><div class="note-image-popover popover bottom in" style="display: none;"><div class="arrow"></div><div class="popover-content"><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="resize" data-value="1" tabindex="-1" data-original-title="Resize Full"><span class="note-fontsize-10">100%</span></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="resize" data-value="0.5" tabindex="-1" data-original-title="Resize Half"><span class="note-fontsize-10">50%</span></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="resize" data-value="0.25" tabindex="-1" data-original-title="Resize Quarter"><span class="note-fontsize-10">25%</span></button></div><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="floatMe" data-value="left" tabindex="-1" data-original-title="Float Left"><i class="fa fa-align-left icon-align-left"></i></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="floatMe" data-value="right" tabindex="-1" data-original-title="Float Right"><i class="fa fa-align-right icon-align-right"></i></button><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="floatMe" data-value="none" tabindex="-1" data-original-title="Float None"><i class="fa fa-align-justify icon-align-justify"></i></button></div><div class="btn-group"><button type="button" class="btn btn-default btn-sm btn-small" title="" data-event="removeMedia" data-value="none" tabindex="-1" data-original-title="Remove Image"><i class="fa fa-trash-o icon-trash"></i></button></div></div></div></div>
+                                                <textarea class="note-codable"></textarea>
+                                                <div class="note-editable" style="height: 300px;">
+                                                    @Html.TextAreaFor(c => c.Category.ArabicDescription, new { @class = "form-control", placeholder = "وصف الفئة", id = "input-description-ar", style = "height:100%;width:100%" })
+                                                </div>
+                                                <div class="note-statusbar"><div class="note-resizebar"><div class="note-icon-bar"></div><div class="note-icon-bar"></div><div class="note-icon-bar"></div></div></div>
+                                            </div>
+                                            @Html.ValidationMessageFor(c => c.Category.ArabicDescription, "", new { @class = "val-error" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group required">
+                                        <label class="col-sm-2 control-label" for="input-meta-title2">عنوان الوسم</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="category_description[1][meta_title]" value="" placeholder="عنوان الوسم" id="input-meta-title2" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-description2">وصف الوسم</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="category_description[1][meta_description]" rows="5" placeholder="وصف الوسم" id="input-meta-description2" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="input-meta-keyword2">كلمات مفتاحية للوسم</label>
+                                        <div class="col-sm-10">
+                                            <textarea name="category_description[1][meta_keyword]" rows="5" placeholder="كلمات مفتاحية للوسم" id="input-meta-keyword2" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-data">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-parent">الأب</label>
+                                <div class="col-sm-4">
+                                    @*<select name="ParentId" class="form-control">
+                                            <option value="">--select Category--</option>
+                                            @foreach (var parent in Model.ParentCategories)
+                                            {
+                                                <option value="@parent.CategoryId" @(@Model.Category.ParentId == @parent.CategoryId?"selected":"")>@parent.PathStr</option>
+                                            }
+                                        </select>*@
+                                    @Html.DropDownListFor(c => c.Category.ParentId, new SelectList(Model.ParentCategories, "CategoryId", "PathStr", Model.ParentCategories[0]), new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Category.ParentId, "", new { @class = "val-error" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-filter"><span data-toggle="tooltip" title="" data-original-title="(Autocomplete)">الفلاتر</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="" value="" placeholder="Filters" id="input-filter" class="form-control" autocomplete="off"><ul class="dropdown-menu"></ul><ul class="dropdown-menu"></ul>
+                                    <div id="category-filter" class="well well-sm" style="height: 150px; overflow: auto;">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">المخازن</label>
+                                <div class="col-sm-10">
+                                    <div class="well well-sm" style="height: 150px; overflow: auto;">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="" value="0" checked="checked">
+                                                الافتراضي
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-keyword"><span data-toggle="tooltip" title="" data-original-title="Do not use spaces, instead replace spaces with - and make sure the keyword is globally unique.">SEO Keyword</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="" value="camera" placeholder="SEO Keyword" id="input-keyword" class="form-control">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">الصورة</label>
+                                <div class="col-sm-10">
+                                    <img id="catImg" src="@(Model.Category.ImageUrl+".ashx?width=200&height=200")" alt="Alternate Text" />
+                                    <label style="margin: 7px; margin-left: 26px;" title="Upload image file" for="fileToUpload" class="btn btn-primary">
+                                        <input id="fileToUpload" type="file" accept="image/*" name="ImageUrl" class="hide">
+                                        اضف صورة
+                                    </label>
+                                    <button id="addImage" class="btn btn-primary">تثبيت الصورة</button>
+                                    @*<input id="img-hid" type="hidden" name="ImageUrl" value="@Model.Category.ImageUrl" />*@
+                                    @Html.HiddenFor(c => c.Category.ImageUrl, new { id = "img-hid" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-top"><span data-toggle="tooltip" title="" data-original-title="Display in the top menu bar. Only works for the top parent categories.">الاعلى</span></label>
+                                <div class="col-sm-10">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="top" value="1" checked="checked" id="input-top">
+                                            &nbsp;
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-column"><span data-toggle="tooltip" title="" data-original-title="Number of columns to use for the bottom 3 categories. Only works for the top parent categories.">الاعمدة</span></label>
+                                <div class="col-sm-10">
+                                    <input type="text" name="column" value="1" placeholder="Columns" id="input-column" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-sort-order">ترتيب الفرز</label>
+                                <div class="col-sm-10">
+                                    @*<input type="text" name="SortOrder" value="@Model.Category.SortOrder" placeholder="Sort Order" id="input-sort-order" class="form-control">*@
+                                    @Html.TextBoxFor(c => c.Category.SortOrder, new { id = "input-sort-order", placeholder = "Sort Order", @class = "form-control" })
+                                    @Html.ValidationMessageFor(c => c.Category.SortOrder, "", new { @class = "val-error" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="input-status">الحالة</label>
+                                <div class="col-sm-10">
+                                    <select name="Status" id="input-status" class="form-control">
+                                        <option value="True" @(Model.Category.Status == true ? "selected" : "")>فعالة</option>
+                                        <option value="False" @(Model.Category.Status == false ? "selected" : "")>غير فعالة</option>
+                                    </select>
+
+
+                                    @Html.ValidationMessageFor(c => c.Category.Status, "", new { @class = "val-error" })
+                                    @*@Html.HiddenFor(c => c.Category.Id, new {id ="id-hid" })*@
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="tab-design">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <td class="text-left">Stores</td>
+                                            <td class="text-left">Layout Override</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-left">Default</td>
+                                            <td class="text-left">
+                                                <select class="form-control">
+                                                    <option value=""></option>
+                                                    <option value="6">Account</option>
+                                                    <option value="10">Affiliate</option>
+                                                    <option value="3">Category</option>
+                                                    <option value="7">Checkout</option>
+                                                    <option value="12">Compare</option>
+                                                    <option value="8">Contact</option>
+                                                    <option value="4">Default</option>
+                                                    <option value="1">Home</option>
+                                                    <option value="11">Information</option>
+                                                    <option value="5">Manufacturer</option>
+                                                    <option value="2">Product</option>
+                                                    <option value="13">Search</option>
+                                                    <option value="9">Sitemap</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+
+        //$('#input-description-en,#input-description-ar').summernote({
+        //    height: 300
+        //});
+    </script>
+    <script>
+        function refreshPage() {
+            $.ajax({
+                url: '@Url.Action("Add","ManageCategory")',
+                method: 'Get',
+                data: { Id: $('#id-hid').val() },
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+        $(document).ready(function () {
+
+            $('#cancel').on('click', function (e) {
+                e.preventDefault();
+                $("input[type='text']").val('');
+                $('textarea').text('');
+            });
+            ////////////////////////////////////
+            $('#save-cat').on('click', function (e) {
+                e.preventDefault();
+               // $('#form-category').submit();
+                $.ajax({
+                    url: '@Url.Action("Add","ManageCategory")',
+                    method: 'POST',
+                    data: $('#form-category').serialize(),
+                    success: function (data) {
+                        if (data.Succedeed != null) {
+                            refreshPage();
+                            if (data.Succedeed == true) {
+
+                                generateFlash('success', data.message);
+                            }
+                            else {
+                                generateFlash('error', data.message);
+                            }
+                        } else {
+
+                            $('#content').html($(data).find('#content').html());
+                            console.log('');
+                            generateFlash('error', 'الرجاء تعبئة جميع الحقول المطلوبة');
+                        }
+                    }
+                });
+            });
+
+            $("#addImage").on('click', function (e) {
+
+                e.preventDefault();
+                // Checking whether FormData is available in browser
+                if (window.FormData !== undefined) {
+
+                    var fileUpload = $("#fileToUpload").get(0);
+                    var files = fileUpload.files;
+
+                    // Create FormData object
+                    var fileData = new FormData();
+
+                    // Looping over all files and add it to FormData object
+                    for (var i = 0; i < files.length; i++) {
+                        fileData.append(files[i].name, files[i]);
+                    }
+
+                    // Adding one more key to FormData object
+                    fileData.append('username', 'Manas');
+
+                    $.ajax({
+                        url: '@Url.Action("UploadFiles","Base")',
+                        type: "POST",
+                        contentType: false, // Not to set any content header
+                        processData: false, // Not to process data
+                        data: fileData,
+                        success: function (result) {
+                           // alert(result.message);
+                            $('#img-hid').val("/uploads/" + result.name);
+                            $('#catImg').attr('src', '/uploads/' + result.name + '.ashx?width=200&height=200');
+                        },
+                        error: function (err) {
+                            alert(err.statusText);
+                        }
+                    });
+                } else {
+                    alert("FormData is not supported.");
+                }
+
+
+            });
+        });
+    </script>
+    <script type="text/javascript">
+
+        /*$('input[name=\'path\']').autocomplete({
+            'source': function(request, response) {
+                $.ajax({
+                    url: 'index.php?route=catalog/category/autocomplete&token=531583aef8dcf76a5065703e36e89d23&filter_name=' +  encodeURIComponent(request),
+                    dataType: 'json',
+                    success: function(json) {
+                        json.unshift({
+                            category_id: 0,
+                            name: ' --- None --- '
+                        });
+
+                        response($.map(json, function(item) {
+                            return {
+                                label: item['name'],
+                                value: item['category_id']
+                            }
+                        }));
+                    }
+                });
+            },
+            'select': function(item) {
+                $('input[name=\'path\']').val(item['label']);
+                $('input[name=\'parent_id\']').val(item['value']);
+            }
+        });*/
+    </script>
+
+    <script type="text/javascript">
+
+        $('#language a:first').tab('show');
+    </script>
+</div>

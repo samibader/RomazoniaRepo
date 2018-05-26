@@ -1,0 +1,2260 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Discriminator" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Attrib">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DateModefied" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AttributeDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
+          <Property Name="AttributeId" Type="bigint" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DateModefied" Type="datetime" />
+          <Property Name="Attrib_Id" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentId" Type="bigint" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="ImageThumb" Type="nvarchar(max)" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DateModified" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CategoryDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
+          <Property Name="CategoryId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="MetaDescription" Type="nvarchar(max)" />
+          <Property Name="MetaKeyWord" Type="nvarchar(max)" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DateModefied" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Designer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="ImageThumb" Type="nvarchar(max)" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DateModefied" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateStart" Type="datetime" />
+          <Property Name="DateEnd" Type="datetime" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DateModefied" Type="datetime" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="IsPercentage" Type="bit" Nullable="false" />
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="ThumbUrl" Type="nvarchar(max)" />
+          <Property Name="AlternateText" Type="nvarchar(max)" />
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="DesignerId" Type="bigint" Nullable="false" />
+          <Property Name="CategoryId" Type="bigint" Nullable="false" />
+          <Property Name="OptionValueId" Type="bigint" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DateModefied" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
+          <Property Name="ImageThumb" Type="nvarchar(max)" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar(max)" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" />
+          <Property Name="DateModefied" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Option">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="OptionId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OptionDescription">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OptionId" />
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="OptionId" Type="bigint" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="OptionValue">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OptionId" />
+            <PropertyRef Name="ValueId" />
+          </Key>
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="OptionId" Type="bigint" Nullable="false" />
+          <Property Name="ValueId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OptionValueDescription">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OptionId" />
+            <PropertyRef Name="ValueId" />
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="OptionId" Type="bigint" Nullable="false" />
+          <Property Name="ValueId" Type="bigint" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="Price" Type="float" Nullable="false" />
+          <Property Name="CategoryId" Type="bigint" Nullable="false" />
+          <Property Name="Quantity" Type="bigint" Nullable="false" />
+          <Property Name="DesignerId" Type="bigint" Nullable="false" />
+          <Property Name="SortOrder" Type="int" Nullable="false" />
+          <Property Name="Minimum" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="NumberOfViews" Type="bigint" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="DateModefied" Type="datetime" Nullable="false" />
+          <Property Name="DateAvailables" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductAttributeValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="AttributeId" Type="bigint" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="Attrib_Id" Type="bigint" />
+        </EntityType>
+        <EntityType Name="ProductDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="MetaDescriptions" Type="nvarchar(max)" />
+          <Property Name="MetaKeywords" Type="nvarchar(max)" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="DateModefied" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="Value" Type="tinyint" Nullable="false" />
+          <Property Name="Note" Type="nvarchar(max)" />
+          <Property Name="Status" Type="bit" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="DateModefied" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductSKU">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="SKUId" />
+          </Key>
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="SKUId" Type="bigint" Nullable="false" />
+          <Property Name="SKU" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProductSKUOptionValue">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="SKUId" />
+            <PropertyRef Name="OptionId" />
+            <PropertyRef Name="ValueId" />
+          </Key>
+          <Property Name="ProductId" Type="bigint" Nullable="false" />
+          <Property Name="SKUId" Type="bigint" Nullable="false" />
+          <Property Name="OptionId" Type="bigint" Nullable="false" />
+          <Property Name="ValueId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="DateModefied" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TagDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" />
+          <Property Name="LanguageId" Type="bigint" Nullable="false" />
+          <Property Name="TagId" Type="bigint" Nullable="false" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="DateModefied" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TagProduct">
+          <Key>
+            <PropertyRef Name="Tag_Id" />
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Tag_Id" Type="bigint" Nullable="false" />
+          <Property Name="Product_Id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id">
+          <End Role="Attrib" Type="Self.Attrib" Multiplicity="0..1" />
+          <End Role="AttributeDescription" Type="Self.AttributeDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attrib">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttributeDescription">
+              <PropertyRef Name="Attrib_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AttributeDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="AttributeDescription" Type="Self.AttributeDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttributeDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Category_dbo_Category_ParentId">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CategoryDescription_dbo_Category_CategoryId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoryDescription" Type="Self.CategoryDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryDescription">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CategoryDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="CategoryDescription" Type="Self.CategoryDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Discount_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Discount" Type="Self.Discount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Discount">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Image_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Option_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Option" Type="Self.Option" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Option">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="OptionDescription" Type="Self.OptionDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="OptionDescription" Type="Self.OptionDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="OptionDescription">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionDescription_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OptionDescription" Type="Self.OptionDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionDescription">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValue_dbo_Option_ProductId_OptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="OptionValue" Type="Self.OptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="OptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValue_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OptionValue" Type="Self.OptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionValue">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValueDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="OptionValueDescription" Type="Self.OptionValueDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionValueDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId">
+          <End Role="OptionValue" Type="Self.OptionValue" Multiplicity="1" />
+          <End Role="OptionValueDescription" Type="Self.OptionValueDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+              <PropertyRef Name="ValueId" />
+            </Principal>
+            <Dependent Role="OptionValueDescription">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+              <PropertyRef Name="ValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValueDescription_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OptionValueDescription" Type="Self.OptionValueDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionValueDescription">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Product_dbo_Category_CategoryId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Product_dbo_Designer_DesignerId">
+          <End Role="Designer" Type="Self.Designer" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="DesignerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id">
+          <End Role="Attrib" Type="Self.Attrib" Multiplicity="0..1" />
+          <End Role="ProductAttributeValue" Type="Self.ProductAttributeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attrib">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductAttributeValue">
+              <PropertyRef Name="Attrib_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductAttributeValue_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="ProductAttributeValue" Type="Self.ProductAttributeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductAttributeValue">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductAttributeValue_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductAttributeValue" Type="Self.ProductAttributeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductAttributeValue">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="ProductDescription" Type="Self.ProductDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductDescription_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductDescription" Type="Self.ProductDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductDescription">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductRate_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductRate" Type="Self.ProductRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductRate">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKU_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductSKU" Type="Self.ProductSKU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSKU">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="ProductSKUOptionValue" Type="Self.ProductSKUOptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="ProductSKUOptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId">
+          <End Role="OptionValue" Type="Self.OptionValue" Multiplicity="1" />
+          <End Role="ProductSKUOptionValue" Type="Self.ProductSKUOptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+              <PropertyRef Name="ValueId" />
+            </Principal>
+            <Dependent Role="ProductSKUOptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+              <PropertyRef Name="ValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductSKUOptionValue" Type="Self.ProductSKUOptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSKUOptionValue">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId">
+          <End Role="ProductSKU" Type="Self.ProductSKU" Multiplicity="1" />
+          <End Role="ProductSKUOptionValue" Type="Self.ProductSKUOptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSKU">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="SKUId" />
+            </Principal>
+            <Dependent Role="ProductSKUOptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TagDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="TagDescription" Type="Self.TagDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TagDescription_dbo_Tag_TagId">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TagDescription" Type="Self.TagDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagDescription">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TagProduct_dbo_Product_Product_Id">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="TagProduct" Type="Self.TagProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagProduct">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TagProduct_dbo_Tag_Tag_Id">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TagProduct" Type="Self.TagProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagProduct">
+              <PropertyRef Name="Tag_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attrib" EntityType="Self.Attrib" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttributeDescription" EntityType="Self.AttributeDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CategoryDescription" EntityType="Self.CategoryDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designer" EntityType="Self.Designer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Discount" EntityType="Self.Discount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Option" EntityType="Self.Option" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OptionDescription" EntityType="Self.OptionDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OptionValue" EntityType="Self.OptionValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OptionValueDescription" EntityType="Self.OptionValueDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductAttributeValue" EntityType="Self.ProductAttributeValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductDescription" EntityType="Self.ProductDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductRate" EntityType="Self.ProductRate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSKU" EntityType="Self.ProductSKU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductSKUOptionValue" EntityType="Self.ProductSKUOptionValue" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagDescription" EntityType="Self.TagDescription" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TagProduct" EntityType="Self.TagProduct" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id" Association="Self.FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id">
+            <End Role="Attrib" EntitySet="Attrib" />
+            <End Role="AttributeDescription" EntitySet="AttributeDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AttributeDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_AttributeDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="AttributeDescription" EntitySet="AttributeDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Category_dbo_Category_ParentId" Association="Self.FK_dbo_Category_dbo_Category_ParentId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CategoryDescription_dbo_Category_CategoryId" Association="Self.FK_dbo_CategoryDescription_dbo_Category_CategoryId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoryDescription" EntitySet="CategoryDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CategoryDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_CategoryDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="CategoryDescription" EntitySet="CategoryDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Discount_dbo_Product_ProductId" Association="Self.FK_dbo_Discount_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Discount" EntitySet="Discount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Image_dbo_Product_ProductId" Association="Self.FK_dbo_Image_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Option_dbo_Product_ProductId" Association="Self.FK_dbo_Option_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Option" EntitySet="Option" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_OptionDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="OptionDescription" EntitySet="OptionDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId" Association="Self.FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="OptionDescription" EntitySet="OptionDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionDescription_dbo_Product_ProductId" Association="Self.FK_dbo_OptionDescription_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OptionDescription" EntitySet="OptionDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValue_dbo_Option_ProductId_OptionId" Association="Self.FK_dbo_OptionValue_dbo_Option_ProductId_OptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="OptionValue" EntitySet="OptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValue_dbo_Product_ProductId" Association="Self.FK_dbo_OptionValue_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OptionValue" EntitySet="OptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValueDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_OptionValueDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="OptionValueDescription" EntitySet="OptionValueDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId" Association="Self.FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId">
+            <End Role="OptionValue" EntitySet="OptionValue" />
+            <End Role="OptionValueDescription" EntitySet="OptionValueDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValueDescription_dbo_Product_ProductId" Association="Self.FK_dbo_OptionValueDescription_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OptionValueDescription" EntitySet="OptionValueDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Product_dbo_Category_CategoryId" Association="Self.FK_dbo_Product_dbo_Category_CategoryId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Product_dbo_Designer_DesignerId" Association="Self.FK_dbo_Product_dbo_Designer_DesignerId">
+            <End Role="Designer" EntitySet="Designer" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id" Association="Self.FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id">
+            <End Role="Attrib" EntitySet="Attrib" />
+            <End Role="ProductAttributeValue" EntitySet="ProductAttributeValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductAttributeValue_dbo_Language_LanguageId" Association="Self.FK_dbo_ProductAttributeValue_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="ProductAttributeValue" EntitySet="ProductAttributeValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductAttributeValue_dbo_Product_ProductId" Association="Self.FK_dbo_ProductAttributeValue_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductAttributeValue" EntitySet="ProductAttributeValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_ProductDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="ProductDescription" EntitySet="ProductDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductDescription_dbo_Product_ProductId" Association="Self.FK_dbo_ProductDescription_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductDescription" EntitySet="ProductDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductRate_dbo_Product_ProductId" Association="Self.FK_dbo_ProductRate_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductRate" EntitySet="ProductRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKU_dbo_Product_ProductId" Association="Self.FK_dbo_ProductSKU_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSKU" EntitySet="ProductSKU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId" Association="Self.FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="ProductSKUOptionValue" EntitySet="ProductSKUOptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId" Association="Self.FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId">
+            <End Role="OptionValue" EntitySet="OptionValue" />
+            <End Role="ProductSKUOptionValue" EntitySet="ProductSKUOptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId" Association="Self.FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSKUOptionValue" EntitySet="ProductSKUOptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId" Association="Self.FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId">
+            <End Role="ProductSKU" EntitySet="ProductSKU" />
+            <End Role="ProductSKUOptionValue" EntitySet="ProductSKUOptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TagDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_TagDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="TagDescription" EntitySet="TagDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TagDescription_dbo_Tag_TagId" Association="Self.FK_dbo_TagDescription_dbo_Tag_TagId">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagDescription" EntitySet="TagDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TagProduct_dbo_Product_Product_Id" Association="Self.FK_dbo_TagProduct_dbo_Product_Product_Id">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="TagProduct" EntitySet="TagProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TagProduct_dbo_Tag_Tag_Id" Association="Self.FK_dbo_TagProduct_dbo_Tag_Tag_Id">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagProduct" EntitySet="TagProduct" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Discriminator" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+        </EntityType>
+        <EntityType Name="Attrib">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AttributeDescription" Relationship="Self.FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id" FromRole="Attrib" ToRole="AttributeDescription" />
+          <NavigationProperty Name="ProductAttributeValue" Relationship="Self.FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id" FromRole="Attrib" ToRole="ProductAttributeValue" />
+        </EntityType>
+        <EntityType Name="AttributeDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="AttributeId" Type="Int64" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Precision="3" />
+          <Property Name="Attrib_Id" Type="Int64" />
+          <NavigationProperty Name="Attrib" Relationship="Self.FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id" FromRole="AttributeDescription" ToRole="Attrib" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_dbo_AttributeDescription_dbo_Language_LanguageId" FromRole="AttributeDescription" ToRole="Language" />
+        </EntityType>
+        <EntityType Name="Category">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int64" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageThumb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DateModified" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Category1" Relationship="Self.FK_dbo_Category_dbo_Category_ParentId" FromRole="Category" ToRole="Category1" />
+          <NavigationProperty Name="Category2" Relationship="Self.FK_dbo_Category_dbo_Category_ParentId" FromRole="Category1" ToRole="Category" />
+          <NavigationProperty Name="CategoryDescription" Relationship="Self.FK_dbo_CategoryDescription_dbo_Category_CategoryId" FromRole="Category" ToRole="CategoryDescription" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_Product_dbo_Category_CategoryId" FromRole="Category" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="CategoryDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="CategoryId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetaDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetaKeyWord" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_dbo_CategoryDescription_dbo_Category_CategoryId" FromRole="CategoryDescription" ToRole="Category" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_dbo_CategoryDescription_dbo_Language_LanguageId" FromRole="CategoryDescription" ToRole="Language" />
+        </EntityType>
+        <EntityType Name="Designer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageThumb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_Product_dbo_Designer_DesignerId" FromRole="Designer" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Discount">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateStart" Type="DateTime" Precision="3" />
+          <Property Name="DateEnd" Type="DateTime" Precision="3" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Precision="3" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="IsPercentage" Type="Boolean" Nullable="false" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_Discount_dbo_Product_ProductId" FromRole="Discount" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ThumbUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AlternateText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="DesignerId" Type="Int64" Nullable="false" />
+          <Property Name="CategoryId" Type="Int64" Nullable="false" />
+          <Property Name="OptionValueId" Type="Int64" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_Image_dbo_Product_ProductId" FromRole="Image" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageThumb" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AttributeDescription" Relationship="Self.FK_dbo_AttributeDescription_dbo_Language_LanguageId" FromRole="Language" ToRole="AttributeDescription" />
+          <NavigationProperty Name="CategoryDescription" Relationship="Self.FK_dbo_CategoryDescription_dbo_Language_LanguageId" FromRole="Language" ToRole="CategoryDescription" />
+          <NavigationProperty Name="OptionDescription" Relationship="Self.FK_dbo_OptionDescription_dbo_Language_LanguageId" FromRole="Language" ToRole="OptionDescription" />
+          <NavigationProperty Name="OptionValueDescription" Relationship="Self.FK_dbo_OptionValueDescription_dbo_Language_LanguageId" FromRole="Language" ToRole="OptionValueDescription" />
+          <NavigationProperty Name="ProductAttributeValue" Relationship="Self.FK_dbo_ProductAttributeValue_dbo_Language_LanguageId" FromRole="Language" ToRole="ProductAttributeValue" />
+          <NavigationProperty Name="ProductDescription" Relationship="Self.FK_dbo_ProductDescription_dbo_Language_LanguageId" FromRole="Language" ToRole="ProductDescription" />
+          <NavigationProperty Name="TagDescription" Relationship="Self.FK_dbo_TagDescription_dbo_Language_LanguageId" FromRole="Language" ToRole="TagDescription" />
+        </EntityType>
+        <EntityType Name="Option">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OptionId" />
+          </Key>
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="OptionId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_Option_dbo_Product_ProductId" FromRole="Option" ToRole="Product" />
+          <NavigationProperty Name="OptionDescription" Relationship="Self.FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId" FromRole="Option" ToRole="OptionDescription" />
+          <NavigationProperty Name="OptionValue" Relationship="Self.FK_dbo_OptionValue_dbo_Option_ProductId_OptionId" FromRole="Option" ToRole="OptionValue" />
+          <NavigationProperty Name="ProductSKUOptionValue" Relationship="Self.FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId" FromRole="Option" ToRole="ProductSKUOptionValue" />
+        </EntityType>
+        <EntityType Name="OptionDescription">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OptionId" />
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="OptionId" Type="Int64" Nullable="false" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_dbo_OptionDescription_dbo_Language_LanguageId" FromRole="OptionDescription" ToRole="Language" />
+          <NavigationProperty Name="Option" Relationship="Self.FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId" FromRole="OptionDescription" ToRole="Option" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_OptionDescription_dbo_Product_ProductId" FromRole="OptionDescription" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="OptionValue">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OptionId" />
+            <PropertyRef Name="ValueId" />
+          </Key>
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="OptionId" Type="Int64" Nullable="false" />
+          <Property Name="ValueId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Option" Relationship="Self.FK_dbo_OptionValue_dbo_Option_ProductId_OptionId" FromRole="OptionValue" ToRole="Option" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_OptionValue_dbo_Product_ProductId" FromRole="OptionValue" ToRole="Product" />
+          <NavigationProperty Name="OptionValueDescription" Relationship="Self.FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId" FromRole="OptionValue" ToRole="OptionValueDescription" />
+          <NavigationProperty Name="ProductSKUOptionValue" Relationship="Self.FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId" FromRole="OptionValue" ToRole="ProductSKUOptionValue" />
+        </EntityType>
+        <EntityType Name="OptionValueDescription">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="OptionId" />
+            <PropertyRef Name="ValueId" />
+            <PropertyRef Name="LanguageId" />
+          </Key>
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="OptionId" Type="Int64" Nullable="false" />
+          <Property Name="ValueId" Type="Int64" Nullable="false" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_dbo_OptionValueDescription_dbo_Language_LanguageId" FromRole="OptionValueDescription" ToRole="Language" />
+          <NavigationProperty Name="OptionValue" Relationship="Self.FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId" FromRole="OptionValueDescription" ToRole="OptionValue" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_OptionValueDescription_dbo_Product_ProductId" FromRole="OptionValueDescription" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Double" Nullable="false" />
+          <Property Name="CategoryId" Type="Int64" Nullable="false" />
+          <Property Name="Quantity" Type="Int64" Nullable="false" />
+          <Property Name="DesignerId" Type="Int64" Nullable="false" />
+          <Property Name="SortOrder" Type="Int32" Nullable="false" />
+          <Property Name="Minimum" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="NumberOfViews" Type="Int64" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateAvailables" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Category" Relationship="Self.FK_dbo_Product_dbo_Category_CategoryId" FromRole="Product" ToRole="Category" />
+          <NavigationProperty Name="Designer" Relationship="Self.FK_dbo_Product_dbo_Designer_DesignerId" FromRole="Product" ToRole="Designer" />
+          <NavigationProperty Name="Discount" Relationship="Self.FK_dbo_Discount_dbo_Product_ProductId" FromRole="Product" ToRole="Discount" />
+          <NavigationProperty Name="Image" Relationship="Self.FK_dbo_Image_dbo_Product_ProductId" FromRole="Product" ToRole="Image" />
+          <NavigationProperty Name="Option" Relationship="Self.FK_dbo_Option_dbo_Product_ProductId" FromRole="Product" ToRole="Option" />
+          <NavigationProperty Name="OptionDescription" Relationship="Self.FK_dbo_OptionDescription_dbo_Product_ProductId" FromRole="Product" ToRole="OptionDescription" />
+          <NavigationProperty Name="OptionValue" Relationship="Self.FK_dbo_OptionValue_dbo_Product_ProductId" FromRole="Product" ToRole="OptionValue" />
+          <NavigationProperty Name="OptionValueDescription" Relationship="Self.FK_dbo_OptionValueDescription_dbo_Product_ProductId" FromRole="Product" ToRole="OptionValueDescription" />
+          <NavigationProperty Name="ProductAttributeValue" Relationship="Self.FK_dbo_ProductAttributeValue_dbo_Product_ProductId" FromRole="Product" ToRole="ProductAttributeValue" />
+          <NavigationProperty Name="ProductDescription" Relationship="Self.FK_dbo_ProductDescription_dbo_Product_ProductId" FromRole="Product" ToRole="ProductDescription" />
+          <NavigationProperty Name="ProductRate" Relationship="Self.FK_dbo_ProductRate_dbo_Product_ProductId" FromRole="Product" ToRole="ProductRate" />
+          <NavigationProperty Name="ProductSKU" Relationship="Self.FK_dbo_ProductSKU_dbo_Product_ProductId" FromRole="Product" ToRole="ProductSKU" />
+          <NavigationProperty Name="ProductSKUOptionValue" Relationship="Self.FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId" FromRole="Product" ToRole="ProductSKUOptionValue" />
+          <NavigationProperty Name="Tag" Relationship="Self.TagProduct" FromRole="Product" ToRole="Tag" />
+        </EntityType>
+        <EntityType Name="ProductAttributeValue">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="AttributeId" Type="Int64" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Attrib_Id" Type="Int64" />
+          <NavigationProperty Name="Attrib" Relationship="Self.FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id" FromRole="ProductAttributeValue" ToRole="Attrib" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_dbo_ProductAttributeValue_dbo_Language_LanguageId" FromRole="ProductAttributeValue" ToRole="Language" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_ProductAttributeValue_dbo_Product_ProductId" FromRole="ProductAttributeValue" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetaDescriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MetaKeywords" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_dbo_ProductDescription_dbo_Language_LanguageId" FromRole="ProductDescription" ToRole="Language" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_ProductDescription_dbo_Product_ProductId" FromRole="ProductDescription" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductRate">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="Value" Type="Byte" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Boolean" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_ProductRate_dbo_Product_ProductId" FromRole="ProductRate" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductSKU">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="SKUId" />
+          </Key>
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="SKUId" Type="Int64" Nullable="false" />
+          <Property Name="SKU" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_ProductSKU_dbo_Product_ProductId" FromRole="ProductSKU" ToRole="Product" />
+          <NavigationProperty Name="ProductSKUOptionValue" Relationship="Self.FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId" FromRole="ProductSKU" ToRole="ProductSKUOptionValue" />
+        </EntityType>
+        <EntityType Name="ProductSKUOptionValue">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="SKUId" />
+            <PropertyRef Name="OptionId" />
+            <PropertyRef Name="ValueId" />
+          </Key>
+          <Property Name="ProductId" Type="Int64" Nullable="false" />
+          <Property Name="SKUId" Type="Int64" Nullable="false" />
+          <Property Name="OptionId" Type="Int64" Nullable="false" />
+          <Property Name="ValueId" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Option" Relationship="Self.FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId" FromRole="ProductSKUOptionValue" ToRole="Option" />
+          <NavigationProperty Name="OptionValue" Relationship="Self.FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId" FromRole="ProductSKUOptionValue" ToRole="OptionValue" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId" FromRole="ProductSKUOptionValue" ToRole="Product" />
+          <NavigationProperty Name="ProductSKU" Relationship="Self.FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId" FromRole="ProductSKUOptionValue" ToRole="ProductSKU" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="TagDescription" Relationship="Self.FK_dbo_TagDescription_dbo_Tag_TagId" FromRole="Tag" ToRole="TagDescription" />
+          <NavigationProperty Name="Product" Relationship="Self.TagProduct" FromRole="Tag" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="TagDescription">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanguageId" Type="Int64" Nullable="false" />
+          <Property Name="TagId" Type="Int64" Nullable="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateModefied" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Language" Relationship="Self.FK_dbo_TagDescription_dbo_Language_LanguageId" FromRole="TagDescription" ToRole="Language" />
+          <NavigationProperty Name="Tag" Relationship="Self.FK_dbo_TagDescription_dbo_Tag_TagId" FromRole="TagDescription" ToRole="Tag" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id">
+          <End Role="Attrib" Type="Self.Attrib" Multiplicity="0..1" />
+          <End Role="AttributeDescription" Type="Self.AttributeDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attrib">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttributeDescription">
+              <PropertyRef Name="Attrib_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id">
+          <End Role="Attrib" Type="Self.Attrib" Multiplicity="0..1" />
+          <End Role="ProductAttributeValue" Type="Self.ProductAttributeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attrib">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductAttributeValue">
+              <PropertyRef Name="Attrib_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AttributeDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="AttributeDescription" Type="Self.AttributeDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AttributeDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Category_dbo_Category_ParentId">
+          <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+          <End Role="Category1" Type="Self.Category" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Category1">
+              <PropertyRef Name="ParentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CategoryDescription_dbo_Category_CategoryId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="CategoryDescription" Type="Self.CategoryDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryDescription">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Product_dbo_Category_CategoryId">
+          <End Role="Category" Type="Self.Category" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Category">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="CategoryId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_CategoryDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="CategoryDescription" Type="Self.CategoryDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CategoryDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Product_dbo_Designer_DesignerId">
+          <End Role="Designer" Type="Self.Designer" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="DesignerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Discount_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Discount" Type="Self.Discount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Discount">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Image_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="OptionDescription" Type="Self.OptionDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValueDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="OptionValueDescription" Type="Self.OptionValueDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionValueDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductAttributeValue_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="ProductAttributeValue" Type="Self.ProductAttributeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductAttributeValue">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="ProductDescription" Type="Self.ProductDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TagDescription_dbo_Language_LanguageId">
+          <End Role="Language" Type="Self.Language" Multiplicity="1" />
+          <End Role="TagDescription" Type="Self.TagDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagDescription">
+              <PropertyRef Name="LanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Option_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Option" Type="Self.Option" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Option">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="OptionDescription" Type="Self.OptionDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="OptionDescription">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValue_dbo_Option_ProductId_OptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="OptionValue" Type="Self.OptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="OptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId">
+          <End Role="Option" Type="Self.Option" Multiplicity="1" />
+          <End Role="ProductSKUOptionValue" Type="Self.ProductSKUOptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Option">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Principal>
+            <Dependent Role="ProductSKUOptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionDescription_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OptionDescription" Type="Self.OptionDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionDescription">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValue_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OptionValue" Type="Self.OptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionValue">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId">
+          <End Role="OptionValue" Type="Self.OptionValue" Multiplicity="1" />
+          <End Role="OptionValueDescription" Type="Self.OptionValueDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+              <PropertyRef Name="ValueId" />
+            </Principal>
+            <Dependent Role="OptionValueDescription">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+              <PropertyRef Name="ValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId">
+          <End Role="OptionValue" Type="Self.OptionValue" Multiplicity="1" />
+          <End Role="ProductSKUOptionValue" Type="Self.ProductSKUOptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+              <PropertyRef Name="ValueId" />
+            </Principal>
+            <Dependent Role="ProductSKUOptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="OptionId" />
+              <PropertyRef Name="ValueId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_OptionValueDescription_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OptionValueDescription" Type="Self.OptionValueDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="OptionValueDescription">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductAttributeValue_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductAttributeValue" Type="Self.ProductAttributeValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductAttributeValue">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductDescription_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductDescription" Type="Self.ProductDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductDescription">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductRate_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductRate" Type="Self.ProductRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductRate">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKU_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductSKU" Type="Self.ProductSKU" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSKU">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductSKUOptionValue" Type="Self.ProductSKUOptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProductSKUOptionValue">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId">
+          <End Role="ProductSKU" Type="Self.ProductSKU" Multiplicity="1" />
+          <End Role="ProductSKUOptionValue" Type="Self.ProductSKUOptionValue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductSKU">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="SKUId" />
+            </Principal>
+            <Dependent Role="ProductSKUOptionValue">
+              <PropertyRef Name="ProductId" />
+              <PropertyRef Name="SKUId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_TagDescription_dbo_Tag_TagId">
+          <End Role="Tag" Type="Self.Tag" Multiplicity="1" />
+          <End Role="TagDescription" Type="Self.TagDescription" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tag">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="TagDescription">
+              <PropertyRef Name="TagId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+        </Association>
+        <Association Name="TagProduct">
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <End Role="Tag" Type="Self.Tag" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
+          <EntitySet Name="Attrib" EntityType="Self.Attrib" />
+          <EntitySet Name="AttributeDescription" EntityType="Self.AttributeDescription" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="CategoryDescription" EntityType="Self.CategoryDescription" />
+          <EntitySet Name="Designer" EntityType="Self.Designer" />
+          <EntitySet Name="Discount" EntityType="Self.Discount" />
+          <EntitySet Name="Image" EntityType="Self.Image" />
+          <EntitySet Name="Language" EntityType="Self.Language" />
+          <EntitySet Name="Option" EntityType="Self.Option" />
+          <EntitySet Name="OptionDescription" EntityType="Self.OptionDescription" />
+          <EntitySet Name="OptionValue" EntityType="Self.OptionValue" />
+          <EntitySet Name="OptionValueDescription" EntityType="Self.OptionValueDescription" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="ProductAttributeValue" EntityType="Self.ProductAttributeValue" />
+          <EntitySet Name="ProductDescription" EntityType="Self.ProductDescription" />
+          <EntitySet Name="ProductRate" EntityType="Self.ProductRate" />
+          <EntitySet Name="ProductSKU" EntityType="Self.ProductSKU" />
+          <EntitySet Name="ProductSKUOptionValue" EntityType="Self.ProductSKUOptionValue" />
+          <EntitySet Name="Tag" EntityType="Self.Tag" />
+          <EntitySet Name="TagDescription" EntityType="Self.TagDescription" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id" Association="Self.FK_dbo_AttributeDescription_dbo_Attrib_Attrib_Id">
+            <End Role="Attrib" EntitySet="Attrib" />
+            <End Role="AttributeDescription" EntitySet="AttributeDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id" Association="Self.FK_dbo_ProductAttributeValue_dbo_Attrib_Attrib_Id">
+            <End Role="Attrib" EntitySet="Attrib" />
+            <End Role="ProductAttributeValue" EntitySet="ProductAttributeValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AttributeDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_AttributeDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="AttributeDescription" EntitySet="AttributeDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Category_dbo_Category_ParentId" Association="Self.FK_dbo_Category_dbo_Category_ParentId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Category1" EntitySet="Category" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CategoryDescription_dbo_Category_CategoryId" Association="Self.FK_dbo_CategoryDescription_dbo_Category_CategoryId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="CategoryDescription" EntitySet="CategoryDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Product_dbo_Category_CategoryId" Association="Self.FK_dbo_Product_dbo_Category_CategoryId">
+            <End Role="Category" EntitySet="Category" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_CategoryDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_CategoryDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="CategoryDescription" EntitySet="CategoryDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Product_dbo_Designer_DesignerId" Association="Self.FK_dbo_Product_dbo_Designer_DesignerId">
+            <End Role="Designer" EntitySet="Designer" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Discount_dbo_Product_ProductId" Association="Self.FK_dbo_Discount_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Discount" EntitySet="Discount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Image_dbo_Product_ProductId" Association="Self.FK_dbo_Image_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_OptionDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="OptionDescription" EntitySet="OptionDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValueDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_OptionValueDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="OptionValueDescription" EntitySet="OptionValueDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductAttributeValue_dbo_Language_LanguageId" Association="Self.FK_dbo_ProductAttributeValue_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="ProductAttributeValue" EntitySet="ProductAttributeValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_ProductDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="ProductDescription" EntitySet="ProductDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TagDescription_dbo_Language_LanguageId" Association="Self.FK_dbo_TagDescription_dbo_Language_LanguageId">
+            <End Role="Language" EntitySet="Language" />
+            <End Role="TagDescription" EntitySet="TagDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Option_dbo_Product_ProductId" Association="Self.FK_dbo_Option_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Option" EntitySet="Option" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId" Association="Self.FK_dbo_OptionDescription_dbo_Option_ProductId_OptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="OptionDescription" EntitySet="OptionDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValue_dbo_Option_ProductId_OptionId" Association="Self.FK_dbo_OptionValue_dbo_Option_ProductId_OptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="OptionValue" EntitySet="OptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId" Association="Self.FK_dbo_ProductSKUOptionValue_dbo_Option_ProductId_OptionId">
+            <End Role="Option" EntitySet="Option" />
+            <End Role="ProductSKUOptionValue" EntitySet="ProductSKUOptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionDescription_dbo_Product_ProductId" Association="Self.FK_dbo_OptionDescription_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OptionDescription" EntitySet="OptionDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValue_dbo_Product_ProductId" Association="Self.FK_dbo_OptionValue_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OptionValue" EntitySet="OptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId" Association="Self.FK_dbo_OptionValueDescription_dbo_OptionValue_ProductId_OptionId_ValueId">
+            <End Role="OptionValue" EntitySet="OptionValue" />
+            <End Role="OptionValueDescription" EntitySet="OptionValueDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId" Association="Self.FK_dbo_ProductSKUOptionValue_dbo_OptionValue_ProductId_OptionId_ValueId">
+            <End Role="OptionValue" EntitySet="OptionValue" />
+            <End Role="ProductSKUOptionValue" EntitySet="ProductSKUOptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_OptionValueDescription_dbo_Product_ProductId" Association="Self.FK_dbo_OptionValueDescription_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OptionValueDescription" EntitySet="OptionValueDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductAttributeValue_dbo_Product_ProductId" Association="Self.FK_dbo_ProductAttributeValue_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductAttributeValue" EntitySet="ProductAttributeValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductDescription_dbo_Product_ProductId" Association="Self.FK_dbo_ProductDescription_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductDescription" EntitySet="ProductDescription" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductRate_dbo_Product_ProductId" Association="Self.FK_dbo_ProductRate_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductRate" EntitySet="ProductRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKU_dbo_Product_ProductId" Association="Self.FK_dbo_ProductSKU_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSKU" EntitySet="ProductSKU" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId" Association="Self.FK_dbo_ProductSKUOptionValue_dbo_Product_ProductId">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductSKUOptionValue" EntitySet="ProductSKUOptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId" Association="Self.FK_dbo_ProductSKUOptionValue_dbo_ProductSKU_ProductId_SKUId">
+            <End Role="ProductSKU" EntitySet="ProductSKU" />
+            <End Role="ProductSKUOptionValue" EntitySet="ProductSKUOptionValue" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_TagDescription_dbo_Tag_TagId" Association="Self.FK_dbo_TagDescription_dbo_Tag_TagId">
+            <End Role="Tag" EntitySet="Tag" />
+            <End Role="TagDescription" EntitySet="TagDescription" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <AssociationSet Name="TagProduct" Association="Self.TagProduct">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Tag" EntitySet="Tag" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="Model.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="Model.AspNetRoles">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Discriminator" ColumnName="Discriminator" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="Model.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="Model.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="Model.AspNetUsers">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attrib">
+            <EntityTypeMapping TypeName="Model.Attrib">
+              <MappingFragment StoreEntitySet="Attrib">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttributeDescription">
+            <EntityTypeMapping TypeName="Model.AttributeDescription">
+              <MappingFragment StoreEntitySet="AttributeDescription">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="AttributeId" ColumnName="AttributeId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+                <ScalarProperty Name="Attrib_Id" ColumnName="Attrib_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Category">
+            <EntityTypeMapping TypeName="Model.Category">
+              <MappingFragment StoreEntitySet="Category">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageThumb" ColumnName="ImageThumb" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModified" ColumnName="DateModified" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CategoryDescription">
+            <EntityTypeMapping TypeName="Model.CategoryDescription">
+              <MappingFragment StoreEntitySet="CategoryDescription">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="MetaDescription" ColumnName="MetaDescription" />
+                <ScalarProperty Name="MetaKeyWord" ColumnName="MetaKeyWord" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designer">
+            <EntityTypeMapping TypeName="Model.Designer">
+              <MappingFragment StoreEntitySet="Designer">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageThumb" ColumnName="ImageThumb" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Discount">
+            <EntityTypeMapping TypeName="Model.Discount">
+              <MappingFragment StoreEntitySet="Discount">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DateStart" ColumnName="DateStart" />
+                <ScalarProperty Name="DateEnd" ColumnName="DateEnd" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="IsPercentage" ColumnName="IsPercentage" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Image">
+            <EntityTypeMapping TypeName="Model.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ThumbUrl" ColumnName="ThumbUrl" />
+                <ScalarProperty Name="AlternateText" ColumnName="AlternateText" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="DesignerId" ColumnName="DesignerId" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="OptionValueId" ColumnName="OptionValueId" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Language">
+            <EntityTypeMapping TypeName="Model.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
+                <ScalarProperty Name="ImageThumb" ColumnName="ImageThumb" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Option">
+            <EntityTypeMapping TypeName="Model.Option">
+              <MappingFragment StoreEntitySet="Option">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OptionDescription">
+            <EntityTypeMapping TypeName="Model.OptionDescription">
+              <MappingFragment StoreEntitySet="OptionDescription">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OptionValue">
+            <EntityTypeMapping TypeName="Model.OptionValue">
+              <MappingFragment StoreEntitySet="OptionValue">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+                <ScalarProperty Name="ValueId" ColumnName="ValueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OptionValueDescription">
+            <EntityTypeMapping TypeName="Model.OptionValueDescription">
+              <MappingFragment StoreEntitySet="OptionValueDescription">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+                <ScalarProperty Name="ValueId" ColumnName="ValueId" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="Model.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DesignerId" ColumnName="DesignerId" />
+                <ScalarProperty Name="SortOrder" ColumnName="SortOrder" />
+                <ScalarProperty Name="Minimum" ColumnName="Minimum" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="NumberOfViews" ColumnName="NumberOfViews" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+                <ScalarProperty Name="DateAvailables" ColumnName="DateAvailables" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductAttributeValue">
+            <EntityTypeMapping TypeName="Model.ProductAttributeValue">
+              <MappingFragment StoreEntitySet="ProductAttributeValue">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="AttributeId" ColumnName="AttributeId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="Attrib_Id" ColumnName="Attrib_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductDescription">
+            <EntityTypeMapping TypeName="Model.ProductDescription">
+              <MappingFragment StoreEntitySet="ProductDescription">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="MetaDescriptions" ColumnName="MetaDescriptions" />
+                <ScalarProperty Name="MetaKeywords" ColumnName="MetaKeywords" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductRate">
+            <EntityTypeMapping TypeName="Model.ProductRate">
+              <MappingFragment StoreEntitySet="ProductRate">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSKU">
+            <EntityTypeMapping TypeName="Model.ProductSKU">
+              <MappingFragment StoreEntitySet="ProductSKU">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="SKU" ColumnName="SKU" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductSKUOptionValue">
+            <EntityTypeMapping TypeName="Model.ProductSKUOptionValue">
+              <MappingFragment StoreEntitySet="ProductSKUOptionValue">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="SKUId" ColumnName="SKUId" />
+                <ScalarProperty Name="OptionId" ColumnName="OptionId" />
+                <ScalarProperty Name="ValueId" ColumnName="ValueId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tag">
+            <EntityTypeMapping TypeName="Model.Tag">
+              <MappingFragment StoreEntitySet="Tag">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TagDescription">
+            <EntityTypeMapping TypeName="Model.TagDescription">
+              <MappingFragment StoreEntitySet="TagDescription">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Text" ColumnName="Text" />
+                <ScalarProperty Name="LanguageId" ColumnName="LanguageId" />
+                <ScalarProperty Name="TagId" ColumnName="TagId" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="DateModefied" ColumnName="DateModefied" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="Model.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="TagProduct" TypeName="Model.TagProduct" StoreEntitySet="TagProduct">
+            <EndProperty Name="Product">
+              <ScalarProperty Name="Id" ColumnName="Product_Id" />
+            </EndProperty>
+            <EndProperty Name="Tag">
+              <ScalarProperty Name="Id" ColumnName="Tag_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

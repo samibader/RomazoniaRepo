@@ -1,0 +1,436 @@
+﻿@using EShop.WEB.Models;
+@using PagedList.Mvc;
+@using PagedList;
+@using EShop.Common;
+@model ManageUsersVM
+@{
+    ViewBag.Title = "استعراض المستخدمين";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+
+}
+
+<div id="content">
+    <div class="page-header">
+        <div class="container-fluid">
+         
+        </div>
+        <h1>المستخدمين</h1>
+        <ul class="breadcrumb">
+            <li><a href="@Url.Action("DashBoard", "Admin")">الرئيسية</a></li>
+            <li><a href="@Url.Action("index","ManageUsers")">المستخدمين</a></li>
+        </ul>
+    </div>
+    <div class="container-fluid">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-list"></i>قائمة المستخدمين</h3>
+            </div>
+            <div class="panel-body">
+                @using (Html.BeginForm("Index", "ManageUsers", FormMethod.Post, new { id = "filter-form" }))
+                {
+                    <div class="well">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(c => c.filters.FullName, new { @class = "form-Label" })
+                                    @*<label class="control-label" for="input-category-id">معرف الفئة</label>*@
+                                    <input type="text" name="fName" value="@Model.filters.FullName" placeholder="اسم الزبون" id="input-user-name" class="form-control">
+                                </div>
+                                
+                                <input id="btn-filter" type="submit" class="btn btn-primary pull-right" value="بحث" />
+                                <input id="btn-cancel-filter" type="submit" class="btn btn-primary pull-right" value="إلغاء البحث" />
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(c => c.filters.Email, new { @class = "form-Label" })
+                                    @*<label class="control-label" for="input-category-id">معرف الفئة</label>*@
+                                    <input type="text" name="eml" value="@Model.filters.Email" placeholder="البريد الالكتروني" id="input-Email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <div class="form-group">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            @Html.LabelFor(c => c.filters.PageSize)
+                                            <select id="pagesizelist" style="display:inline-block" name="PageSize" class="form-control">
+                                                <option value="1" @(Model.filters.PageSize == 1 ? "selected" : "")>1</option>
+                                                <option value="3" @(Model.filters.PageSize == 3 ? "selected" : "")>3</option>
+                                                <option value="6" @(Model.filters.PageSize == 6 ? "selected" : "")>6</option>
+                                                <option value="5" @(Model.filters.PageSize == 5 ? "selected" : "")>5</option>
+                                                <option value="10" @(Model.filters.PageSize == 10 ? "selected" : "")>10</option>
+                                                <option value="15" @(Model.filters.PageSize == 15 ? "selected" : "")>15</option>
+                                                <option value="20" @(Model.filters.PageSize == 20 ? "selected" : "")>20</option>
+                                                <option value="25" @(Model.filters.PageSize == 25 ? "selected" : "")>25</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            @Html.LabelFor(c => c.filters.SortBy)
+                                            <select id="sortlist" style="display:inline-block;" name="sb" class="form-control">
+                                                <optgroup label="حسب اسم المستخدم">
+                                                    <option value="@Sorts.CustomerNameUp" @(Model.filters.SortBy == Sorts.CustomerNameUp ? "selected" : "")>اسم المستخدم - تصاعدي</option>
+                                                    <option value="@Sorts.CustomerNameDown" @(Model.filters.SortBy == Sorts.CustomerNameDown ? "selected" : "")>اسم المستخدم - تنازلي</option>
+                                                </optgroup>
+                                                <optgroup label="حسب البريد الالكتروني">
+                                                    <option value="@Sorts.EmailUp" @(Model.filters.SortBy == Sorts.EmailUp ? "selected" : "")>البريد الالكتروني - تصاعدي</option>
+                                                    <option value="@Sorts.EmailDown" @(Model.filters.SortBy == Sorts.EmailDown ? "selected" : "")>البريد الالكتروني - تنازلي</option>
+                                                </optgroup>
+                                                <optgroup label="حسب حالةالحساب">
+                                                    <option value="@Sorts.StatusUp" @(Model.filters.SortBy == Sorts.StatusUp ? "selected" : "")>حالةالحساب - تصاعدي(الفعال اولاً)</option>
+                                                    <option value="@Sorts.StatusDown" @(Model.filters.SortBy == Sorts.StatusDown ? "selected" : "")>حالةالحساب - تنازلي</option>
+                                                </optgroup>
+                                                <optgroup label="حسب قفل الحساب">
+                                                    <option value="@Sorts.lockedUp" @(Model.filters.SortBy == Sorts.lockedUp ? "selected" : "")>قفل الحساب - تصاعدي(النشط اولاً)</option>
+                                                    <option value="@Sorts.lockedDown" @(Model.filters.SortBy == Sorts.lockedDown ? "selected" : "")>قفل الحساب - تنازلي</option>
+                                                </optgroup>
+                                                <optgroup label="حسب تاريخ التسجيل">
+                                                    <option value="@Sorts.DateAddedUp" @(Model.filters.SortBy == Sorts.DateAddedUp ? "selected" : "")>تاريخ التسجيل - تصاعدي</option>
+                                                    <option value="@Sorts.DateAddedDown" @(Model.filters.SortBy == Sorts.DateAddedDown ? "selected" : "")>تاريخ التسجيل - تنازلي</option>
+                                                </optgroup>
+                                               
+
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4"></div>
+                    </div>
+
+                }
+                <form id="page-form" method="post"></form>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+
+                                <td class="text-center">
+                                   البريد الالكتروني
+                                </td>
+                                
+                                <td class="text-center">
+                                    اسم الزبون
+
+                                <td class="text-center">
+                                    حالة الحساب
+                                </td>
+                                <td class="text-center">
+                                    قفل الحساب
+                                </td>
+                                <td class="text-center">
+                                    تاربخ التسجيل في الموقع
+                                </td>
+                                
+                                <td class="text-center"></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in Model.Users)
+                            {
+                                if (user.Email != "admin@eshop.com") { 
+                                <tr>
+
+                                    <td class="text-center">@user.Email</td>
+                                    <td class="text-center">@user.FullName</td>
+                                    <td class="text-center">
+                                    <Label class="label @(user.AccountStatus ? "label-success" : "label-danger")">@(user.AccountStatus ? "تم التحقق من الحساب" : "لم يتم التحقق من الحساب")</Label>
+                                    </td>
+                                    <td class="text-center">
+                                        <label class="label @(!user.AccountLock ? "label-success" : "label-danger")">@(!user.AccountLock ? "نشط" : "مقفل")</label>
+                                    </td>
+                                    <td class="text-center">
+                                        @*@(user.DateCreation.Value.ToString("dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture))*@
+                                    </td>
+                                    <td>
+                                        
+                                        <a href="@Url.Action("Edit", "ManageUsers", new { Id = user.Id })" data-toggle="tooltip" title="" class="btn btn-primary" data-original-title="تعديل"><i class="fa fa-pencil"></i></a>
+                                            <a data-id="@user.Id" role="button" data-toggle="modal" data-target="#myModal" title="" class="btn btn-danger confirm-delete" data-original-title="حذف"><i class="fa fa-trash"></i></a>
+                                       
+                                    </td>
+                                </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                    <form id="delete-form" method="post" action="@Url.Action("Delete","ManageUsers")">
+                        <input name="Id" id="cat-del-id" type="hidden" value="" />
+                    </form>
+                </div>
+
+                <div class="pager">
+                    @{string pageDetails1 = "الصفحة {0} من اصل {1} صفحات";
+
+                    string pageDetails2 = "مشاهدة المستخدمين من {0} إلى {1} من أصل {2} ";
+                    }
+                    @Html.PagedListPager(Model.Users, page => Url.Action("Index", "ManageUsers", new
+                       {
+                           page,
+
+                           PageSize = Model.filters.PageSize,
+                           PageNum = Model.filters.PageNum,
+                           fName = Model.filters.FullName,
+                           eml = Model.filters.Email,
+                           sb = Model.filters.SortBy
+                       }), new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true, DisplayItemSliceAndTotal = true, PageCountAndCurrentLocationFormat = pageDetails1, ItemSliceAndTotalFormat = pageDetails2 })
+                    @*الصفحة @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) من @Model.PageCount*@
+                </div>
+
+                @*<div class="row">
+                        <div class="col-sm-6 text-left"><ul class="pagination"><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=1">|&lt;</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=1">&lt;</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=1">1</a></li><li class="active"><span>2</span></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=3">3</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=4">4</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=5">5</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=6">6</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=7">7</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=8">8</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=9">9</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=3">&gt;</a></li><li><a href="http://demo.xtensions.in/best/admin/index.php?route=sale/order&amp;token=3cdd53b5e7ac4cd3435a44aa88e72a02&amp;page=52">&gt;|</a></li></ul></div>
+                        <div class="col-sm-6 text-right">Showing 21 to 40 of 1037 (52 Pages)</div>
+                    </div>*@
+            </div>
+        </div>
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog">
+                <div class="modal-content" style="padding: 5px;">
+                    <div class="modal-header" style="background-color:rgba(255, 0, 0,0.3)">
+                        <h4>تنبيه</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h5>هل انت متأكد من حذف هذا المستخدم؟</h5>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="confirm" data-dismiss="modal" class="btn btn-danger">حذف</button>
+                        <button id="cancel" data-dismiss="modal" class="btn btn-continue">إلغاء</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $('#btn-cancel-filter').on('click', function (e) {
+            e.preventDefault();
+            $('#filter-form').find('input').val('');
+            $('#btn-filter').click();
+        });
+    </script>
+    <script>
+        function refreshIndex() {
+            $.ajax({
+                url: '@Url.Action("Index", "ManageUsers")',
+                method: 'Get',
+                data: $("#filter-form").serialize(),
+                success: function (data) {
+                    $('#content').html($(data).find('#content').html());
+                }
+            });
+        }
+
+        $(document).ready(function () {
+
+            $('.confirm-delete').on('click', function (e) {
+                e.preventDefault();
+
+                var id = $(this).data('id');
+                //alert(id);
+                $("#cat-del-id").val(id);
+                ///alert($("#cat-del-id").val());
+
+                $('#myModal').show();
+
+            });
+
+            $('#confirm').on('click', function () {
+                //  $('#delete-form').submit();
+                $.ajax({
+                    url: '@Url.Action("Delete", "ManageUsers")',
+                    method: 'post',
+                    data: $('#delete-form').serialize(),
+                    success: function (data) {
+                        if (data.Succedeed != null) {
+                            refreshIndex();
+                            jQuery('body,html').fadeOut(0).fadeIn(1500);
+                            if (data.Succedeed == true) {
+
+                                generateFlash('success', data.message);
+
+                            }
+                            else {
+                                generateFlash('error', data.message);
+                            }
+                            $('#myModal').modal('hide');
+                            $('body').removeClass('modal-open');
+                            $('.modal-backdrop').remove();
+                        }
+                    }
+
+                });
+
+            });
+
+
+            $('.pagination')
+    .find('a')
+    .each(function () {
+        var $this = $(this);
+
+        var decodedUri = decodeURIComponent($("#filter-form").serialize());
+        var _href = $this.attr("href");
+        $this.attr("href", _href + '&' + decodedUri);
+        console.log($(this).attr('href'));
+    });
+            $('.btn-del').on('click', function () {
+
+            });
+
+            $('#pagesizelist,#sortlist').on('change', function () {
+                // $('#filter-form').trigger('submit');
+                var pageNum = $('#page-hid-num');
+
+                // pageNum.removeAttr('name');
+
+
+
+                $.ajax({
+                    url: '@Url.Action("Index","ManageUsers")',
+                    method: 'post',
+                    data: $('#filter-form').serialize(),
+                    success: function (data) {
+
+                        $("#content").html($(data).find('#content').html());
+                        console.log($(data).find('#content').html());
+                        history.pushState("iss", "issa", "@Url.Action("Index","ManageUsers")" + "?" + $("#filter-form").serialize());
+                        //  jQuery('body,html').fadeOut(0).fadeIn(1500);
+                    },
+                    error: function (err) {
+                        alert(err.status);
+                    }
+
+
+                });
+            });
+
+            $('#btn-filter').on('click', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: '@Url.Action("Index","ManageUsers")',
+                    method: 'post',
+                    data: $('#filter-form').serialize(),
+                    success: function (data) {
+
+                        $("#content").html($(data).find('#content').html());
+                        // console.log($(data).find('#content').html());
+                        history.pushState("iss", "issa", "@Url.Action("Index","ManageUsers")" + "?" + $("#filter-form").serialize());
+
+                    },
+                    error: function (err) {
+                        alert(err.status);
+                    }
+
+
+                });
+            });
+
+        });
+        @*$('#button-filter').on('click', function () {
+                            url = 'index.php?route=sale/order&token=3cdd53b5e7ac4cd3435a44aa88e72a02';
+
+                            var filter_order_id = $('input[name=\'filter_order_id\']').val();
+
+                            if (filter_order_id) {
+                                url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
+                            }
+
+                            var filter_customer = $('input[name=\'filter_customer\']').val();
+
+                            if (filter_customer) {
+                                url += '&filter_customer=' + encodeURIComponent(filter_customer);
+                            }
+
+                            var filter_order_status = $('select[name=\'filter_order_status\']').val();
+
+                            if (filter_order_status != '*') {
+                                url += '&filter_order_status=' + encodeURIComponent(filter_order_status);
+                            }
+
+                            var filter_total = $('input[name=\'filter_total\']').val();
+
+                            if (filter_total) {
+                                url += '&filter_total=' + encodeURIComponent(filter_total);
+                            }
+
+                            var filter_date_added = $('input[name=\'filter_date_added\']').val();
+
+                            if (filter_date_added) {
+                                url += '&filter_date_added=' + encodeURIComponent(filter_date_added);
+                            }
+
+                            var filter_date_modified = $('input[name=\'filter_date_modified\']').val();
+
+                            if (filter_date_modified) {
+                                url += '&filter_date_modified=' + encodeURIComponent(filter_date_modified);
+                            }
+
+                            location = url;
+                        });
+                        //--></script>
+                    <script type="text/javascript">
+<!--
+$('input[name=\'filter_customer\']').autocomplete({
+	'source': function(request, response) {
+		$.ajax({
+			url: 'index.php?route=sale/customer/autocomplete&token=3cdd53b5e7ac4cd3435a44aa88e72a02&filter_name=' +  encodeURIComponent(request),
+			dataType: 'json',
+			success: function(json) {
+				response($.map(json, function(item) {
+					return {
+						label: item['name'],
+						value: item['customer_id']
+					}
+				}));
+			}
+		});
+	},
+	'select': function(item) {
+		$('input[name=\'filter_customer\']').val(item['label']);
+	}
+});*@
+    </script>
+    <script type="text/javascript">
+
+        $('input[name^=\'selected\']').on('change', function () {
+            $('#button-shipping, #button-invoice').prop('disabled', true);
+
+            var selected = $('input[name^=\'selected\']:checked');
+
+            if (selected.length) {
+                $('#button-invoice').prop('disabled', false);
+            }
+
+            for (i = 0; i < selected.length; i++) {
+                if ($(selected[i]).parent().find('input[name^=\'shipping_code\']').val()) {
+                    $('#button-shipping').prop('disabled', false);
+
+                    break;
+                }
+            }
+        });
+        //$("#catalog").removeClass("active").removeClass('open');
+        $('input[name^=\'selected\']:first').trigger('change');
+
+        $('a[id^=\'button-delete\']').on('click', function (e) {
+            e.preventDefault();
+
+            if (confirm('Are you sure?')) {
+                location = $(this).attr('href');
+            }
+        });
+    </script>
+
+    <script>
+        $('.date').datepicker({
+            format: "dd/mm/yyyy",
+            language: "en-GB",
+            autoclose: true,
+            todayHighlight: true
+        });
+    </script>
+</div>

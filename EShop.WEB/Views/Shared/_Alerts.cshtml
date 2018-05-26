@@ -1,0 +1,36 @@
+﻿@{
+    var alerts = TempData.ContainsKey(EShop.Common.Alert.TempDataKey)
+                ? (List<EShop.Common.Alert>)TempData[EShop.Common.Alert.TempDataKey]
+                : new List<EShop.Common.Alert>();
+}
+
+@foreach (var alert in alerts)
+{
+    @*var dismissableClass = alert.Dismissable ? "alert-dismissable" : null;
+        <div class="alert alert-@alert.AlertStyle @dismissableClass">
+            @if (alert.Dismissable)
+            {
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            }
+            @Html.Raw(alert.Message)
+        </div>*@
+
+}
+
+
+
+
+<script>
+    $(document).ready(function () {
+
+        @foreach (var alert in alerts)
+                {
+            <text>generateFlash(alert.AlertStyle,alert.Message)</text>
+                }
+        });
+
+</script>
+
+
+
+

@@ -1,0 +1,890 @@
+﻿@using EShop.Common
+@using Resx = EShop.Resources.Views.EShopResource
+@using Microsoft.AspNet.Identity
+@{
+
+    bool IsRTL = System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.IsRightToLeft;
+    var website = (Request.Cookies["website"] != null ? Request.Cookies["website"].Values[0] : "");
+
+
+}
+
+@{
+
+    Layout = null;
+    var step = (CheckoutSteps)ViewData["Step"];
+
+    //string step1 = "";
+    string step2 = "";
+    string step3 = "";
+    //string clickable1 = "";
+    string clickable2 = "";
+    //if (step == CheckoutSteps.Coupon)
+    //{
+    //    step1 = "active";
+    //    step2 = "disabled";
+    //    step3 = "disabled";
+
+    //}
+    //else
+    if (step == CheckoutSteps.Address)
+    {
+        //clickable1 = "clickable";
+        //step1 = "complete";
+        step2 = "active";
+        step3 = "disabled";
+
+    }
+    else if (step == CheckoutSteps.Payment)
+    {
+        //clickable1 = "clickable";
+        clickable2 = "clickable";
+
+        //step1 = "complete";
+        step2 = "complete";
+        step3 = "active";
+
+    }
+
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <style>
+        .jtv-user-info {
+            margin: 2px;
+        }
+
+        .website {
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            left: 44%;
+            padding: 5px;
+            background-color: #1fc0a0;
+            color: white;
+            border-radius: 5px;
+        }
+
+            .website a {
+                color: white;
+            }
+
+                .website a:hover {
+                    text-decoration: none !important;
+                    color: white;
+                }
+
+            .website:hover {
+                background-color: black;
+            }
+    </style>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700' rel='stylesheet' type='text/css'>
+    <link href="~/Assets/css/style2.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript" src="/Assets/Scripts/jquery.min.js"></script>
+    <meta name="description" content="">
+    <!-- Mobile specific metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700' rel='stylesheet' type='text/css'>
+    <!-- CSS Style -->
+    <!-- Bootstrap CSS -->
+    <link href="~/Assets/css/animate.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="/Assets/css/bootstrap.min.css">*@
+    <link rel="stylesheet" type="text/css" href="/Assets/css/bootstrap-rtl.css">
+    <!-- font-awesome & simple line icons CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/font-awesome.css" media="all">
+    <link rel="stylesheet" type="text/css" href="/Assets/css/simple-line-icons.css" media="all">
+    <!-- owl.carousel CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/css/owl.theme.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/css/owl.transitions.css">
+    <link rel="stylesheet" type="text/css" href="/Assets/css/owl.carousel.rtl.css">
+    <!-- animate CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/animate.css" media="all">
+    <!-- flexslider CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/flexslider.css">
+    <!-- jquery-ui.min CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/jquery-ui.css">
+    <!-- Mean Menu CSS -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/meanmenu.min.css">
+    <!-- nivo-slider css -->
+    <link rel="stylesheet" type="text/css" href="/Assets/css/nivo-slider.css">
+    <!-- style CSS -->
+
+    <link rel="stylesheet" type="text/css" href="/Assets/css/rtl.css" media="all">
+        <link rel="stylesheet" href="~/Assets/checkout/bootstrap.min.css">
+    <link href="~/Assets/css/bootstrap-rtl.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-datepicker3.css" rel="stylesheet" />
+    <script src="~/Content/bootstrap-datepicker.js"></script>
+    @*<script src="~/Content/bootstrap-datepicker.en-GB.min.js"></script>*@
+    @*<link href="~/Assets/checkout/bootstrap-datetimepicker.min.css" type="text/css" rel="stylesheet" media="screen">*@
+    <link rel="stylesheet" type="text/css" href="~/Assets/checkout/colorbox.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="~/Assets/checkout/jquery.webui-popover.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="~/Assets/checkout/xstyler.min.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="~/Assets/checkout/xtensions2.css" media="screen">
+    @*<script src="~/Assets/checkout/jquery-1.11.1.min.js"></script>*@
+    <script src="~/Assets/checkout/bootstrap.min.js"></script>
+    <script src="~/Assets/checkout/nprogress.js"></script>
+    <script src="~/Assets/checkout/moment.js" type="text/javascript"></script>
+    @*<script src="~/Assets/checkout/bootstrap-datetimepicker.min.js" type="text/javascript"></script>*@
+    <script src="~/Assets/checkout/jquery.colorbox-min.js" type="text/javascript"></script>
+    <script src="~/Assets/checkout/xhelper.min.js" type="text/javascript"></script>
+    <script src="~/Assets/checkout/xformatter.min.js" type="text/javascript"></script>
+    <script src="~/Assets/checkout/jquery.webui-popover.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/Assets/css/animate.css" media="all">
+    <link href="~/Assets/css/flash-messages.css" rel="stylesheet" />
+    <script src="~/Assets/Scripts/jquery.noty.packaged.js"></script>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <style>
+        h3, h4 {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <style>
+        .complete #click1:hover, .complete #click2:hover, .complete #click3:hover {
+            cursor: pointer;
+        }
+
+        .modall {
+            display: none;
+            position: fixed;
+            z-index: 2001;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba(255, 255, 255, .8) url('/assets/images/bx_loader.gif') 50% 50% no-repeat;
+        }
+
+        body.loading {
+            overflow: hidden;
+        }
+
+        body.loading .modall {
+            display: block;
+        }
+
+        .delete-address:hover {
+            cursor: pointer;
+            text-decoration: underline;
+            color: lightcoral;
+        }
+    </style>
+    @Scripts.Render("~/bundles/jqueryval");
+</head>
+<body style="background-color: white;">
+    <div id="page">
+        <div class="container">
+            <div class="modall"></div>
+            <header>
+                <div class="header-top">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-7 col-xs-6" style="margin-top: 7px">
+                                <!-- Default Welcome Message -->
+                                <span class="phone hidden-xs hidden-sm" style="direction: ltr">+966-541505529 <i class="fa fa-whatsapp fa-lg"></i></span>
+                                <div class="welcome-msg hidden-xs">@Resx.WelcomeInStore</div>
+                                <div class="language-currency-wrapper">
+                                    <div class="inner-cl">
+                                        <div class="block block-language form-language">
+                                            <div class="lg-cur"> <span> <img src="~/Assets/images/flag-@(IsRTL ? "arabic" : "english").jpg" alt="Arabic"> <span class="lg-fr hidden-xs">@(IsRTL ? Resx.Arabic : Resx.English)</span> <i class="fa fa-angle-down"></i> </span> </div>
+                                            <ul>
+                                                <li><a class="@(IsRTL == false ? "Selected" : "")" href='@Url.Action("ChangeLang", "Home", new {Lang = "en-US", ReturnUrl = Url.Encode(Request.RawUrl)})'><img src="~/Assets/images/flag-english.jpg" alt="" /> <span>@Resx.English</span> </a></li>
+                                                <li><a class="@(IsRTL == true ? "Selected" : "")" href='@Url.Action("ChangeLang", "Home", new {Lang = "ar-SA", ReturnUrl = Url.Encode(Request.RawUrl)})'><img src="~/Assets/images/flag-arabic.jpg" alt="" /> <span>@Resx.Arabic</span> </a></li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="block block-currency" style="display:none">
+                                            <div class="item-cur">
+                                                <span class="hidden-xs">@(Request.Cookies["Currency"].Value == "USD" ? Resx.Dollar : Resx.Rial)</span> <span class="hidden-lg hidden-md">@(Request.Cookies["Currency"].Value == "USD" ? "$" : "ريال")</span> <i class="fa fa-angle-down"></i>
+                                            </div>
+                                            <ul>
+                                                <li> <a class="@(Request.Cookies["Currency"].Value == "USD" ? "" : "selected")" href='@Url.Action("ChangeCurrency", "Home", new {currency = "SAR", ReturnUrl = Url.Encode(Request.RawUrl)})'><span class="cur_icon">SAR</span>@Resx.Rial</a> </li>
+                                                <li> <a class="@(Request.Cookies["Currency"].Value == "USD" ? "selected" : "")" href='@Url.Action("ChangeCurrency", "Home", new {currency = "USD", ReturnUrl = Url.Encode(Request.RawUrl)})'><span class="cur_icon">$</span> @Resx.Dollar</a> </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 hidden-sm hidden-lg hidden-md" style="margin-top: 25px; padding-right: 0px;">
+                                    @if (!User.Identity.IsAuthenticated)
+                                    {
+                                        <span>
+                                            <i class="fa fa-lock" style="padding-left: 8px;"></i>
+                                            <a href="#" class="" role="button" data-toggle="modal" data-target="#login-modal">تسجيل الدخول </a>
+
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span>
+                                            <a href="@Url.Action("Index", "MManage")" class="">أهلا بك @ViewBag.FullName</a>
+                                        </span>
+                                    }
+                                </div>
+                            </div>
+
+                            <!-- top links -->
+                            <div class="headerlinkmenu col-lg-6 col-md-6 col-sm-5 col-xs-6 text-left">
+                                @*<div class="language-currency-wrapper website">
+                                        <div>
+                                            <div class="block  text-center">
+
+                                                <a data-toggle="modal" data-target="#chooseWebsite">@(website == "clths" ? "رومازونيا ألبسة" : website == "gym" ? "رومازونيا رياضة" : "رومازونيا تقنيات") </a>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="links row" style="width: 100%">
+                                    <div class="jtv-user-info col-xs-12 col-md-4" >
+                                        <div class="dropdown pull-left" style="display:none">
+                                            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>@(website == "clths" ? "رومازونيا فاشن" : website == "gym" ? "رومازونيا جيم" : "رومازونيا تيليكوم")</span><i class="fa fa-angle-down"></i></a>
+                                            <ul class="dropdown-menu" role="menu" style="right: auto;">
+                                                <li><a class="button-subscribe" title="رومازونيا" style="display: block;" href='@Url.Action("ChangeWebsite", "Home", new {website = "clths", ReturnUrl = Url.Encode(Request.RawUrl)})'>رومازونيا فاشن</a></li>
+                                                <li><a class="button-subscribe" title="رومازونيا" style="display: block;" href='@Url.Action("ChangeWebsite", "Home", new {website = "gym", ReturnUrl = Url.Encode(Request.RawUrl)})'>رومازونيا جيم </a></li>
+                                                <li><a class="button-subscribe" title="رومازونيا" style="display: block;" href='@Url.Action("ChangeWebsite", "Home", new {website = "tech", ReturnUrl = Url.Encode(Request.RawUrl)})'>روماونيا تيليكوم</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                    <div class="jtv-user-info col-xs-12 col-md-3">
+                                        <div class="dropdown pull-left">
+                                            <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>حسابي</span> <i class="fa fa-angle-down"></i></a>
+                                            <ul class="dropdown-menu" role="menu" style="right: auto;">
+                                                <li><a href="@Url.Action("Index", "MManage")">@Resx.Account</a></li>
+                                                <li><a href="@Url.Action("Browse", "Favorite")">@Resx.Favorite</a></li>
+                                                <li><a href="@Url.Action("Index", "Checkout")">@Resx.Checkout</a></li>
+                                                @if (User.Identity.GetUserName() == "admin@eshop.com")
+                                                {
+                                                    <li><a href="@Url.Action("Index", "ManageCategory")">الإدارة</a></li>
+                                                }
+                                                <li class="divider"></li>
+                                                @if (!User.Identity.IsAuthenticated)
+                                                {
+                                                    <li><a href="#" data-toggle="modal" data-target="#login-modal">@Resx.Login</a></li>
+                                                    <li><a href="@Url.Action("Register", "Account")">@Resx.Register</a></li>
+                                                }
+                                                else
+                                                {
+                                                    <li><a href="#" onclick="$('#logout').submit()">@Resx.Logout</a></li>
+                                                }
+
+
+                                                @*<li><a href="@Url.Action("Register","Account")">@Resx.Register</a></li>*@
+                                            </ul>
+                                        </div>
+                                 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </header>
+            <nav class="navbar" style="margin-top: 10px;width:100%">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3 col-sm-12 col-xs-12" style="float: right;">
+                            <div id="logo" class="text-center">
+                                <a href="@Url.Action("Index", "Home")"><img src="~/Assets/images/logo.png" title="Best Checkout 1.5 Version" alt="Best Checkout 1.5 Version" class="img-responsive xlogo"></a>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xs-12 ">
+                            <div class="row bs-wizard" style="border-bottom: 0;">
+                                @*<div id="step1" class="col-xs-4 bs-wizard-step @step1">
+                                        <div class="text-center bs-wizard-stepnum text-muted"><span id="click1" class="@clickable1">الكوبون<i id="undo1" style="padding-left: 5px;" class="fa fa-lock"></i></span></div>
+                                        <div class="progress">
+                                            <div class="progress-bar"></div>
+                                        </div>
+                                        <a class="bs-wizard-dot"></a>
+                                    </div>*@
+
+                                <div id="step2" class="col-xs-6 bs-wizard-step @step2">
+                                    <!-- complete -->
+                                    <div class="text-center bs-wizard-stepnum text-muted"><span id="click2" class="@clickable2">العناوين<i id="undo2" style="padding-left: 5px; display: none;" class="fa fa-edit clickable2"></i></span></div>
+                                    <div class="progress">
+                                        <div class="progress-bar"></div>
+                                    </div>
+                                    <a class="bs-wizard-dot"></a>
+                                </div>
+                                <div id="step3" class="col-xs-6 bs-wizard-step @step3">
+                                    <!-- active -->
+                                    <div class="text-center bs-wizard-stepnum text-muted"><span id="click3">الدفع</span></div>
+                                    @*<div class="progress">
+                                            <div class="progress-bar"></div>
+                                        </div>*@
+                                    <a class="bs-wizard-dot"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 ">
+                            <h3 style="margin-top: 10px;" class="text-center">
+                                <small class="text-muted"><i class="fa fa-lock"></i>&nbsp;هذا الاتصال آمن</small>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="content">
+                <div id="couponModal" class="modal fixed" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+                    <div class="modal-dialog" style="z-index: 2000;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only"></span></button>
+                                <h4 class="modal-title">إضافة كوبون</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label>كود الكوبون</label><span id="coupon-amount" class="pull-left"></span>
+                                    <input type="text" class="form-control" name="coupon" id="coupon-text" value="" placeholder="أدخل كود الكوبون هنا">
+                                </div>
+                                <button id="applyCoupon" class="btn btn-success" style="width:100%">تفعيل</button>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @if (step == CheckoutSteps.Coupon)
+                {
+                    @*<div id="coupon" style="margin-top: 50px;">
+                            @{Html.RenderAction("Coupon", "Checkout");}
+                        </div>*@
+                    <div id="address"></div>
+                    <div id="payment"></div>
+                }
+                else if (step == CheckoutSteps.Address)
+                {
+                    @*<div id="coupon"></div>*@
+                    <div id="address">
+                        @{ Html.RenderAction("Addresses", "Address"); }
+                    </div>
+                    <div id="payment"></div>
+                }
+                else
+                {
+                    @*<div id="coupon"></div>*@
+                    <div id="address"></div>
+                    <div id="payment">
+                        @{Html.RenderAction("Payment", "Checkout");}
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+        var x = 1;
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+            $('[data-toggle="popover"]').popover();
+
+        });
+        $(document)
+            .ready(function () {
+                //bindCoupon();
+                bind();
+                var $body = $('body');
+                $(document)
+                    .on({
+                        ajaxStart: function () { $body.addClass("loading"); },
+                        ajaxStop: function () { $body.removeClass("loading"); }
+                    });
+
+                $('#click1')
+                    .click(function () {
+                        if (!$(this).hasClass('clickable'))
+                            return;
+                        $.ajax({
+                            type: 'post',
+                            url: "@Url.Action("BackStep", "Checkout")",
+                            success: function (data) {
+                                if (data.Succedeed) {
+
+                                    setTimeout(function () {
+                                            $('#step2').removeClass("active").removeClass("complete").addClass("disabled");
+                                            $('#step3').removeClass("active").addClass("disabled");
+                                        },
+                                        200);
+                                    $('#step1').removeClass("complete").addClass("active");
+                                    $(this).removeClass('clickable');
+                                    $("#coupon").load("@Url.Action("Coupon", "Checkout")");
+                                    $("#coupon").show();
+                                    $("#address").hide();
+                                    $("#address").html('');
+                                    $("#payment").hide();
+                                    $("#payment").html('');
+                                }
+
+                            }
+                        });
+                    });
+
+
+            });
+
+        function bind() {
+            $("#continue-to-payment")
+                .click(function () {
+                    $.ajax({
+                        type: 'post',
+                        url: "@Url.Action("NextStep", "Checkout")",
+                        success: function (data) {
+                            if (data.Succedeed) {
+                                setTimeout(function () { $('#step2').removeClass("active").addClass("complete"); }, 200);
+                                $("#click2").addClass('clickable');
+                                $('#step3').removeClass("disabled").addClass("active");
+                                $("#payment").load("@Url.Action("Payment", "Checkout")");
+                                $("#payment").show();
+                                //$("#coupon").css('display', 'none');
+                                $("#address").hide();
+                                $("#address").html('');
+                            } else {
+                                //    alert(data.Message);
+                            }
+                        }
+                    });
+                });
+            $("input[id*=sm]")
+                .change(function () {
+                    var iid = $(this).val();
+                    $.ajax({
+                        type: 'post',
+                        url: '@Url.Action("ChangeShippingMethod", "Checkout")',
+                        data: { id: iid },
+                        success: function (data) {
+                            loadAddresses();
+                            //  alert(data.Message);
+                        }
+                    });
+                });
+            $(".delete-address")
+                .click(function () {
+                    var iid = $(this).attr('id').substring(2);
+                    $.ajax({
+                        type: 'post',
+                        url: '@Url.Action("Delete", "Address")',
+                        data: { id: iid },
+                        success: function (data) {
+                            loadAddresses();
+                            //alert(data.Message);
+                        }
+                    });
+                });
+
+            $("#aaa")
+                .click(function (e) {
+                    //$("#addressModal form input[type='text']").val('');
+                    //$("B#addressModal form input[name='Id']").val('0');
+                    e.preventDefault();
+                    $("#addressfields").load("@Url.Action("Add", "Address")",
+                        function () { $("#addressModal").modal('show'); });
+
+                });
+            $('input[type="checkbox"][name="IsSameAddresses"]')
+                .change(function () {
+                    var iid = $(":input[name*='SelectedBilling']:checked").attr('id').substring(2);
+                    $.ajax({
+                        type: 'post',
+                        url: '@Url.Action("ChangeToSame", "Address")',
+                        data: { isSame: this.checked, id: iid },
+                        success: function (data) {
+                            loadAddresses();
+                            //     alert(data.Message);
+                        }
+                    });
+                    if (this.checked) {
+                        $('.panel-footer').hide();
+                        $('.padd').html('عنوان الشحن والدفع ');
+                    } else {
+                        $('.panel-footer').show();
+                        $('.padd').html('عنوان الدفع');
+                    }
+                });
+            $('input[type="checkbox"][name="agree"]')
+                .change(function () {
+                    if (this.checked) {
+                        $('#continue-to-payment').css('display', 'block');
+                        $('#progress-continue-disabled').css('display', 'none');
+                    } else {
+                        $('#continue-to-payment').css('display', 'none');
+                        $('#progress-continue-disabled').css('display', 'block');
+                    }
+                });
+            $('input[type="radio"][name="SelectedBillingAddress"]')
+                .change(function () {
+                    var $this = $(this);
+                    $this.closest('.row').find('div.panel-heading.selected').removeClass('selected');
+                    $this.closest('.panel-heading').addClass('selected');
+                    var iid = $this.attr('id').substring(2);
+                    $.ajax({
+                        type: 'post',
+                        url: '@Url.Action("ChangeBillingAddress", "Address")',
+                        data: { id: iid },
+                        success: function (data) {
+                            //  alert(data.Message);
+                        }
+                    });
+                });
+            $('input[type="radio"][name="SelectedShippingAddress"]')
+                .change(function () {
+                    var $this = $(this);
+                    $this.closest('.row').find('div.panel-footer.selected').removeClass('selected');
+                    $this.closest('.panel-footer').addClass('selected');
+                    var iid = $this.attr('id').substring(2);
+                    $.ajax({
+                        type: 'post',
+                        url: '@Url.Action("ChangeShippingAddress", "Address")',
+                        data: { id: iid },
+                        success: function (data) {
+                            //    alert(data.Message);
+                        }
+                    });
+                });
+            $("#addAdress")
+                .click(function () {
+                    $.ajax({
+                        type: 'post',
+                        url: "@Url.Action("Add", "Address")",
+                        data: $("#AddressForm").serialize(),
+                        success: function (data) {
+                            console.log(data);
+                            var hasError = $(data).find('#error').length != 0;
+                            if (!hasError) {
+
+                                loadAddresses();
+                                $("body").removeClass("modal-open");
+                            } else
+                                $("#addressfields").html(data);
+                        }
+                    });
+                });
+            $(".editAddress")
+                .click(function () {
+                    var iid = $(this).attr('id').substring(2);
+                    $.ajax({
+                        type: 'post',
+                        url: "@Url.Action("Edit", "Address")",
+                        data: { id: iid },
+                        success: function (data) {
+                            console.log(data);
+
+                            $("#addressfields").html(data);
+
+                            var x = $("#addAdress span")[0];
+
+                            // $("#aaa").trigger('click');
+
+                            $("#addressModal").modal('show');
+                        }
+                    });
+                });
+
+        }
+    </script>
+    <script>
+        function loadAddresses() {
+
+
+            $("#address").load("@Url.Action("Addresses","Address")", function () {
+                bind();
+            });
+
+        }
+    </script>
+<script>
+    $("#applyCoupon")
+        .click(function() {
+            var coupon = $("#coupon-text").val();
+            $.ajax({
+                type: 'post',
+                url: "@Url.Action("ApplyCoupon", "Checkout")",
+                data: { couponCode: coupon },
+                success: function(data) {
+                    console.log(data);
+                    if (data.Succedeed) {
+                        $("#couponModal").modal('hide');
+                        generateFlash('success', 'تم إضافة الكوبون بنجاح');
+                        $("#coupon-value-display").html(data.Message);
+                        $("#total-value-display").html(data.Property);
+                        $("#coupon-actions-display").html("<a href='#' onclick='return delCoupon();' class='copun-link'><i class='fa fa-trash-o'></i></a>الكوبون:<a data-toggle='modal' data-target='#couponModal' role='button' class='copun-link'>(تغيير)</a>");
+
+                    }
+                    else
+                        $("#coupon-amount").html(data.Message);
+
+                }
+            });
+        });
+</script>
+    @*<script>
+
+            function bindCoupon() {
+                $("#applyCoupon")
+                    .click(function() {
+                        var coupon = $("#coupon-text").val();
+                        $.ajax({
+                            type: 'post',
+                            url: "@Url.Action("ApplyCoupon", "Checkout")",
+                            data: { couponCode: coupon },
+                            success: function(data) {
+                                console.log(data.Message);
+                                $("#coupon-amount").html(data.Message);
+                            }
+                        });
+                    });
+                $("#continue-to-address")
+                    .click(function() {
+                        $.ajax({
+                            type: 'post',
+                            url: "@Url.Action("NextStep", "Checkout")",
+                            success: function(data) {
+                                if (data.Succedeed) {
+                                    setTimeout(function() { $('#step1').removeClass("active").addClass("complete"); }, 500);
+                                    $("#click1").addClass('clickable');
+                                    $('#step2').removeClass("disabled").addClass("active");
+                                    $("#address").load("@Url.Action("Addresses", "Address")");
+                                    $("#address").show();
+                                    //$("#coupon").css('display', 'none');
+                                    $("#coupon").hide();
+                                    $("#coupon").html('');
+
+                                } else
+                                    generateFlash('error', data.Message);
+
+                            }
+                        });
+                    });
+            }
+        </script>*@
+    <script type="text/javascript">
+
+
+        function generateFlash(type, text) {
+
+            var n = noty({
+                text: text,
+                type: type,
+                timeout: 2000,
+                dismissQueue: true,
+                layout: 'top',
+                closeWith: ['click'],
+                theme: 'relax',
+                maxVisible: 10,
+                animation: {
+                    open: 'animated bounceInLeft',
+                    close: 'animated flipOutX',
+                    easing: 'swing',
+                    speed: 500
+                }
+            });
+
+        }
+    </script>
+    @*<script>
+            $(function () {
+
+                jQuery("#addressModal").appendTo('#address');
+            })
+        </script>*@
+
+<script type="text/javascript">
+    //$('#step2 a, .pchange a').click(function (event) {
+    //    event.preventDefault();
+    //    click2();
+    //});
+    $("#click2").click(function () {
+        if (!$(this).hasClass('clickable'))
+            return;
+        click2();
+    });
+    function click2() {
+
+        $.ajax({
+            type: 'post',
+            url: "@Url.Action("BackStep", "Checkout")",
+            success: function (data) {
+                if (data.Succedeed) {
+                    setTimeout(function () {
+                        $('#step3').removeClass("active").removeClass("complete").addClass("disabled");
+                        $("#step2").removeClass("complete").addClass("active");
+
+                    }, 250);
+                    //$('#step1').removeClass("complete").addClass("active");
+                    $(this).removeClass('clickable');
+
+                    loadAddresses();
+                    $("#address").show();
+
+                    $("#payment").hide();
+                    $("#payment").html('');
+                }
+
+            }
+        });
+
+    };
+    var value = 'bank_transfer';
+    //$(document).on("click", "[data-toggle='tab']", function (event) {
+    //    if (value != $(this).attr('payment_method')) {
+    //        value = $(this).attr('payment_method');
+    //        $('#payment_method').val(value);
+    //        $.ajax({
+    //            url: 'index.php?route=xcheckout/xpayment_method/validate',
+    //            type: 'post',
+    //            data: $('input[type=\'hidden\']'),
+    //            dataType: 'json',
+    //            beforeSend: function () {
+    //                showBar();
+    //                $('#pLoader').css({
+    //                    height: $('#pLoader').parent().height(),
+    //                    width: $('#pLoader').parent().width()
+    //                });
+    //                $('#pLoader').show();
+
+    //                $('#tbank_transfer').addClass('disabled');
+
+    //                $('#tcheque').addClass('disabled');
+
+    //                $('#tcod').addClass('disabled');
+
+    //                $('#tpp_standard').addClass('disabled');
+
+
+    //            },
+    //            complete: function () {
+    //            },
+    //            success: function (json) {
+    //                if (json['redirect']) {
+    //                    location = json['redirect'];
+    //                } else if (json['error']) {
+    //                    if (json['error']['warning_shipping']) {
+    //                        $('#payment-method .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning_shipping'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+    //                        $('.warning').fadeIn('slow');
+    //                    }
+    //                    if (json['error']['warning_payment']) {
+    //                        $('#payment-method .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning_payment'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+    //                        $('.warning').fadeIn('slow');
+    //                    }
+
+
+
+    //                    $('#tbank_transfer').removeClass('disabled');
+
+    //                    $('#tcheque').removeClass('disabled');
+
+    //                    $('#tcod').removeClass('disabled');
+
+    //                    $('#tpp_standard').removeClass('disabled');
+    //                    hideBar();
+    //                    $('#pLoader').hide();
+    //                } else {
+    //                    $.ajax({
+    //                        url: 'index.php?route=checkout/confirm',
+    //                        dataType: 'html',
+    //                        success: function (html) {
+
+    //                            $('#spayment-method-content').html(html);
+
+
+    //                            $('#tbank_transfer').removeClass('disabled');
+
+    //                            $('#tcheque').removeClass('disabled');
+
+    //                            $('#tcod').removeClass('disabled');
+
+    //                            $('#tpp_standard').removeClass('disabled');
+    //                            hideBar();
+    //                            $('#pLoader').hide();
+
+    //                        },
+    //                        error: function (xhr, ajaxOptions, thrownError) {
+    //                            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    //                        }
+    //                    });
+    //                }
+    //            },
+    //            error: function (xhr, ajaxOptions, thrownError) {
+    //                alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    //            }
+    //        });
+    //    }
+    //});
+
+    //$(document).ready(function () {
+
+    //    $.ajax({
+    //        url: 'index.php?route=xcheckout/xpayment_method/validate',
+    //        type: 'post',
+    //        data: $('input[type=\'hidden\']'),
+    //        dataType: 'json',
+    //        beforeSend: function () {
+    //        },
+    //        complete: function () {
+    //        },
+    //        success: function (json) {
+    //            if (json['redirect']) {
+    //                location = json['redirect'];
+    //            } else if (json['error']) {
+    //                if (json['error']['warning_shipping']) {
+    //                    $('#payment-method .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning_shipping'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+    //                    $('.warning').fadeIn('slow');
+    //                }
+    //                if (json['error']['warning_payment']) {
+    //                    $('#payment-method .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning_payment'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
+    //                    $('.warning').fadeIn('slow');
+    //                }
+
+    //            } else {
+    //                $.ajax({
+    //                    url: 'index.php?route=checkout/confirm',
+    //                    dataType: 'html',
+    //                    success: function (html) {
+
+    //                        $('#spayment-method-content').html(html);
+
+
+    //                    },
+    //                    error: function (xhr, ajaxOptions, thrownError) {
+    //                        alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    //                    }
+    //                });
+    //            }
+    //        },
+    //        error: function (xhr, ajaxOptions, thrownError) {
+    //            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    //        }
+    //    });
+    //});
+</script>
+    
+<script>
+    function delCoupon() {
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("DeleteCoupon","Checkout")',
+            success:function(data) {
+                var res = data.Succedeed ? 'success' : 'error';
+                generateFlash(res, data.Message);
+                if (data.Succedeed) {
+                    $(".copun-link").first().remove();
+                    $(".copun-link").html('(إضافة)');
+                    $("#total-value-display").html(data.Property);
+                    $("#coupon-value-display").html('');
+                }
+            }
+        });
+        return false;
+    }
+</script>
+</body>
+</html>
